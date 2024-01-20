@@ -6,9 +6,17 @@ body {
   background-image: url("../../../dist/full_globe.jpeg"); /* Path to your background image */
   background-size: cover;
   background-position: center;
+}
+.flex-container {
   display: flex;
-  align-items: start; /* Aligns children to the top */
-  justify-content: start; /* Aligns children to the left */
-  padding: 20px; /* Space from the top-left corner */
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh; /* Full viewport height */
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  margin-bottom: 20px; /* Space from the bottom */
 }
 /* Additional styling for the button if needed */
