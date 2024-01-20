@@ -1,5 +1,6 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
 
 import "../../utilities.css";
 import "../css/Skeleton.css";
@@ -8,11 +9,12 @@ import "../css/Skeleton.css";
 const GOOGLE_CLIENT_ID = "728466374633-tela4eovuk3jdagsce8gbsk20v6m6f1p.apps.googleusercontent.com";
 
 const Home = ({ userId, handleLogin, handleLogout }) => {
+  const navigate = useNavigate();
   const handlePlayLocal = () => {
     console.log("New Button Clicked");
   };
   const handlePlayOnline = () => {
-    console.log("New Button Clicked");
+    navigate("/start");
   };
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>

@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
 import Home from "./pages/Home.js";
+import Start from "./pages/Start.js";
 
 import "../utilities.css";
 
@@ -50,6 +51,7 @@ const App = () => {
           <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
         }
       />
+      <Route path="/start" element={<Start />} /> {}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
