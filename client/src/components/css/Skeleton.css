@@ -1,0 +1,14 @@
+body {
+  background-color: #bbc8ba;
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full height */
+  background-image: url("../../../dist/full_globe.jpeg"); /* Path to your background image */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: start; /* Aligns children to the top */
+  justify-content: start; /* Aligns children to the left */
+  padding: 20px; /* Space from the top-left corner */
+}
+/* Additional styling for the button if needed */
