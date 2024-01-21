@@ -46,7 +46,7 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
           </div>
           <div className="HowTo">
             <Link to="/howto">
-              <img src={"../../../dist/question-icon.jpeg"} alt="How To Play" />
+              <img src={"./small-question-icon.jpeg"} alt="How To Play" className="howToImage" />
             </Link>
           </div>
         </div>
