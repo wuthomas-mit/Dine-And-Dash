@@ -1,0 +1,67 @@
+/* Navigation.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #538786;
+  color: white;
+  padding: 10px 0;
+}
+
+.navbar .Home {
+  padding: 0 20px; /* Padding on the sides */
+}
+.navbar .Right {
+  display: flex;
+  padding-right: 20px; /* Padding on the right side */
+}
+
+.navbar .Right .HowTo,
+.navbar .Right .Profile {
+  margin-left: 15px; /* Horizontal spacing between the right-side links */
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.question {
+  width: 50px;
+  height: auto;
+}
+
+.pfp {
+  width: 50px;
+  height: auto;
+}
+
+.Profile {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 140%; /* Position below the image */
+  left: 0%;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 70px; /* Set a width for your dropdown */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}

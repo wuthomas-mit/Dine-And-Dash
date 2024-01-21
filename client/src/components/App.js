@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-
+import { Router, Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
+import Navigation from "./pages/Navigation.js";
+import Home from "./pages/Home.js";
+import Start from "./pages/Start.js";
+import Profile from "./pages/Profile.js";
+import Gameplay from "./pages/Gameplay.js";
+import HowTo from "./pages/HowTo.js";
 import NotFound from "./pages/NotFound.js";
-import Skeleton from "./pages/Skeleton.js";
 
 import "../utilities.css";
 
@@ -41,22 +45,30 @@ const App = () => {
     setUserId(undefined);
     post("/api/logout");
   };
-
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Skeleton
+    <>
+      <Navigation path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+      <div>
+        <Routes>
+          <Route
             path="/"
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-            userId={userId}
+            element={
+              <Home
+                path="/"
+                handleLogin={handleLogin}
+                handleLogout={handleLogout}
+                userId={userId}
+              />
+            }
           />
-        }
-      />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+          <Route path="/start" element={<Start />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/gameplay" element={<Gameplay />} />
+          <Route path="/howto" element={<HowTo />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </>
   );
 };
 
