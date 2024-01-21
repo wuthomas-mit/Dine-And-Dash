@@ -60,28 +60,6 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
           <div className="game">
             <button onClick={handleGame}>Play Game</button>
           </div>
-          <div className="Online" onClick={toggleDropdown}>
-            <button>Play Online</button>
-            {isDropdownOpen && (
-              <div className="dropdown-menu">
-                {userId ? (
-                  <>
-                    <button
-                      onClick={() => {
-                        googleLogout();
-                        handleLogout();
-                        navigate("/");
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </>
-                ) : (
-                  <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-                )}
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </GoogleOAuthProvider>
