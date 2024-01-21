@@ -8,6 +8,7 @@ import Start from "./pages/Start.js";
 import Profile from "./pages/Profile.js";
 import Gameplay from "./pages/Gameplay.js";
 import HowTo from "./pages/HowTo.js";
+import NotFound from "./pages/NotFound.js";
 
 import "../utilities.css";
 
@@ -64,6 +65,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/gameplay" element={<Gameplay />} />
           <Route path="/howto" element={<HowTo />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </>

@@ -18,12 +18,16 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
   const handlePlayLocal = () => {
     navigate("/start");
   };
+  const handleGame = () => {
+    navigate("/gameplay");
+  };
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="page-container">
         <div className="title-container">
           <h1 className="Title">Explore the World Through Food!</h1>
         </div>
+
         <div className="animation-container">
           <img src={globe} alt='globe'/>
         </div>
@@ -53,6 +57,30 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
               </div>
             )}
           </div>
+        <div className="game">
+          <button onClick={handleGame}>Play Game</button>
+        </div>
+        <div className="Online" onClick={toggleDropdown}>
+          <button>Play Online</button>
+          {isDropdownOpen && (
+            <div className="dropdown-menu">
+              {userId ? (
+                <>
+                  <button
+                    onClick={() => {
+                      googleLogout();
+                      handleLogout();
+                      navigate("/");
+                    }}
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </GoogleOAuthProvider>

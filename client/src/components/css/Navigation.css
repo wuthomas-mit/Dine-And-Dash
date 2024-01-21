@@ -29,11 +29,6 @@
   padding: 10px 20px;
 }
 
-.navbar a:hover {
-  background-color: #555;
-  border-radius: 5px;
-}
-
 .question {
   width: 50px;
   height: auto;
