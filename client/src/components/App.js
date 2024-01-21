@@ -46,7 +46,7 @@ const App = () => {
   };
   return (
     <>
-      <Navigation userId={userId} />
+      <Navigation path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
       <div>
         <Routes>
           <Route
