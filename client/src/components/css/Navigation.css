@@ -33,8 +33,13 @@
   border-radius: 5px;
 }
 
-.howToImage {
-  width: 100px;
+.question {
+  width: 50px;
+  height: auto;
+}
+
+.pfp {
+  width: 50px;
   height: auto;
 }
 

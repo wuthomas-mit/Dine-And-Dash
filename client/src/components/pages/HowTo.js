@@ -15,7 +15,6 @@ const HowTo = () => {
           <button onClick={handleHome}>Home</button>
         </div>
       }
-      <img src={"../../../dist/full_globe.jpeg"} />
     </div>
   );
 };

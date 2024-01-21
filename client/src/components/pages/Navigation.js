@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 
+import question from "../../images/question-icon.png";
+import pfp from "../../images/profilepic.png";
+
 import "../css/Navigation.css";
 
 const GOOGLE_CLIENT_ID = "728466374633-tela4eovuk3jdagsce8gbsk20v6m6f1p.apps.googleusercontent.com";
@@ -22,7 +25,7 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
         </div>
         <div className="Right">
           <div className="Profile" onClick={toggleDropdown}>
-            <img src={"../../../dist/question-icon.jpeg"} alt="Profile" />
+            <img src={pfp} alt="Profile" className="pfp" />
             {isDropdownOpen && (
               <div className="dropdown-menu">
                 {userId ? (
@@ -46,7 +49,7 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
           </div>
           <div className="HowTo">
             <Link to="/howto">
-              <img src={"./small-question-icon.jpeg"} alt="How To Play" className="howToImage" />
+              <img src={question} alt="How To Play" className="question" />
             </Link>
           </div>
         </div>
