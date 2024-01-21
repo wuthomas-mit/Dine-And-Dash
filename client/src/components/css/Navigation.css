@@ -2,29 +2,38 @@
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   background-color: #333;
   color: white;
   padding: 10px 0;
 }
 
-.navbar .Home,
-.navbar .Start {
+.navbar .Home {
   padding: 0 20px; /* Padding on the sides */
 }
-
-.navbar .Home a,
-.navbar .HowTo a,
-.navbar .Profile a {
-  color: white;
-  text-decoration: none; /* Removes underline from links */
-  margin: 0 15px; /* Horizontal spacing between links */
-  padding: 10px 20px; /* Padding around the links */
+.navbar .Right {
+  display: flex;
+  padding-right: 20px; /* Padding on the right side */
 }
 
-.navbar .Home a:hover,
-.navbar .HowTo a:hover,
-.navbar .Profile a:hover {
-  background-color: #555; /* Background color on hover */
-  border-radius: 5px; /* Rounded corners on hover */
+.navbar .Right .HowTo,
+.navbar .Right .Profile {
+  margin-left: 15px; /* Horizontal spacing between the right-side links */
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.navbar a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+.HowTo img {
+  width: 50px;
+  height: auto;
 }

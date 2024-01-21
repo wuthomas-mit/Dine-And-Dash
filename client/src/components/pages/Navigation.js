@@ -10,13 +10,17 @@ const Navigation = () => {
       <div className="Home">
         <Link to="/">Home</Link>
       </div>
-      <div className="Profile">
-        <Link to="/Profile">Profile</Link>
-      </div>
-      <div className="HowTo">
-        <Link to="/HowTo">
-          <img src={"../../../dist/question-icon.png"} alt="How To Play" />
-        </Link>
+      <div className="Right">
+        <div className="HowTo">
+          <Link to="/howto">
+            <img src={"../../../dist/question-icon.jpeg"} alt="How To Play" />
+          </Link>
+        </div>
+        <div className="Profile">
+          <Link to="/profile">
+            <img src={"../../../dist/question-icon.jpeg"} alt="Profile" />
+          </Link>
+        </div>
       </div>
     </div>
   );
