@@ -11,7 +11,7 @@ const GOOGLE_CLIENT_ID = "728466374633-tela4eovuk3jdagsce8gbsk20v6m6f1p.apps.goo
 const Home = ({ userId, handleLogin, handleLogout }) => {
   const navigate = useNavigate();
   const handlePlayLocal = () => {
-    navigate("/gameplay");
+    navigate("/start");
   };
   const handlePlayOnline = () => {
     navigate("/start");

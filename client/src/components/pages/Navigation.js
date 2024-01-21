@@ -21,11 +21,6 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
           <Link to="/">Home</Link>
         </div>
         <div className="Right">
-          <div className="HowTo">
-            <Link to="/howto">
-              <img src={"../../../dist/question-icon.jpeg"} alt="How To Play" />
-            </Link>
-          </div>
           <div className="Profile" onClick={toggleDropdown}>
             <img src={"../../../dist/question-icon.jpeg"} alt="Profile" />
             {isDropdownOpen && (
@@ -37,7 +32,7 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
                       onClick={() => {
                         googleLogout();
                         handleLogout();
-                        navigate("/Home");
+                        navigate("/");
                       }}
                     >
                       Logout
@@ -48,6 +43,11 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
                 )}
               </div>
             )}
+          </div>
+          <div className="HowTo">
+            <Link to="/howto">
+              <img src={"../../../dist/question-icon.jpeg"} alt="How To Play" />
+            </Link>
           </div>
         </div>
       </div>

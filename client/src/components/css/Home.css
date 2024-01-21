@@ -17,6 +17,8 @@ body {
 .buttons-container {
   display: flex;
   justify-content: center; /* Center buttons horizontally */
-  margin-bottom: 20px; /* Space from the bottom */
+  gap: 200px; /* Space between buttons */
+  margin-bottom: 80px; /* Space from the bottom */
 }
+
 /* Additional styling for the button if needed */
