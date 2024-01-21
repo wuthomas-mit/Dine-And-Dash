@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import initializeMap from "./initializeMap";
-import "mapbox-gl/dist/mapbox-gl.css"; // Assuming you can import CSS like this
 
 import "../css/Gameplay.css";
 import "../../utilities.css";
