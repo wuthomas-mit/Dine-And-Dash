@@ -1,20 +1,28 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import initializeMap from "./initializeMap";
+import "mapbox-gl/dist/mapbox-gl.css"; // Assuming you can import CSS like this
 
+import "../css/Gameplay.css";
 import "../../utilities.css";
 
 const Gameplay = () => {
-  const navigate = useNavigate();
-  const handleHome = () => {
-    navigate("/");
-  };
+  useEffect(() => {
+    initializeMap();
+    // Cleanup function for when the component unmounts
+    return () => {
+      // Code to clean up the map
+    };
+  }, []);
+  const navBarHeight = "34px";
   return (
-    <div className="flex-container">
-      {
-        <div className="buttons-container">
-          <button onClick={handleHome}>Home</button>
-        </div>
-      }
+    <div
+      style={{
+        position: "absolute",
+        top: "74px",
+        width: "100%",
+      }}
+    >
+      <div id="map" style={{ height: "100vh", bottom: "-30px" }}></div>
     </div>
   );
 };

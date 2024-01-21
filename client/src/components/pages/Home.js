@@ -17,11 +17,17 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
   const handlePlayLocal = () => {
     navigate("/start");
   };
+  const handleGame = () => {
+    navigate("/gameplay");
+  };
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="flex-container">
         <div className="local">
           <button onClick={handlePlayLocal}>Play Local</button>
+        </div>
+        <div className="game">
+          <button onClick={handleGame}>Play Game</button>
         </div>
         <div className="Online" onClick={toggleDropdown}>
           <button>Play Online</button>
