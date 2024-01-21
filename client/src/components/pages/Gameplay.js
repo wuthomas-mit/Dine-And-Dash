@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../../utilities.css";
 
-const Start = () => {
+const Gameplay = () => {
   const navigate = useNavigate();
   const handleHome = () => {
     navigate("/");
@@ -19,4 +19,4 @@ const Start = () => {
   );
 };
 
-export default Start;
+export default Gameplay;
