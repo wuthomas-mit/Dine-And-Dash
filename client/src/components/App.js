@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-
+import { Router, Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
-import NotFound from "./pages/NotFound.js";
+import Navigation from "./pages/Navigation.js";
 import Home from "./pages/Home.js";
 import Start from "./pages/Start.js";
 
@@ -42,18 +41,15 @@ const App = () => {
     setUserId(undefined);
     post("/api/logout");
   };
-
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-        }
-      />
-      <Route path="/start" element={<Start />} /> {}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Navigation />
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
+    </>
   );
 };
 

@@ -1,0 +1,28 @@
+/* Navigation.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+}
+
+.navbar .Home,
+.navbar .Start {
+  padding: 0 20px; /* Padding on the sides */
+}
+
+.navbar .Home a,
+.navbar .Start a {
+  color: white;
+  text-decoration: none; /* Removes underline from links */
+  margin: 0 15px; /* Horizontal spacing between links */
+  padding: 10px 20px; /* Padding around the links */
+}
+
+.navbar .Home a:hover,
+.navbar .Start a:hover {
+  background-color: #555; /* Background color on hover */
+  border-radius: 5px; /* Rounded corners on hover */
+}
