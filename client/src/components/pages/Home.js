@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
+import globe from "../../images/earth-globe-tool.svg";
 
 import "../../utilities.css";
 import "../css/Home.css";
@@ -19,31 +20,39 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
   };
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <div className="flex-container">
-        <div className="local">
-          <button onClick={handlePlayLocal}>Play Local</button>
+      <div className="page-container">
+        <div className="title-container">
+          <h1 className="Title">Explore the World Through Food!</h1>
         </div>
-        <div className="Online" onClick={toggleDropdown}>
-          <button>Play Online</button>
-          {isDropdownOpen && (
-            <div className="dropdown-menu">
-              {userId ? (
-                <>
-                  <button
-                    onClick={() => {
-                      googleLogout();
-                      handleLogout();
-                      navigate("/");
-                    }}
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-              )}
-            </div>
-          )}
+        <div className="animation-container">
+          <img src={globe} alt='globe'/>
+        </div>
+        <div className="button-container">
+          <div className="Local">
+            <button onClick={handlePlayLocal}>Play Local</button>
+          </div>
+          <div className="Online" >
+            <button onClick={toggleDropdown}>Play Online</button>
+            {isDropdownOpen && (
+              <div className="dropdown-menu">
+                {userId ? (
+                  <>
+                    <button
+                      onClick={() => {
+                        googleLogout();
+                        handleLogout();
+                        navigate("/");
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </GoogleOAuthProvider>
