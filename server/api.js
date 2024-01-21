@@ -43,6 +43,14 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.get("/profile", auth.ensureLoggedIn, (req, res) => {
+  try {
+    res.send(req.user);
+  } catch (error) {
+    res.status(500).send({ msg: "Error fetching user data" });
+  }
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

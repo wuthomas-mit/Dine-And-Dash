@@ -1,20 +1,29 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { get } from "../../utilities";
 
 import "../../utilities.css";
+import "../css/Profile.css";
 
-const Profile = () => {
-  const navigate = useNavigate();
-  const handleHome = () => {
-    navigate("/");
-  };
+const Profile = ({ userId }) => {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    get(`/api/profile`).then((data) => {
+      setUserData(data);
+    });
+  }, [userId]);
+
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="flex-container">
-      {
-        <div className="buttons-container">
-          <button onClick={handleHome}>Home</button>
-        </div>
-      }
+    <div className="profile-container">
+      <div>Name: {userData.name}</div>
+      <div>Wins: {userData.wins}</div>
+      <div>Losses: {userData.losses}</div>
+      <div>Fastest: {userData.fastest}</div>
+      <div>Slowest: {userData.slowest}</div>
     </div>
   );
 };
