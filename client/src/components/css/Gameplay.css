@@ -3,3 +3,13 @@
   top: 0px;
   width: 100%;
 }
+
+.timer {
+  position: absolute;
+  top: 16px; /* Adjust these values based on where you want the timer */
+  right: 16px; /* to appear on the map */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 10; /* Ensure it's above the map */
+}
