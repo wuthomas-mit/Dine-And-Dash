@@ -34,7 +34,7 @@
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.1",
     "url-loader": "^4.1.1",
-    "mapbox-gl": "^10.2.3"
+    "mapbox-gl": "^3.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.4",
