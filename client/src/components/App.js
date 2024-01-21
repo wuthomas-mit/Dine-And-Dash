@@ -46,10 +46,20 @@ const App = () => {
   };
   return (
     <>
-      <Navigation />
+      <Navigation userId={userId} />
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                path="/"
+                handleLogin={handleLogin}
+                handleLogout={handleLogout}
+                userId={userId}
+              />
+            }
+          />
           <Route path="/start" element={<Start />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/gameplay" element={<Gameplay />} />

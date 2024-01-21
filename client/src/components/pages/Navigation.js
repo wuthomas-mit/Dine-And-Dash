@@ -29,7 +29,7 @@ const Navigation = ({ userId }) => {
                 </>
               ) : (
                 <>
-                  <Link to="/login">Login/Register</Link>
+                  <Link to="/login">Login</Link>
                 </>
               )}
             </div>
