@@ -29,13 +29,13 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
         </div>
 
         <div className="animation-container">
-          <img src={globe} alt='globe'/>
+          <img src={globe} alt="globe" />
         </div>
         <div className="button-container">
           <div className="Local">
             <button onClick={handlePlayLocal}>Play Local</button>
           </div>
-          <div className="Online" >
+          <div className="Online">
             <button onClick={toggleDropdown}>Play Online</button>
             {isDropdownOpen && (
               <div className="dropdown-menu">
@@ -57,30 +57,31 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
               </div>
             )}
           </div>
-        <div className="game">
-          <button onClick={handleGame}>Play Game</button>
-        </div>
-        <div className="Online" onClick={toggleDropdown}>
-          <button>Play Online</button>
-          {isDropdownOpen && (
-            <div className="dropdown-menu">
-              {userId ? (
-                <>
-                  <button
-                    onClick={() => {
-                      googleLogout();
-                      handleLogout();
-                      navigate("/");
-                    }}
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-              )}
-            </div>
-          )}
+          <div className="game">
+            <button onClick={handleGame}>Play Game</button>
+          </div>
+          <div className="Online" onClick={toggleDropdown}>
+            <button>Play Online</button>
+            {isDropdownOpen && (
+              <div className="dropdown-menu">
+                {userId ? (
+                  <>
+                    <button
+                      onClick={() => {
+                        googleLogout();
+                        handleLogout();
+                        navigate("/");
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </GoogleOAuthProvider>
