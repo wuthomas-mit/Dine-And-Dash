@@ -4,8 +4,9 @@ const timerContainerStyle = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
-  position: "absolute",
+  position: "fixed",
   left: "50%",
+  top: "70px",
   transform: "translate(-50%)",
   width: "180px",
   height: "48px",
@@ -34,6 +35,7 @@ const buttonStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  cursor: "pointer",
 };
 
 function TimerComponent() {
