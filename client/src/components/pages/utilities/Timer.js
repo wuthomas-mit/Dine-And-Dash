@@ -38,7 +38,7 @@ const buttonStyle = {
 
 function TimerComponent() {
   const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(true);
 
   // useEffect for timer management
   useEffect(() => {
