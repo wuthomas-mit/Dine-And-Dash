@@ -10,10 +10,13 @@ const Profile = ({}) => {
   const location = useLocation();
 
   useEffect(() => {
-    get(`/api/whoami`).then((data) => {
+    get(`/api/profile`).then((data) => {
       setUserData(data);
     });
   }, [location]);
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="profile-container">
       <div>Name: {userData.name}</div>
