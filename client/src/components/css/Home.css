@@ -54,18 +54,47 @@ button {
   width: 120px;
   height: 36px;
   border-radius: 10px;
-  border: 3px solid #538786;
+  border: 2px solid #538786;
   background-color: #BBC8BA;
   font-size: 18px;
   font-family: 'Darker Grotesque', sans-serif;
-  font-weight: 500;
-  color: #24282A;
-  transition-duration: 0.3s;
+  font-weight: 600;
+  text-align: center;
+  color: #538786;
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
 }
 
 button:hover {
+  transform: scale(1.1);
+  background-color: #538786;
+  color: white;
+}
+
+/* button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+button:hover span {
+  padding-right: 25px;
   background-color: white;
 }
+
+button:hover span:after {
+  opacity: 1;
+  right: 0;
+} */
 
 .dropdown-menu {
   position: absolute;

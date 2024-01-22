@@ -21,15 +21,13 @@ const Gameplay = () => {
     .padStart(2, "0")}:${(time % 60).toString().padStart(2, "0")}`;
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "74px",
-        width: "100%",
-      }}
-    >
-      <div id="map" style={{ height: "100vh", bottom: "-30px" }}></div>
-      <div className="timer">{formattedTime}</div>
+    <div className="game-container">
+      <div id="map"></div>
+      <div className="timer-container">
+        <div className="timer">{formattedTime}</div>
+        <div className="buttons">||</div>
+        <div className="buttons">[]</div>
+      </div>
     </div>
   );
 };
