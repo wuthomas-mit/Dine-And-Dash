@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { get } from "../../utilities";
+import { useLocation } from "react-router-dom";
 
 import "../../utilities.css";
 import "../css/Profile.css";
 
-const Profile = ({ userId }) => {
+const Profile = ({}) => {
   const [userData, setUserData] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
-    get(`/api/profile`).then((data) => {
+    get(`/api/whoami`).then((data) => {
       setUserData(data);
     });
-  }, [userId]);
-
-  if (!userData) {
-    return <div>Loading...</div>;
-  }
-
+  }, [location]);
   return (
     <div className="profile-container">
       <div>Name: {userData.name}</div>
