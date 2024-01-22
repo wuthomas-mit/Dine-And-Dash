@@ -1,4 +1,5 @@
 import mapboxgl from "mapbox-gl";
+import centroid from "@turf/centroid";
 
 const initializeMap = () => {
   mapboxgl.accessToken =
@@ -47,7 +48,6 @@ const initializeMap = () => {
       },
       filter: ["==", "name", ""],
     });
-
     // When the user moves their mouse over the page, we look for features
     // at the mouse position (e.point) and within the states layer (states-fill).
     // If a feature is found, then we'll update the filter in the state-fills-hover
@@ -86,8 +86,12 @@ const initializeMap = () => {
         layers: ["country-fills"],
       });
       if (features.length) {
+        // var clickedCountry = features[0].properties.name;
         var clickedCountry = features[0].properties.name;
+        const centr = centroid(features[0]);
+        const [longitude, latitude] = centr.geometry.coordinates;
 
+        map.flyTo({ center: [longitude, latitude], zoom: 4 });
         // Check if the clicked country is the same as the last clicked country
         if (clickedCountry === lastClickedCountry) {
           // If it's the same country, reset the filter and clear the last clicked country
