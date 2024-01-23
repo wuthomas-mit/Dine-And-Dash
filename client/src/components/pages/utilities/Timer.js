@@ -14,7 +14,7 @@ const timerContainerStyle = {
   border: "4px solid #DD4F3D",
   borderRadius: "5px",
   zIndex: 10, 
-}
+};
 
 const timerStyle = {
   // backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -78,6 +78,6 @@ function TimerComponent() {
       <div style={buttonStyle} onClick={handleStop}>[]</div>
     </div>
   );
-}
+};
 
 export default TimerComponent;

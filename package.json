@@ -36,6 +36,7 @@
     "react-router-dom": "^6.7.0",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.1",
+    "styled-components": "^6.1.8",
     "turf": "^3.0.14",
     "url-loader": "^4.1.1"
   },
