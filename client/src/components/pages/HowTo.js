@@ -2,19 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../utilities.css";
+import "../css/HowTo.css";
 
 const HowTo = () => {
-  const navigate = useNavigate();
-  const handleHome = () => {
-    navigate("/");
-  };
   return (
-    <div className="flex-container">
-      {
-        <div className="buttons-container">
-          <button onClick={handleHome}>Home</button>
-        </div>
-      }
+    <div className="how-to-container">
+      <h1>How To Play</h1>
+      <h2>Goal</h2>
+      <p>Travel from start country to goal country in as little time as possible.</p>
     </div>
   );
 };

@@ -1,15 +1,42 @@
+.game-container {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+}
+
 #map {
   position: absolute;
   top: 0px;
   width: 100%;
+  height: 100vh;
+  bottom: -30px;;
 }
 
-.timer {
-  position: absolute;
-  top: 16px; /* Adjust these values based on where you want the timer */
-  right: 16px; /* to appear on the map */
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-  padding: 5px;
+.game-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: auto;
+  bottom: 0;
+  z-index: 10;
+}
+
+.game-info-container .game-info {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  height: auto;
+  background-color: #FCF6E7;
   border-radius: 5px;
-  z-index: 10; /* Ensure it's above the map */
+  padding: 10px;
+  margin: 20px;
+  z-index: 15;
+}
+
+.game-info-container .game-info .text {
+  font-size: 16px;
+  font-weight: 500;
 }

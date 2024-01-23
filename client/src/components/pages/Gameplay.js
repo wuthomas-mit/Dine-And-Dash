@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from "react";
-import initializeMap from "./initializeMap";
+import initializeMap from "./utilities/initializeMap";
+import TimerComponent from "./utilities/Timer";
 
 import "../css/Gameplay.css";
 import "../../utilities.css";
 
 const Gameplay = () => {
-  const [time, setTime] = useState(0);
+  // useEffect for map initialization
   useEffect(() => {
     initializeMap();
-    // Cleanup function for when the component unmounts
-    const timer = setInterval(() => {
-      setTime((prevTime) => prevTime + 1);
-    }, 1000);
-    return () => {
-      clearInterval(timer);
-    };
   }, []);
-  const formattedTime = `${Math.floor(time / 60)
-    .toString()
-    .padStart(2, "0")}:${(time % 60).toString().padStart(2, "0")}`;
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "74px",
-        width: "100%",
-      }}
-    >
-      <div id="map" style={{ height: "100vh", bottom: "-30px" }}></div>
-      <div className="timer">{formattedTime}</div>
+    <div className="game-container">
+      <div id="map"></div>
+      <TimerComponent/>
+      <div className="game-info-container">
+        <div className="game-info">
+          <div className="text">Start:</div>
+          <div className="text">Goal:</div>
+        </div>
+        <div className="game-info">
+          <div className="text">Current:</div>
+          <div className="text">Visited:</div>
+        </div>
+      </div>
     </div>
   );
 };
