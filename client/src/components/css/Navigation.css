@@ -39,20 +39,21 @@
   height: auto;
 }
 
-.Profile {
+.User {
   position: relative;
   cursor: pointer;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 140%; /* Position below the image */
+  top: 58px; /* Position below the image */
   left: 0%;
   background-color: white;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
   width: 70px; /* Set a width for your dropdown */
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+  font-weight: 500;
   z-index: 1;
 }
 
@@ -64,5 +65,14 @@
 }
 
 .dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+#logout {
+  color: black;
+  padding: 12px 16px;
+}
+
+#logout:hover {
   background-color: #f1f1f1;
 }

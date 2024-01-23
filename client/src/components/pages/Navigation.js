@@ -24,14 +24,14 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
           <Link to="/">Home</Link>
         </div>
         <div className="Right">
-          <div className="Profile" onClick={toggleDropdown}>
+          <div className="User" onClick={toggleDropdown}>
             <img src={pfp} alt="Profile" className="pfp" />
             {isDropdownOpen && (
               <div className="dropdown-menu">
                 {userId ? (
                   <>
                     <Link to="/profile">Profile</Link>
-                    <button
+                    <div id="logout"
                       onClick={() => {
                         googleLogout();
                         handleLogout();
@@ -39,7 +39,7 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
                       }}
                     >
                       Logout
-                    </button>
+                    </div>
                   </>
                 ) : (
                   <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />

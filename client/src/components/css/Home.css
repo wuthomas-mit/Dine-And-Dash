@@ -96,14 +96,14 @@ button:hover span:after {
   right: 0;
 } */
 
-.dropdown-menu {
+/* .dropdown-menu {
   position: absolute;
-  top: 140%; /* Position below the image */
+  top: 140%;
   left: 0%;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 4px;
-  width: 70px; /* Set a width for your dropdown */
+  width: 70px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -117,4 +117,4 @@ button:hover span:after {
 
 .dropdown-menu a:hover {
   background-color: #f1f1f1;
-}
+} */
