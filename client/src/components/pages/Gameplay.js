@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import initializeMap from "./utilities/initializeMap";
-import TimerComponent from "./utilities/Timer";
+import initializeMap from "./utilities/initializeMap.js";
+import TimerComponent from "./utilities/Timer.js";
 
 import "../css/Gameplay.css";
 import "../../utilities.css";
