@@ -11,6 +11,15 @@ const initializeMap = () => {
     zoom: 9, // starting zoom
   });
   map.on("load", function () {
+    const country_data = map.querySourceFeatures("United States", {
+      sourceLayer: "countries",
+      filter: ["==", ["get", "name"], countryName],
+    });
+    const centr = centroid("United States");
+    const [longitude, latitude] = centr.geometry.coordinates;
+
+    map.flyTo({ center: [longitude, latitude], zoom: 4 });
+
     map.addSource("country", {
       type: "geojson",
       data: "https://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson",
