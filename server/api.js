@@ -51,6 +51,20 @@ router.get("/profile", auth.ensureLoggedIn, (req, res) => {
   }
 });
 
+router.post("/incrementWin", auth.ensureLoggedIn, async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { $inc: { wins: 1 } }, // Increment wins
+      { new: true } // Return the updated document
+    );
+    res.send(updatedUser);
+  } catch (error) {
+    console.error("Error updating win count:", error);
+    res.status(500).send({ msg: "Error updating win count" });
+  }
+});
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

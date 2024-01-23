@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { post } from "../../utilities";
 
 import "../../utilities.css";
 
 const Start = () => {
-  const navigate = useNavigate();
-  const handleHome = () => {
-    navigate("/");
-  };
+  function handleWin() {
+    post("/api/incrementWin")
+      .then((data) => {
+        console.log("Win count updated:", data);
+        // Handle the response, update UI, etc.
+      })
+      .catch((error) => {
+        console.error("Error updating win count:", error);
+      });
+  }
+
   return (
     <div className="flex-container">
       {
         <div className="buttons-container">
-          <button onClick={handleHome}>Home</button>
+          <button onClick={handleWin}>Win-Update</button>
         </div>
       }
     </div>
