@@ -1,15 +1,45 @@
 import mapboxgl from "mapbox-gl";
+import centroid from "@turf/centroid";
+
+async function fetchRandomCountry() {
+  try {
+    // Fetch the list of countries from your backend
+    const response = await fetch("/api/countries");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // Parse the JSON response
+    const countries = await response.json();
+
+    // Select a random country
+    const randomIndex = Math.floor(Math.random() * countries.length);
+    const randomCountry = countries[randomIndex];
+
+    // Use the random country as needed
+    console.log("Random Country:", randomCountry);
+    return randomCountry;
+  } catch (error) {
+    console.error("Failed to fetch a random country:", error);
+  }
+}
 
 const initializeMap = () => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
   const map = new mapboxgl.Map({
     container: "map", // container ID
-    center: [-74.5, 40], // starting position [lng, lat]
+    center: [0, 0], //  .0 position [lng, lat]
     style: "mapbox://styles/wuthomas/clrk24s6p001301pff0hq9wwz",
-    zoom: 9, // starting zoom
+    zoom: 0, // starting zoom
   });
-  map.on("load", function () {
+  map.on("load", async function () {
+    const country = await fetchRandomCountry();
+    const lat = Number(country.Lat.replace(/"/g, ""));
+    const long = Number(country.Long.replace(/"/g, ""));
+
+    map.flyTo({ center: [long, lat], zoom: 4 });
+
     map.addSource("country", {
       type: "geojson",
       data: "https://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson",
@@ -47,6 +77,15 @@ const initializeMap = () => {
       },
       filter: ["==", "name", ""],
     });
+
+    // if (country_data) {
+    //   console.log("country found");
+    //   const centr = centroid(country_data[0]);
+    //   const [longitude, latitude] = centr.geometry.coordinates;
+    //   map.flyTo({ center: [longitude, latitude], zoom: 4 });
+    // } else {
+    //   console.log("Country not found");
+    // }
 
     // When the user moves their mouse over the page, we look for features
     // at the mouse position (e.point) and within the states layer (states-fill).
@@ -86,8 +125,11 @@ const initializeMap = () => {
         layers: ["country-fills"],
       });
       if (features.length) {
+        // var clickedCountry = features[0].properties.name;
         var clickedCountry = features[0].properties.name;
-
+        const centr = centroid(features[0]);
+        const [longitude, latitude] = centr.geometry.coordinates;
+        map.flyTo({ center: [longitude, latitude], zoom: 4 });
         // Check if the clicked country is the same as the last clicked country
         if (clickedCountry === lastClickedCountry) {
           // If it's the same country, reset the filter and clear the last clicked country
