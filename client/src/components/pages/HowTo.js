@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 import "../../utilities.css";
 import "../css/HowTo.css";
+import TriviaModal from "./utilities/TriviaModal";
 
 const HowTo = () => {
   return (

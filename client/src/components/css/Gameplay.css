@@ -12,6 +12,11 @@
   bottom: -30px;;
 }
 
+#trivia {
+  position: absolute;
+  z-index: 10;
+}
+
 .game-info-container {
   display: flex;
   flex-direction: row;
