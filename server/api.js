@@ -12,6 +12,8 @@ const express = require("express");
 // import models so we can interact with the database
 const User = require("./models/user");
 
+const Country = require("./models/Country");
+
 // import authentication library
 const auth = require("./auth");
 
@@ -49,6 +51,17 @@ router.get("/profile", auth.ensureLoggedIn, (req, res) => {
   } catch (error) {
     res.status(500).send({ msg: "Error fetching user data" });
   }
+});
+
+router.get("/countries", (req, res) => {
+  Country.find({}, "twoCode Lat Long") // Projection to get only twoCode, Lat, Long fields
+    .then((countries) => {
+      res.send(countries);
+    })
+    .catch((err) => {
+      console.error("Error fetching countries:", err);
+      res.status(500).send({ msg: "Error fetching country data" });
+    });
 });
 
 // anything else falls to this "not found" case
