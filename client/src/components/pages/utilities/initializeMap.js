@@ -78,14 +78,7 @@ const initializeMap = () => {
       filter: ["==", "name", ""],
     });
 
-    // if (country_data) {
-    //   console.log("country found");
-    //   const centr = centroid(country_data[0]);
-    //   const [longitude, latitude] = centr.geometry.coordinates;
-    //   map.flyTo({ center: [longitude, latitude], zoom: 4 });
-    // } else {
-    //   console.log("Country not found");
-    // }
+    map.setFilter("country-clicked", ["==", "name", country.Country]);
 
     // When the user moves their mouse over the page, we look for features
     // at the mouse position (e.point) and within the states layer (states-fill).
