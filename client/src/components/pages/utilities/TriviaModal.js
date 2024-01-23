@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import "../../css/Home.css";
 
 const ModalBackground = {};
 
@@ -13,54 +13,48 @@ const ModalContainer = {
   transform: "translate(-50%, -50%)",
   width: "500px",
   height: "400px",
+  borderRadius: "20px",
+  padding: "20px",
   zIndex: 10,
 };
 
 const Title = {
+  display: "flex",
+  justifyContent: "center",
   alignItems: "center",
+  height: "48px",
+  marginBottom: "28px",
 };
 
 const Grid = {
   display: "grid",
-  flexWrap: "wrap",
+  gridTemplateColumns: "1fr 1fr",
+  gridTemplateRows: "auto auto",
+  gap: "20px",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "auto",
 };
 
-const GridItem = {
-  width: "auto",
-  height: "36px",
-  backgroundColor: "#BBC8BA",
-  fontSize: "18px",
-  fontWeight: "600",
-  textAlign: "center",
-  color: "#538786",
-  transition: "transform 0.3s, background-color 0.3s, color 0.3s",
+const Footer = {
+  display: "flex",
+  justifyContent: "center",
+  position: "absolute",
+  left: "50%",
+  bottom: "20px",
+  transform: "translate(-50%)",
+  gap: "30px",
+  marginTop: "20px",
 };
-
-const GridItemHover = {
-  transform: "scale(1.1)",
-  backgroundColor: "#538786",
-  color: "white",
-};
-
-const Footer = {};
 
 function TriviaModal({ closeTrivia }) {
   let countryName = "Hungary";
   const countryFood = {
-    // "Hungary": "Goulash",
-    // "Ethiopia": "Doro wat",
-    // "Luxembourg": "Judd mat gaardebounen",
-    // "Equatorial Guinea": "Succotash",
-    // "Barbados": "Cou cou and flying fish",
     Hungary: "Goulash",
     Ethiopia: "Doro wat",
-    Luxembourg: "Judd mat gaardebounen",
-    "Equatorial Guinea": "Succotash",
+    Luxembourg: "Judd mat gaardebounen hmv,i,jf lkuymdcjmhcj, ",
     Barbados: "Cou cou and flying fish",
   };
-
-  const [hovered, setHovered] = useState(false);
-  const buttonStyle = hovered ? { ...buttonStyles, ...buttonHoverStyles } : buttonStyles;
 
   return (
     <div style={ModalBackground}>
@@ -70,18 +64,14 @@ function TriviaModal({ closeTrivia }) {
         </div>
         <div style={Grid}>
           {Object.keys(countryFood).map((key, index) => (
-            <div
-              style={GridItem}
-              key={index}
-              onMouseEnter={() => this.setState({ hovered: true })}
-              onMouseLeave={() => this.setState({ hovered: false })}
-            >
-              {countryFood[key]}
-            </div>
+            <button className="block-button" key={index}>
+              <div>{countryFood[key]}</div>
+            </button>
           ))}
         </div>
         <div style={Footer}>
-          <button>Submit</button>
+          <button className="button">Clear</button>
+          <button className="button">Submit</button>
         </div>
       </div>
     </div>

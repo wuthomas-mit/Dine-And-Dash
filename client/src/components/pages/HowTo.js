@@ -2,7 +2,6 @@ import React from "react";
 
 import "../../utilities.css";
 import "../css/HowTo.css";
-import TriviaModal from "./utilities/TriviaModal";
 
 const HowTo = () => {
   return (

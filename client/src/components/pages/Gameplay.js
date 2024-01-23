@@ -19,6 +19,7 @@ const Gameplay = () => {
       <div id="map"></div>
       <TimerComponent />
       <button
+        className="button"
         id="trivia"
         onClick={() => {
           setOpenTrivia(true);

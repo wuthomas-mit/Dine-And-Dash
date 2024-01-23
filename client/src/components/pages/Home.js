@@ -33,10 +33,10 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
         </div>
         <div className="button-container">
           <div className="Local">
-            <button onClick={handlePlayLocal}><span>Play Local</span></button>
+            <button className="button" onClick={handlePlayLocal}><span>Play Local</span></button>
           </div>
           <div className="Online">
-            <button onClick={toggleDropdown}><span>Play Online</span></button>
+            <button className="button" onClick={toggleDropdown}><span>Play Online</span></button>
             {isDropdownOpen && (
               <div className="dropdown-menu">
                 {userId ? (
@@ -58,7 +58,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             )}
           </div>
           <div className="game">
-            <button onClick={handleGame}><span>Play Game</span></button>
+            <button className="button" onClick={handleGame}><span>Play Game</span></button>
           </div>
         </div>
       </div>
