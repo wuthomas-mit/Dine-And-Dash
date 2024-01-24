@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../../css/Home.css";
 
 const ModalBackground = {};
@@ -69,20 +69,35 @@ const Footer = {
   marginTop: "20px",
 };
 
-function TriviaModal({ closeTrivia }) {
+function TriviaModal({ closeTrivia, trivia_countries }) {
   const buttonsRef = useRef(null);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [revealAnswer, setRevealAnswer] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [ans, setAns] = useState(false);
 
-  let countryName = "Hungary";
-  const countryFood = {
-    Hungary: "Goulash",
-    Ethiopia: "Doro wat",
-    Luxembourg: "Judd mat gaardebounen",
-    Barbados: "Cou cou and flying fish",
+  console.log("dish", trivia_countries);
+
+  let countryName = trivia_countries[0].Country;
+  const selectRandomDish = (dishString) => {
+    const dishes = dishString.split(",").map((dish) => dish.trim());
+    return dishes[Math.floor(Math.random() * dishes.length)];
   };
+  const countryFood = trivia_countries.map((country) => selectRandomDish(country.Dish));
+
+  const [shuffledDishes, setShuffledDishes] = useState([]);
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+    return array;
+  }
+  useEffect(() => {
+    setShuffledDishes(shuffle([...countryFood]));
+  }, [trivia_countries]);
 
   function setColor(e) {
     var target = e.target,
@@ -115,9 +130,11 @@ function TriviaModal({ closeTrivia }) {
     const buttons = buttonsRef.current.querySelectorAll(".block-button");
     buttons.forEach((button) => {
       if (selectedFoods.includes(button.textContent)) {
-        if (button.textContent === countryFood[countryName]) {
+        const firstCountryDishes = trivia_countries[0].Dish.split(",").map((dish) => dish.trim());
+        if (firstCountryDishes.includes(button.textContent)) {
           button.style.border = "3px solid green"; // Correct pairing
           correctAnswerFound = true;
+          setAns(button.textContent);
         } else {
           button.style.border = "3px solid red"; // Incorrect pairing
         }
@@ -154,9 +171,9 @@ function TriviaModal({ closeTrivia }) {
               <h1>{countryName}</h1>
             </div>
             <div style={Grid} ref={buttonsRef}>
-              {Object.keys(countryFood).map((key, index) => (
+              {shuffledDishes.map((dish, index) => (
                 <button className="block-button" key={index} onClick={(e) => setColor(e)}>
-                  {countryFood[key]}
+                  {dish}
                 </button>
               ))}
             </div>
@@ -168,20 +185,16 @@ function TriviaModal({ closeTrivia }) {
               <h1>{isCorrect ? "Correct!" : "Incorrect..."}</h1>
             </div>
             <div style={Subtitle}>
-              <h3>The most popular dish in {countryName} is:</h3>
+              <h3>One of the most popular dishes in {countryName} is:</h3>
             </div>
             <div style={Title}>
-              <h1>{countryFood[countryName]}</h1>
+              <h1>{ans}</h1>
             </div>
             {/* <div style={BlockAnswer}>{countryFood[countryName]}</div> */}
             <div style={Subtitle}>
               {/* <h3>Click here to learn more: <a href={getWikipediaUrl(countryFood[countryName])} target="_blank" rel="noopener noreferrer">Learn more on Wikipedia</a></h3> */}
               <h3>
-                <a
-                  href={getWikipediaSearchUrl(countryFood[countryName])}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={getWikipediaSearchUrl(ans)} target="_blank" rel="noopener noreferrer">
                   Learn more on Wikipedia (Note: Page might not exist)
                 </a>
               </h3>
@@ -194,7 +207,11 @@ function TriviaModal({ closeTrivia }) {
               <button className="button" onClick={clearStyles}>
                 Clear
               </button>
-              <button className="button" onClick={handleSubmit} disabled={selectedFoods.length === 0}>
+              <button
+                className="button"
+                onClick={handleSubmit}
+                disabled={selectedFoods.length === 0}
+              >
                 Submit
               </button>
             </>

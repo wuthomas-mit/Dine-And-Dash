@@ -12,10 +12,17 @@ const Gameplay = () => {
   const [currentCountry, setCurrentCountry] = useState(null);
   const [visited, setVisited] = useState(null);
   const [openTrivia, setOpenTrivia] = useState(false);
+  const [currentTriviaCountries, setcurrentTriviaCountries] = useState(null);
 
   // useEffect for map initialization
   useEffect(() => {
-    initializeMap(setStartCountry, setGoalCountry, setCurrentCountry, setVisited);
+    initializeMap(
+      setStartCountry,
+      setGoalCountry,
+      setCurrentCountry,
+      setVisited,
+      setcurrentTriviaCountries
+    );
   }, []);
 
   return (
@@ -31,7 +38,9 @@ const Gameplay = () => {
       >
         Open Trivia
       </button>
-      {openTrivia && <TriviaModal closeTrivia={setOpenTrivia} />}
+      {openTrivia && (
+        <TriviaModal closeTrivia={setOpenTrivia} trivia_countries={currentTriviaCountries} />
+      )}
       <div className="game-info-container">
         <div className="game-info">
           <div className="text">Start: {startCountry}</div>
