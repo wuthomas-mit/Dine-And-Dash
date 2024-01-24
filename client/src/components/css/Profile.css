@@ -63,6 +63,13 @@
   background-color: #e6907d;
   height: 40px;
   width: 100%;
+  color: black;
+  font-weight: 600;
+  font-size: 18px;
+  align-items: center;
+  justify-content: start;
+  padding-left: 20px;
+  display: flex;
 }
 
 #Name {

@@ -30,11 +30,6 @@ const Profile = ({}) => {
   return (
     <div className="profile-container">
       <div className="content-container">
-        {/* <div>Name: {userData.name}</div>
-      <div>Wins: {userData.wins}</div>
-      <div>Losses: {userData.losses}</div>
-      <div>Fastest: {userData.fastest}</div>
-      <div>Slowest: {userData.slowest}</div> */}
         <div className="avatar-container">
           <div className="avatar"></div>
           <div className="avatar-options">
@@ -50,9 +45,13 @@ const Profile = ({}) => {
             Favorite country:{" "}
             <input type="text" value={favoriteCountry} onChange={handleCountryChange}></input>{" "}
           </h3>
-          <div className="item"></div>
-          <div className="item"></div>
-          <div className="item"></div>
+          <div className="item">
+            Wins: {userData.wins} Losses: {userData.losses}
+          </div>
+          <div className="item">
+            Fastest: {userData.fastest} Slowest: {userData.slowest}
+          </div>
+          <div className="item">Streak: 13 Visited: 22</div>
         </div>
       </div>
     </div>
