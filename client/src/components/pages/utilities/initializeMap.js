@@ -113,8 +113,7 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
     // defines Start and Goal countries that stay unchanged through the game
     currentCountry = await fetchRandomCountry();
     setStartCountry(currentCountry.Country);
-    const ran = await fetchRandomCountry();
-    goalCountry = ran;
+    const goalCountry = await fetchRandomCountry();
     setGoalCountry(goalCountry.Country);
     // start a set of the new countries user has visited
     let visited = new Set();
@@ -123,8 +122,45 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
     const lat = Number(currentCountry.Lat.replace(/"/g, ""));
     const long = Number(currentCountry.Long.replace(/"/g, ""));
 
+    const goalLong = Number(goalCountry.Long.replace(/"/g, ""));
+    const goalLat = Number(goalCountry.Lat.replace(/"/g, ""));
+
     map.flyTo({ center: [long, lat], zoom: 4 });
     map.setFilter("country-clicked", ["==", "ISO_A2", currentCountry.twoCode]);
+
+    // Adds a red pin to denote the goal country
+    // Load an image from an external URL.
+    map.loadImage("https://docs.mapbox.com/mapbox-gl-js/assets/cat.png", (error, image) => {
+      if (error) throw error;
+      // Add the image to the map style.
+      map.addImage("pin", image);
+      // Add a data source containing one point feature.
+      map.addSource("point", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: [goalLong, goalLat],
+              },
+            },
+          ],
+        },
+      });
+      // Add a layer to use the image to represent the data.
+      map.addLayer({
+        id: "points",
+        type: "symbol",
+        source: "point", // reference the data source
+        layout: {
+          "icon-image": "pin", // reference the image
+          "icon-size": 0.25,
+        },
+      });
+    });
 
     // When the user moves their mouse over the page, we look for features
     // at the mouse position (e.point) and within the states layer (states-fill).
