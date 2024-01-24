@@ -40,10 +40,10 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
               <span>Play Online</span>
             </button>
             {isDropdownOpen && (
-              <div className="dropdown-menu">
+              <div id="play-online-button">
                 {userId ? (
                   <>
-                    <button
+                    <button className="button"
                       onClick={() => {
                         googleLogout();
                         handleLogout();
