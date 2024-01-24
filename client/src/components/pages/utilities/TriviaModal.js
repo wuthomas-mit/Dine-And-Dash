@@ -24,6 +24,8 @@ const Title = {
   alignItems: "center",
   height: "48px",
   marginBottom: "28px",
+  fontSize: "48px",
+  fontWeight: 800,
 };
 
 const Subtitle = {
@@ -32,7 +34,8 @@ const Subtitle = {
   alignItems: "center",
   height: "24px",
   marginBottom: "28px",
-  fontSize: "20px",
+  fontSize: "24px",
+  fontWeight: 600,
 };
 
 const Grid = {
@@ -171,9 +174,7 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
       <div style={ModalContainer}>
         {!revealAnswer && (
           <>
-            <div style={Title}>
-              <h1>{countryName}</h1>
-            </div>
+            <div style={Title}>{countryName}</div>
             <div style={Grid} ref={buttonsRef}>
               {shuffledDishes.map((dish, index) => (
                 <button className="block-button" key={index} onClick={(e) => setColor(e)}>
@@ -203,6 +204,7 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
                 </a>
               </h3>
             </div>
+            <div style={Subtitle}>{isCorrect? "Advance to the next country!" : `Return to ${countryName} and try again.`}</div>
           </>
         )}
         <div style={Footer}>
