@@ -180,7 +180,10 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
         setVisited(visited);
 
         const clicked_data = await fetchCountryData(clickedCountry);
-        if (parseAdjacentCountries(currentCountry.Adjacent).includes(clicked_data.Country)) {
+        if (
+          clicked_data !== undefined &&
+          parseAdjacentCountries(currentCountry.Adjacent).includes(clicked_data.Country)
+        ) {
           const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
           const longitude = Number(clicked_data.Long.replace(/"/g, ""));
           map.flyTo({ center: [longitude, latitude], zoom: 4 });
