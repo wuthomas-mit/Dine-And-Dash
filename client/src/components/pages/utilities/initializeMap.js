@@ -1,5 +1,4 @@
 import mapboxgl from "mapbox-gl";
-import centroid from "@turf/centroid";
 
 async function fetchRandomCountry() {
   try {
@@ -41,12 +40,13 @@ async function fetchCountryData(countryCode) {
     }
 
     // Use the country data as needed
+    console.log("Input Country:", countryData);
     return countryData;
   } catch (error) {
     console.error("Failed to fetch country data:", error);
   }
 }
-
+let currentCountry;
 const initializeMap = () => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
@@ -57,12 +57,6 @@ const initializeMap = () => {
     zoom: 0, // starting zoom
   });
   map.on("load", async function () {
-    const rand = await fetchRandomCountry();
-    const lat = Number(rand.Lat.replace(/"/g, ""));
-    const long = Number(rand.Long.replace(/"/g, ""));
-
-    map.flyTo({ center: [long, lat], zoom: 4 });
-
     map.addSource("country", {
       type: "geojson",
       data: "https://gist.githubusercontent.com/wuthomas-mit/02fb8cd83979415cfd5aed40bc6970ef/raw/25850382799bdd29b32fe48c5336d10ccfa2d1d9/countries.geojson",
@@ -101,8 +95,16 @@ const initializeMap = () => {
       },
       filter: ["==", "ISO_A2", ""],
     });
-    console.log(rand.Counr);
+
+    const rand = await fetchRandomCountry();
+    currentCountry = rand;
+    console.log(currentCountry.Adjacent);
+    const lat = Number(rand.Lat.replace(/"/g, ""));
+    const long = Number(rand.Long.replace(/"/g, ""));
+
+    map.flyTo({ center: [long, lat], zoom: 4 });
     map.setFilter("country-clicked", ["==", "ISO_A2", rand.twoCode]);
+    map.setFilter("country-fills", ["in", "name"].concat(adjCountries));
 
     // When the user moves their mouse over the page, we look for features
     // at the mouse position (e.point) and within the states layer (states-fill).
