@@ -135,6 +135,16 @@ function TriviaModal({ closeTrivia }) {
     }
   }
 
+  // function getWikipediaUrl(dish) {
+  //   const formattedDish = dish.replace(/\s+/g, '_'); // Replace spaces with underscores
+  //   return `https://en.wikipedia.org/wiki/${formattedDish}`;
+  // }
+
+  function getWikipediaSearchUrl(dish) {
+    const formattedDish = encodeURIComponent(dish); // URL encode the dish name
+    return `https://en.wikipedia.org/w/index.php?search=${formattedDish}`;
+  }
+
   return (
     <div style={ModalBackground}>
       <div style={ModalContainer}>
@@ -160,7 +170,22 @@ function TriviaModal({ closeTrivia }) {
             <div style={Subtitle}>
               <h3>The most popular dish in {countryName} is:</h3>
             </div>
-            <div style={BlockAnswer}>{countryFood[countryName]}</div>
+            <div style={Title}>
+              <h1>{countryFood[countryName]}</h1>
+            </div>
+            {/* <div style={BlockAnswer}>{countryFood[countryName]}</div> */}
+            <div style={Subtitle}>
+              {/* <h3>Click here to learn more: <a href={getWikipediaUrl(countryFood[countryName])} target="_blank" rel="noopener noreferrer">Learn more on Wikipedia</a></h3> */}
+              <h3>
+                <a
+                  href={getWikipediaSearchUrl(countryFood[countryName])}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Learn more on Wikipedia (Note: Page might not exist)
+                </a>
+              </h3>
+            </div>
           </>
         )}
         <div style={Footer}>
@@ -169,7 +194,7 @@ function TriviaModal({ closeTrivia }) {
               <button className="button" onClick={clearStyles}>
                 Clear
               </button>
-              <button className="button" onClick={handleSubmit}>
+              <button className="button" onClick={handleSubmit} disabled={selectedFoods.length === 0}>
                 Submit
               </button>
             </>
