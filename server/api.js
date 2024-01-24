@@ -45,12 +45,26 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.get("/profile", auth.ensureLoggedIn, (req, res) => {
-  try {
-    res.send(req.user);
-  } catch (error) {
-    res.status(500).send({ msg: "Error fetching user data" });
-  }
+router.post("/updateProfile", (req, res) => {
+  const userId = req.user._id;
+  const newProfileData = req.body;
+
+  // Update the user profile in the database
+  User.findByIdAndUpdate(userId, newProfileData, { new: true })
+    .then((updatedUser) => {
+      // Send the updated user data back to the client
+      res.send(updatedUser);
+
+      // Emit a 'profileUpdate' event to the specific user's socket
+      const userSocket = socketManager.getSocketFromUserID(updatedUser._id);
+      if (userSocket) {
+        userSocket.emit("profileUpdated", updatedUser);
+      }
+    })
+    .catch((error) => {
+      console.error("Error updating user profile:", error);
+      res.status(500).send({ msg: "Error updating profile" });
+    });
 });
 
 router.get("/countries", (req, res) => {
@@ -64,20 +78,37 @@ router.get("/countries", (req, res) => {
     });
 });
 
-router.post("/incrementWin", auth.ensureLoggedIn, async (req, res) => {
+const recordWinAndUpdateProfile = async (userId) => {
   try {
-    const userId = req.user._id;
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: userId },
-      { $inc: { wins: 1 } }, // Increment wins
-      { new: true } // Return the updated document
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $inc: { wins: 1 } }, // Increment the win count
+      { new: true } // Return the updated user document
     );
-    res.send(updatedUser);
+
+    // Emit an event with the updated user profile
+    const userSocket = socketManager.getSocketFromUserID(userId);
+    if (userSocket) {
+      userSocket.emit("profileUpdated", updatedUser);
+    }
   } catch (error) {
-    console.error("Error updating win count:", error);
-    res.status(500).send({ msg: "Error updating win count" });
+    console.error("Error updating user profile:", error);
+    // Handle error appropriately
+  }
+};
+// Route that gets called when a user wins a game
+router.post("/recordWin", async (req, res) => {
+  const userId = req.user._id;
+
+  try {
+    await recordWinAndUpdateProfile(userId);
+    res.send({ success: true, message: "Win recorded and profile updated." });
+  } catch (error) {
+    console.error("Error recording win:", error);
+    res.status(500).send({ success: false, message: "Error recording win." });
   }
 });
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

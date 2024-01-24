@@ -32,9 +32,11 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
           <img src={globe} alt="globe" />
         </div>
         <div className="button-container">
-          {/* <div className="Local">
-            <button className="button" onClick={handlePlayLocal}><span>Play Local</span></button>
-          </div> */}
+          <div className="Local">
+            <button className="button" onClick={handlePlayLocal}>
+              <span>Play Local</span>
+            </button>
+          </div>
           <div className="Online">
             <button className="button" onClick={toggleDropdown}>
               <span>Play Online</span>
