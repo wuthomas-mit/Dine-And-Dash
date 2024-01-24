@@ -60,7 +60,8 @@ function parseAdjacentCountries(dataString) {
 }
 
 let currentCountry;
-const initializeMap = () => {
+let goalCountry;
+const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVisited) => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
   const map = new mapboxgl.Map({
@@ -109,9 +110,18 @@ const initializeMap = () => {
       filter: ["==", "ISO_A2", ""],
     });
 
-    currentCountry = await fetchRandomCountry();
-    const lat = Number(currentCountry.Lat.replace(/"/g, ""));
-    const long = Number(currentCountry.Long.replace(/"/g, ""));
+    // defines Start and Goal countries that stay unchanged through the game
+    const currentCountry = await fetchRandomCountry();
+    setStartCountry(currentCountry.Country);
+    const ran = await fetchRandomCountry();
+    setGoalCountry(ran.Country);
+    // start a set of the new countries user has visited
+    let visited = new Set();
+    visited.add(currentCountry.twoCode);
+
+    const lat = Number(rand.Lat.replace(/"/g, ""));
+    const long = Number(rand.Long.replace(/"/g, ""));
+
     map.flyTo({ center: [long, lat], zoom: 4 });
     map.setFilter("country-clicked", ["==", "ISO_A2", currentCountry.twoCode]);
 
@@ -161,6 +171,12 @@ const initializeMap = () => {
       });
       if (features.length) {
         var clickedCountry = features[0].properties.ISO_A2;
+        setCurrentCountry(features[0].properties.ADMIN);
+        // add current country to set of visited countries
+        // NEED TO ADD LATER to user's profile of total visited
+        visited.add(clickedCountry);
+        setVisited(visited);
+
         const clicked_data = await fetchCountryData(clickedCountry);
         if (parseAdjacentCountries(currentCountry.Adjacent).includes(clicked_data.Country)) {
           const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
