@@ -40,7 +40,7 @@ async function fetchCountryData(countryCode) {
     }
 
     // Use the country data as needed
-    console.log("Input Country:", countryData);
+    // console.log("Input Country:", countryData);
     return countryData;
   } catch (error) {
     console.error("Failed to fetch country data:", error);
@@ -112,7 +112,6 @@ const initializeMap = () => {
     currentCountry = await fetchRandomCountry();
     const lat = Number(currentCountry.Lat.replace(/"/g, ""));
     const long = Number(currentCountry.Long.replace(/"/g, ""));
-    console.log("help");
     map.flyTo({ center: [long, lat], zoom: 4 });
     map.setFilter("country-clicked", ["==", "ISO_A2", currentCountry.twoCode]);
 
@@ -136,12 +135,14 @@ const initializeMap = () => {
           lastHoveredData !== null &&
           parseAdjacentCountries(currentCountry.Adjacent).includes(lastHoveredData.Country)
         ) {
-          console.log("success", lastHoveredData.Country);
+          // console.log("success", lastHoveredData.Country);
           map.setFilter("country-fills-hover", ["==", "ISO_A2", hoveredCountry]);
           map.getCanvas().style.cursor = "pointer";
+        } else {
+          map.setFilter("country-fills-hover", ["==", "ISO_A2", ""]);
+          map.getCanvas().style.cursor = "";
         }
       } else {
-        console.log("Resetting hover filter");
         map.setFilter("country-fills-hover", ["==", "ISO_A2", ""]);
         map.getCanvas().style.cursor = "";
       }
@@ -153,16 +154,7 @@ const initializeMap = () => {
       map.setFilter("country-fills-hover", ["==", "ISO_A2", ""]);
     });
 
-    // map.on("click", function (e) {
-    //   var features = map.queryRenderedFeatures(e.point, {
-    //     layers: ["country-fills"],
-    //   });
-    //   if (features.length) {
-    //     window.location =
-    //       "https://en.wikipedia.org/wiki/" + features[0].properties.ADMIN;
-    //   }
-    // });
-    let lastClickedCountry = null;
+    // let lastClickedCountry = null;
     map.on("click", async function (e) {
       var features = map.queryRenderedFeatures(e.point, {
         layers: ["country-fills"],
@@ -170,19 +162,13 @@ const initializeMap = () => {
       if (features.length) {
         var clickedCountry = features[0].properties.ISO_A2;
         const clicked_data = await fetchCountryData(clickedCountry);
-        const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
-        const longitude = Number(clicked_data.Long.replace(/"/g, ""));
-        map.flyTo({ center: [longitude, latitude], zoom: 4 });
-
-        // Check if the clicked country is the same as the last clicked country
-        if (clickedCountry === lastClickedCountry) {
-          // If it's the same country, reset the filter and clear the last clicked country
+        if (parseAdjacentCountries(currentCountry.Adjacent).includes(clicked_data.Country)) {
+          const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
+          const longitude = Number(clicked_data.Long.replace(/"/g, ""));
+          map.flyTo({ center: [longitude, latitude], zoom: 4 });
           map.setFilter("country-clicked", ["==", "ISO_A2", ""]);
-          lastClickedCountry = null;
-        } else {
-          // If it's a different country, set the filter and update the last clicked country
           map.setFilter("country-clicked", ["==", "ISO_A2", clickedCountry]);
-          lastClickedCountry = clickedCountry;
+          currentCountry = clicked_data;
         }
       }
     });
