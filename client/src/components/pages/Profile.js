@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { get } from "../../utilities";
-import { useLocation } from "react-router-dom";
+import { socket } from "../../client-socket.js";
+import { post } from "../../utilities";
 
 import "../../utilities.css";
 import "../css/Profile.css";
@@ -8,17 +9,35 @@ import "../css/Home.css";
 
 const Profile = ({}) => {
   const [userData, setUserData] = useState(null);
-  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
   const [favoriteCountry, setFavoriteCountry] = useState("");
 
   useEffect(() => {
-    get(`/api/profile`).then((data) => {
-      setUserData(data);
-    });
+    setIsLoading(true);
+    post("/api/updateProfile")
+      .then((data) => {
+        console.log("updated:", data);
+        // Handle the response, update UI, etc.
+      })
+      .catch((error) => {
+        console.error("Error :", error);
+      });
+    // Define a handler for profile updates
+    const handleProfileUpdate = (updatedProfile) => {
+      setUserData(updatedProfile);
+    };
+
     if (userData) {
       setFavoriteCountry(userData.favoriteCountry || "");
     }
-  }, [location]);
+    // Listen for profile update events from the server
+    socket.on("profileUpdated", handleProfileUpdate);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      socket.off("profileUpdated", handleProfileUpdate);
+    };
+  }, []);
   if (!userData) {
     return <div>Loading...</div>;
   }

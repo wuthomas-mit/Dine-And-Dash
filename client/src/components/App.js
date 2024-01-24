@@ -29,6 +29,20 @@ const App = () => {
         setUserId(user._id);
       }
     });
+
+    // Global WebSocket event listeners
+    const handleGlobalEvent = (data) => {
+      // Handle global event
+      console.log("Global event data:", data);
+      // Update state or perform actions based on event
+    };
+
+    socket.on("globalEvent", handleGlobalEvent);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      socket.off("globalEvent", handleGlobalEvent);
+    };
   }, []);
 
   const handleLogin = (credentialResponse) => {

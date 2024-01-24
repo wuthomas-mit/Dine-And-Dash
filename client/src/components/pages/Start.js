@@ -6,7 +6,7 @@ import "../../utilities.css";
 
 const Start = () => {
   function handleWin() {
-    post("/api/incrementWin")
+    post("/api/recordWin")
       .then((data) => {
         console.log("Win count updated:", data);
         // Handle the response, update UI, etc.
