@@ -11,8 +11,15 @@
 }
 
 .navbar .Home {
-  padding: 0 20px; /* Padding on the sides */
+  padding: 0 20px;
+  align-items: center;
 }
+
+#title {
+  font-size: 36px;
+  font-weight: 700;
+}
+
 .navbar .Right {
   display: flex;
   padding-right: 20px; /* Padding on the right side */
@@ -26,7 +33,6 @@
 .navbar a {
   color: white;
   text-decoration: none;
-  padding: 10px 20px;
 }
 
 .question {
