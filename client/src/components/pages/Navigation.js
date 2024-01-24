@@ -21,7 +21,7 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="navbar">
         <div className="Home">
-          <Link to="/">Dine and Dash</Link>
+          <Link id="title" to="/">Dine and Dash</Link>
         </div>
         <div className="Right">
           <div className="User" onClick={toggleDropdown}>

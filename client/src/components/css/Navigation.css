@@ -15,6 +15,11 @@
   align-items: center;
 }
 
+#title {
+  font-size: 36px;
+  font-weight: 700;
+}
+
 .navbar .Right {
   display: flex;
   padding-right: 20px; /* Padding on the right side */
@@ -28,8 +33,6 @@
 .navbar a {
   color: white;
   text-decoration: none;
-  font-size: 36px;
-  font-weight: 700;
 }
 
 .question {
