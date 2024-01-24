@@ -119,8 +119,8 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
     let visited = new Set();
     visited.add(currentCountry.twoCode);
 
-    const lat = Number(rand.Lat.replace(/"/g, ""));
-    const long = Number(rand.Long.replace(/"/g, ""));
+    const lat = Number(currentCountry.Lat.replace(/"/g, ""));
+    const long = Number(currentCountry.Long.replace(/"/g, ""));
 
     map.flyTo({ center: [long, lat], zoom: 4 });
     map.setFilter("country-clicked", ["==", "ISO_A2", currentCountry.twoCode]);
