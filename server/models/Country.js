@@ -5,6 +5,7 @@ const countrySchema = new mongoose.Schema({
   twoCode: String,
   Lat: String,
   Long: String,
+  Adjacent: [String],
 });
 
 module.exports = mongoose.model("Country", countrySchema, "Countries");
