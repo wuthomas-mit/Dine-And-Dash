@@ -24,6 +24,8 @@ const Title = {
   alignItems: "center",
   height: "48px",
   marginBottom: "28px",
+  fontSize: "48px",
+  fontWeight: 800,
 };
 
 const Subtitle = {
@@ -32,7 +34,8 @@ const Subtitle = {
   alignItems: "center",
   height: "24px",
   marginBottom: "28px",
-  fontSize: "20px",
+  fontSize: "24px",
+  fontWeight: 600,
 };
 
 const Grid = {
@@ -150,9 +153,7 @@ function TriviaModal({ closeTrivia }) {
       <div style={ModalContainer}>
         {!revealAnswer && (
           <>
-            <div style={Title}>
-              <h1>{countryName}</h1>
-            </div>
+            <div style={Title}>{countryName}</div>
             <div style={Grid} ref={buttonsRef}>
               {Object.keys(countryFood).map((key, index) => (
                 <button className="block-button" key={index} onClick={(e) => setColor(e)}>
@@ -164,28 +165,21 @@ function TriviaModal({ closeTrivia }) {
         )}
         {revealAnswer && (
           <>
-            <div style={Title}>
-              <h1>{isCorrect ? "Correct!" : "Incorrect..."}</h1>
-            </div>
-            <div style={Subtitle}>
-              <h3>The most popular dish in {countryName} is:</h3>
-            </div>
-            <div style={Title}>
-              <h1>{countryFood[countryName]}</h1>
-            </div>
+            <div style={Title}>{isCorrect ? "Correct!" : "Incorrect..."}</div>
+            <div style={Subtitle}>The most popular dish in {countryName} is:</div>
+            <div style={Title}>{countryFood[countryName]}</div>
             {/* <div style={BlockAnswer}>{countryFood[countryName]}</div> */}
             <div style={Subtitle}>
               {/* <h3>Click here to learn more: <a href={getWikipediaUrl(countryFood[countryName])} target="_blank" rel="noopener noreferrer">Learn more on Wikipedia</a></h3> */}
-              <h3>
-                <a
-                  href={getWikipediaSearchUrl(countryFood[countryName])}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Learn more on Wikipedia (Note: Page might not exist)
-                </a>
-              </h3>
+              <a
+                href={getWikipediaSearchUrl(countryFood[countryName])}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Learn more on Wikipedia (Note: Page might not exist)
+              </a>
             </div>
+            <div style={Subtitle}>{isCorrect? "Advance to the next country!" : `Return to ${countryName} and try again.`}</div>
           </>
         )}
         <div style={Footer}>
@@ -194,7 +188,11 @@ function TriviaModal({ closeTrivia }) {
               <button className="button" onClick={clearStyles}>
                 Clear
               </button>
-              <button className="button" onClick={handleSubmit} disabled={selectedFoods.length === 0}>
+              <button
+                className="button"
+                onClick={handleSubmit}
+                disabled={selectedFoods.length === 0}
+              >
                 Submit
               </button>
             </>
