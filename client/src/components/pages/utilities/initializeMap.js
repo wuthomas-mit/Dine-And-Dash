@@ -59,8 +59,8 @@ function parseAdjacentCountries(dataString) {
   }
 }
 
-let currentCountry;
-let goalCountry;
+let currentCountry = null;
+let goalCountry = null;
 const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVisited) => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
@@ -111,10 +111,11 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
     });
 
     // defines Start and Goal countries that stay unchanged through the game
-    const currentCountry = await fetchRandomCountry();
+    currentCountry = await fetchRandomCountry();
     setStartCountry(currentCountry.Country);
     const ran = await fetchRandomCountry();
-    setGoalCountry(ran.Country);
+    goalCountry = ran;
+    setGoalCountry(goalCountry.Country);
     // start a set of the new countries user has visited
     let visited = new Set();
     visited.add(currentCountry.twoCode);
