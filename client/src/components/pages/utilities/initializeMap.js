@@ -16,7 +16,7 @@ async function fetchRandomCountry() {
     const randomCountry = countries[randomIndex];
 
     // Use the random country as needed
-    console.log("Random Country:", randomCountry);
+    // console.log("Random Country:", randomCountry);
     return randomCountry;
   } catch (error) {
     console.error("Failed to fetch a random country:", error);
@@ -46,6 +46,19 @@ async function fetchCountryData(countryCode) {
     console.error("Failed to fetch country data:", error);
   }
 }
+
+function parseAdjacentCountries(dataString) {
+  // Replace single quotes with double quotes and remove brackets for JSON parsing
+  const jsonString = dataString[0].replace(/'/g, '"');
+  try {
+    const countriesArray = JSON.parse(jsonString);
+    return countriesArray;
+  } catch (error) {
+    console.error("Error parsing adjacent countries data:", error);
+    return [];
+  }
+}
+
 let currentCountry;
 const initializeMap = () => {
   mapboxgl.accessToken =
@@ -96,28 +109,39 @@ const initializeMap = () => {
       filter: ["==", "ISO_A2", ""],
     });
 
-    const rand = await fetchRandomCountry();
-    currentCountry = rand;
-    console.log(currentCountry.Adjacent);
-    const lat = Number(rand.Lat.replace(/"/g, ""));
-    const long = Number(rand.Long.replace(/"/g, ""));
-
+    currentCountry = await fetchRandomCountry();
+    const lat = Number(currentCountry.Lat.replace(/"/g, ""));
+    const long = Number(currentCountry.Long.replace(/"/g, ""));
+    console.log("help");
     map.flyTo({ center: [long, lat], zoom: 4 });
-    map.setFilter("country-clicked", ["==", "ISO_A2", rand.twoCode]);
-    map.setFilter("country-fills", ["in", "name"].concat(adjCountries));
+    map.setFilter("country-clicked", ["==", "ISO_A2", currentCountry.twoCode]);
 
     // When the user moves their mouse over the page, we look for features
     // at the mouse position (e.point) and within the states layer (states-fill).
     // If a feature is found, then we'll update the filter in the state-fills-hover
     // layer to only show that state, thus making a hover effect.
-    map.on("mousemove", function (e) {
+    let lastHoveredCountry = null;
+    let lastHoveredData = null;
+    map.on("mousemove", async function (e) {
       var features = map.queryRenderedFeatures(e.point, {
         layers: ["country-fills"],
       });
       if (features.length) {
-        map.getCanvas().style.cursor = "pointer";
-        map.setFilter("country-fills-hover", ["==", "ISO_A2", features[0].properties.ISO_A2]);
+        var hoveredCountry = features[0].properties.ISO_A2;
+        if (hoveredCountry !== lastHoveredCountry && hoveredCountry !== currentCountry) {
+          lastHoveredCountry = hoveredCountry;
+          lastHoveredData = await fetchCountryData(hoveredCountry);
+        }
+        if (
+          lastHoveredData !== null &&
+          parseAdjacentCountries(currentCountry.Adjacent).includes(lastHoveredData.Country)
+        ) {
+          console.log("success", lastHoveredData.Country);
+          map.setFilter("country-fills-hover", ["==", "ISO_A2", hoveredCountry]);
+          map.getCanvas().style.cursor = "pointer";
+        }
       } else {
+        console.log("Resetting hover filter");
         map.setFilter("country-fills-hover", ["==", "ISO_A2", ""]);
         map.getCanvas().style.cursor = "";
       }
