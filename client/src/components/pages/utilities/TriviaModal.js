@@ -77,8 +77,6 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [ans, setAns] = useState(false);
 
-  console.log("dish", trivia_countries);
-
   let countryName = trivia_countries[0].Country;
   const selectRandomDish = (dishString) => {
     const dishes = dishString.split(",").map((dish) => dish.trim());

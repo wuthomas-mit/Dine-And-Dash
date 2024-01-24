@@ -66,7 +66,8 @@ const initializeMap = (
   setGoalCountry,
   setCurrentCountry,
   setVisited,
-  setcurrentTriviaCountries
+  setcurrentTriviaCountries,
+  setOpenTrivia
 ) => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
@@ -237,10 +238,13 @@ const initializeMap = (
           setVisited(visited);
           const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
           const longitude = Number(clicked_data.Long.replace(/"/g, ""));
-          map.flyTo({ center: [longitude, latitude], zoom: 4 });
+          map.flyTo({ center: [longitude, latitude], zoom: 4, speed: 0.4 });
           map.setFilter("country-clicked", ["==", "ISO_A2", ""]);
           map.setFilter("country-clicked", ["==", "ISO_A2", clickedCountry]);
           currentCountry = clicked_data;
+          setTimeout(() => {
+            setOpenTrivia(true); // Open the trivia modal after a delay
+          }, 1000); // Delay in milliseconds, e.g., 3000ms = 3 seconds
         }
       }
     });

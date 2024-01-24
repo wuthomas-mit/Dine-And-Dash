@@ -21,7 +21,8 @@ const Gameplay = () => {
       setGoalCountry,
       setCurrentCountry,
       setVisited,
-      setcurrentTriviaCountries
+      setcurrentTriviaCountries,
+      setOpenTrivia
     );
   }, []);
 
@@ -29,7 +30,7 @@ const Gameplay = () => {
     <div className="game-container">
       <div id="map"></div>
       <TimerComponent />
-      <button
+      {/* <button
         className="button"
         id="trivia"
         onClick={() => {
@@ -37,7 +38,7 @@ const Gameplay = () => {
         }}
       >
         Open Trivia
-      </button>
+      </button> */}
       {openTrivia && (
         <TriviaModal closeTrivia={setOpenTrivia} trivia_countries={currentTriviaCountries} />
       )}
