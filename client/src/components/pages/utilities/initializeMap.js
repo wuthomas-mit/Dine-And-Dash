@@ -144,6 +144,7 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
         }
         if (
           lastHoveredData !== null &&
+          lastHoveredData !== undefined &&
           parseAdjacentCountries(currentCountry.Adjacent).includes(lastHoveredData.Country)
         ) {
           // console.log("success", lastHoveredData.Country);
