@@ -32,7 +32,6 @@ const Gameplay = () => {
         Open Trivia
       </button>
       {openTrivia && <TriviaModal closeTrivia={setOpenTrivia} />}
-      {openTrivia && <TriviaModal />}
       <div className="game-info-container">
         <div className="game-info">
           <div className="text">Start: {startCountry}</div>
@@ -40,7 +39,7 @@ const Gameplay = () => {
         </div>
         <div className="game-info">
           <div className="text">Current: {currentCountry}</div>
-          <div className="text">Visited: {visited? visited.size : 1}</div>
+          <div className="text">Visited: {visited ? visited.size : 1}</div>
         </div>
       </div>
     </div>
