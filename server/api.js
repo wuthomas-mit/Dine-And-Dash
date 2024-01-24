@@ -68,7 +68,7 @@ router.post("/updateProfile", (req, res) => {
 });
 
 router.get("/countries", (req, res) => {
-  Country.find({}, "Country twoCode Lat Long Adjacent") // Projection to get only twoCode, Lat, Long fields
+  Country.find({}, "Country twoCode Lat Long Adjacent Dish") // Projection to get only twoCode, Lat, Long fields
     .then((countries) => {
       res.send(countries);
     })

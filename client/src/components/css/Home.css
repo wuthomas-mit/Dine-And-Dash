@@ -89,3 +89,14 @@ body {
 .block-button:hover {
   background-color: #F1E7D6;
 }
+
+#play-online-button {
+  position: absolute;
+  top: 58px; /* Position below the image */
+  left: 0%;
+  background-color: None;
+  width: 70px; /* Set a width for your dropdown */
+  /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+  font-weight: 500;
+  z-index: 1;
+}

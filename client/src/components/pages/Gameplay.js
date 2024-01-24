@@ -12,17 +12,25 @@ const Gameplay = () => {
   const [currentCountry, setCurrentCountry] = useState(null);
   const [visited, setVisited] = useState(null);
   const [openTrivia, setOpenTrivia] = useState(false);
+  const [currentTriviaCountries, setcurrentTriviaCountries] = useState(null);
 
   // useEffect for map initialization
   useEffect(() => {
-    initializeMap(setStartCountry, setGoalCountry, setCurrentCountry, setVisited);
+    initializeMap(
+      setStartCountry,
+      setGoalCountry,
+      setCurrentCountry,
+      setVisited,
+      setcurrentTriviaCountries,
+      setOpenTrivia
+    );
   }, []);
 
   return (
     <div className="game-container">
       <div id="map"></div>
       <TimerComponent />
-      <button
+      {/* <button
         className="button"
         id="trivia"
         onClick={() => {
@@ -30,9 +38,10 @@ const Gameplay = () => {
         }}
       >
         Open Trivia
-      </button>
-      {openTrivia && <TriviaModal closeTrivia={setOpenTrivia} />}
-      {openTrivia && <TriviaModal />}
+      </button> */}
+      {openTrivia && (
+        <TriviaModal closeTrivia={setOpenTrivia} trivia_countries={currentTriviaCountries} />
+      )}
       <div className="game-info-container">
         <div className="game-info">
           <div className="text">Start: {startCountry}</div>
@@ -40,7 +49,7 @@ const Gameplay = () => {
         </div>
         <div className="game-info">
           <div className="text">Current: {currentCountry}</div>
-          <div className="text">Visited: {visited? visited.size : 1}</div>
+          <div className="text">Visited: {visited ? visited.size : 1}</div>
         </div>
       </div>
     </div>
