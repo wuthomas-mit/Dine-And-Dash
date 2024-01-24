@@ -84,8 +84,6 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
     const dishes = dishString.split(",").map((dish) => dish.trim());
     return dishes[Math.floor(Math.random() * dishes.length)];
   };
-  const countryFood = trivia_countries.map((country) => selectRandomDish(country.Dish));
-
   const [shuffledDishes, setShuffledDishes] = useState([]);
 
   function shuffle(array) {
@@ -96,23 +94,32 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
     return array;
   }
   useEffect(() => {
+    const countryFood = trivia_countries.map((country, index) => {
+      const selectedDish = selectRandomDish(country.Dish);
+      // Store the selected dish for the first country
+      if (index === 0) {
+        setAns(selectedDish);
+      }
+      return selectedDish;
+    });
     setShuffledDishes(shuffle([...countryFood]));
   }, [trivia_countries]);
 
   function setColor(e) {
-    var target = e.target,
-      food = target.textContent,
-      isSelected = target.dataset.count === "1";
+    const target = e.target;
+    const food = target.textContent;
 
-    if (isSelected) {
-      setSelectedFoods(selectedFoods.filter((item) => item !== food));
-      target.style.border = "None";
-      target.dataset.count = "0";
-    } else {
-      setSelectedFoods([...selectedFoods, food]);
-      target.style.border = "3px solid #24282A";
-      target.dataset.count = "1";
-    }
+    // Reset styles for all buttons
+    const buttons = buttonsRef.current.querySelectorAll(".block-button");
+    buttons.forEach((button) => {
+      button.style.border = "none";
+      button.dataset.count = "0";
+    });
+
+    // Set selected food and apply style to the clicked button
+    setSelectedFoods(food);
+    target.style.border = "3px solid #24282A";
+    target.dataset.count = "1";
   }
 
   function clearStyles() {
@@ -134,7 +141,6 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
         if (firstCountryDishes.includes(button.textContent)) {
           button.style.border = "3px solid green"; // Correct pairing
           correctAnswerFound = true;
-          setAns(button.textContent);
         } else {
           button.style.border = "3px solid red"; // Incorrect pairing
         }
