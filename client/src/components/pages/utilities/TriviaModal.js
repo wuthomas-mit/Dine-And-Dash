@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../../css/Home.css";
 
 const ModalBackground = {};
@@ -72,35 +72,55 @@ const Footer = {
   marginTop: "20px",
 };
 
-function TriviaModal({ closeTrivia }) {
+function TriviaModal({ closeTrivia, trivia_countries }) {
   const buttonsRef = useRef(null);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [revealAnswer, setRevealAnswer] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [ans, setAns] = useState(false);
 
-  let countryName = "Hungary";
-  const countryFood = {
-    Hungary: "Goulash",
-    Ethiopia: "Doro wat",
-    Luxembourg: "Judd mat gaardebounen",
-    Barbados: "Cou cou and flying fish",
+  let countryName = trivia_countries[0].Country;
+  const selectRandomDish = (dishString) => {
+    const dishes = dishString.split(",").map((dish) => dish.trim());
+    return dishes[Math.floor(Math.random() * dishes.length)];
   };
+  const [shuffledDishes, setShuffledDishes] = useState([]);
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+    return array;
+  }
+  useEffect(() => {
+    const countryFood = trivia_countries.map((country, index) => {
+      const selectedDish = selectRandomDish(country.Dish);
+      // Store the selected dish for the first country
+      if (index === 0) {
+        setAns(selectedDish);
+      }
+      return selectedDish;
+    });
+    setShuffledDishes(shuffle([...countryFood]));
+  }, [trivia_countries]);
 
   function setColor(e) {
-    var target = e.target,
-      food = target.textContent,
-      isSelected = target.dataset.count === "1";
+    const target = e.target;
+    const food = target.textContent;
 
-    if (isSelected) {
-      setSelectedFoods(selectedFoods.filter((item) => item !== food));
-      target.style.border = "None";
-      target.dataset.count = "0";
-    } else {
-      setSelectedFoods([...selectedFoods, food]);
-      target.style.border = "3px solid #24282A";
-      target.dataset.count = "1";
-    }
+    // Reset styles for all buttons
+    const buttons = buttonsRef.current.querySelectorAll(".block-button");
+    buttons.forEach((button) => {
+      button.style.border = "none";
+      button.dataset.count = "0";
+    });
+
+    // Set selected food and apply style to the clicked button
+    setSelectedFoods(food);
+    target.style.border = "3px solid #24282A";
+    target.dataset.count = "1";
   }
 
   function clearStyles() {
@@ -118,7 +138,8 @@ function TriviaModal({ closeTrivia }) {
     const buttons = buttonsRef.current.querySelectorAll(".block-button");
     buttons.forEach((button) => {
       if (selectedFoods.includes(button.textContent)) {
-        if (button.textContent === countryFood[countryName]) {
+        const firstCountryDishes = trivia_countries[0].Dish.split(",").map((dish) => dish.trim());
+        if (firstCountryDishes.includes(button.textContent)) {
           button.style.border = "3px solid green"; // Correct pairing
           correctAnswerFound = true;
         } else {
@@ -155,9 +176,9 @@ function TriviaModal({ closeTrivia }) {
           <>
             <div style={Title}>{countryName}</div>
             <div style={Grid} ref={buttonsRef}>
-              {Object.keys(countryFood).map((key, index) => (
+              {shuffledDishes.map((dish, index) => (
                 <button className="block-button" key={index} onClick={(e) => setColor(e)}>
-                  {countryFood[key]}
+                  {dish}
                 </button>
               ))}
             </div>
@@ -165,19 +186,23 @@ function TriviaModal({ closeTrivia }) {
         )}
         {revealAnswer && (
           <>
-            <div style={Title}>{isCorrect ? "Correct!" : "Incorrect..."}</div>
-            <div style={Subtitle}>The most popular dish in {countryName} is:</div>
-            <div style={Title}>{countryFood[countryName]}</div>
+            <div style={Title}>
+              <h1>{isCorrect ? "Correct!" : "Incorrect..."}</h1>
+            </div>
+            <div style={Subtitle}>
+              <h3>One of the most popular dishes in {countryName} is:</h3>
+            </div>
+            <div style={Title}>
+              <h1>{ans}</h1>
+            </div>
             {/* <div style={BlockAnswer}>{countryFood[countryName]}</div> */}
             <div style={Subtitle}>
               {/* <h3>Click here to learn more: <a href={getWikipediaUrl(countryFood[countryName])} target="_blank" rel="noopener noreferrer">Learn more on Wikipedia</a></h3> */}
-              <a
-                href={getWikipediaSearchUrl(countryFood[countryName])}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn more on Wikipedia (Note: Page might not exist)
-              </a>
+              <h3>
+                <a href={getWikipediaSearchUrl(ans)} target="_blank" rel="noopener noreferrer">
+                  Learn more on Wikipedia (Note: Page might not exist)
+                </a>
+              </h3>
             </div>
             <div style={Subtitle}>{isCorrect? "Advance to the next country!" : `Return to ${countryName} and try again.`}</div>
           </>

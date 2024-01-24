@@ -61,7 +61,14 @@ function parseAdjacentCountries(dataString) {
 
 let currentCountry = null;
 let goalCountry = null;
-const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVisited) => {
+const initializeMap = (
+  setStartCountry,
+  setGoalCountry,
+  setCurrentCountry,
+  setVisited,
+  setcurrentTriviaCountries,
+  setOpenTrivia
+) => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
   const map = new mapboxgl.Map({
@@ -209,23 +216,35 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
       });
       if (features.length) {
         var clickedCountry = features[0].properties.ISO_A2;
-        setCurrentCountry(features[0].properties.ADMIN);
-        // add current country to set of visited countries
-        // NEED TO ADD LATER to user's profile of total visited
-        visited.add(clickedCountry);
-        setVisited(visited);
 
         const clicked_data = await fetchCountryData(clickedCountry);
         if (
           clicked_data !== undefined &&
           parseAdjacentCountries(currentCountry.Adjacent).includes(clicked_data.Country)
         ) {
+          setCurrentCountry(features[0].properties.ADMIN);
+
+          const triviaCountry = await fetchCountryData(features[0].properties.ISO_A2);
+          const random_1 = await fetchRandomCountry();
+          const random_2 = await fetchRandomCountry();
+          const random_3 = await fetchRandomCountry();
+
+          const tCountries = [triviaCountry, random_1, random_2, random_3];
+          setcurrentTriviaCountries(tCountries);
+
+          // add current country to set of visited countries
+          // NEED TO ADD LATER to user's profile of total visited
+          visited.add(clickedCountry);
+          setVisited(visited);
           const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
           const longitude = Number(clicked_data.Long.replace(/"/g, ""));
-          map.flyTo({ center: [longitude, latitude], zoom: 4 });
+          map.flyTo({ center: [longitude, latitude], zoom: 4, speed: 0.4 });
           map.setFilter("country-clicked", ["==", "ISO_A2", ""]);
           map.setFilter("country-clicked", ["==", "ISO_A2", clickedCountry]);
           currentCountry = clicked_data;
+          setTimeout(() => {
+            setOpenTrivia(true); // Open the trivia modal after a delay
+          }, 1000); // Delay in milliseconds, e.g., 3000ms = 3 seconds
         }
       }
     });
