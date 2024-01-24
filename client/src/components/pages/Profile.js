@@ -22,7 +22,6 @@ const Profile = ({}) => {
       });
     // Define a handler for profile updates
     const handleProfileUpdate = (updatedProfile) => {
-      console.log("Profile updated?:", updatedProfile);
       setUserData(updatedProfile);
     };
 
@@ -39,7 +38,6 @@ const Profile = ({}) => {
   }
   return (
     <div className="profile-container">
-      {console.log("Rendering profile with data:", userData)}
       <div>Name: {userData.name}</div>
       <div>Wins: {userData.wins}</div>
       <div>Losses: {userData.losses}</div>
