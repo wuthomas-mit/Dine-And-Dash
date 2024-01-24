@@ -11,6 +11,7 @@ const Profile = ({}) => {
 
   useEffect(() => {
     get(`/api/profile`).then((data) => {
+      console.log("d", data);
       setUserData(data);
     });
   }, [location]);

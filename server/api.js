@@ -45,9 +45,11 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.get("/profile", auth.ensureLoggedIn, (req, res) => {
+router.get("/profile", auth.ensureLoggedIn, async (req, res) => {
   try {
-    res.send(req.user);
+    const userId = req.user._id;
+    const update = await User.findOne({ _id: userId });
+    res.send(update);
   } catch (error) {
     res.status(500).send({ msg: "Error fetching user data" });
   }
