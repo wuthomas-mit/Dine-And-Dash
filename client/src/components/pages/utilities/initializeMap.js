@@ -16,7 +16,7 @@ async function fetchRandomCountry() {
     const randomCountry = countries[randomIndex];
 
     // Use the random country as needed
-    console.log("Random Country:", randomCountry);
+    // console.log("Random Country:", randomCountry);
     return randomCountry;
   } catch (error) {
     console.error("Failed to fetch a random country:", error);
@@ -40,12 +40,25 @@ async function fetchCountryData(countryCode) {
     }
 
     // Use the country data as needed
-    console.log("Input Country:", countryData);
+    // console.log("Input Country:", countryData);
     return countryData;
   } catch (error) {
     console.error("Failed to fetch country data:", error);
   }
 }
+
+function parseAdjacentCountries(dataString) {
+  // Replace single quotes with double quotes and remove brackets for JSON parsing
+  const jsonString = dataString[0].replace(/'/g, '"');
+  try {
+    const countriesArray = JSON.parse(jsonString);
+    return countriesArray;
+  } catch (error) {
+    console.error("Error parsing adjacent countries data:", error);
+    return [];
+  }
+}
+
 let currentCountry;
 let goalCountry;
 const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVisited) => {
@@ -98,33 +111,47 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
     });
 
     // defines Start and Goal countries that stay unchanged through the game
-    const rand = await fetchRandomCountry();
-    currentCountry = rand.Country;
-    setStartCountry(currentCountry);
+    const currentCountry = await fetchRandomCountry();
+    setStartCountry(currentCountry.Country);
     const ran = await fetchRandomCountry();
-    goalCountry = ran.Country;
-    setGoalCountry(goalCountry);
+    setGoalCountry(ran.Country);
     // start a set of the new countries user has visited
     let visited = new Set();
-    visited.add(rand.twoCode);
+    visited.add(currentCountry.twoCode);
 
     const lat = Number(rand.Lat.replace(/"/g, ""));
     const long = Number(rand.Long.replace(/"/g, ""));
 
     map.flyTo({ center: [long, lat], zoom: 4 });
-    map.setFilter("country-clicked", ["==", "ISO_A2", rand.twoCode]);
+    map.setFilter("country-clicked", ["==", "ISO_A2", currentCountry.twoCode]);
 
     // When the user moves their mouse over the page, we look for features
     // at the mouse position (e.point) and within the states layer (states-fill).
     // If a feature is found, then we'll update the filter in the state-fills-hover
     // layer to only show that state, thus making a hover effect.
-    map.on("mousemove", function (e) {
+    let lastHoveredCountry = null;
+    let lastHoveredData = null;
+    map.on("mousemove", async function (e) {
       var features = map.queryRenderedFeatures(e.point, {
         layers: ["country-fills"],
       });
       if (features.length) {
-        map.getCanvas().style.cursor = "pointer";
-        map.setFilter("country-fills-hover", ["==", "ISO_A2", features[0].properties.ISO_A2]);
+        var hoveredCountry = features[0].properties.ISO_A2;
+        if (hoveredCountry !== lastHoveredCountry && hoveredCountry !== currentCountry) {
+          lastHoveredCountry = hoveredCountry;
+          lastHoveredData = await fetchCountryData(hoveredCountry);
+        }
+        if (
+          lastHoveredData !== null &&
+          parseAdjacentCountries(currentCountry.Adjacent).includes(lastHoveredData.Country)
+        ) {
+          // console.log("success", lastHoveredData.Country);
+          map.setFilter("country-fills-hover", ["==", "ISO_A2", hoveredCountry]);
+          map.getCanvas().style.cursor = "pointer";
+        } else {
+          map.setFilter("country-fills-hover", ["==", "ISO_A2", ""]);
+          map.getCanvas().style.cursor = "";
+        }
       } else {
         map.setFilter("country-fills-hover", ["==", "ISO_A2", ""]);
         map.getCanvas().style.cursor = "";
@@ -137,16 +164,7 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
       map.setFilter("country-fills-hover", ["==", "ISO_A2", ""]);
     });
 
-    // map.on("click", function (e) {
-    //   var features = map.queryRenderedFeatures(e.point, {
-    //     layers: ["country-fills"],
-    //   });
-    //   if (features.length) {
-    //     window.location =
-    //       "https://en.wikipedia.org/wiki/" + features[0].properties.ADMIN;
-    //   }
-    // });
-    let lastClickedCountry = null;
+    // let lastClickedCountry = null;
     map.on("click", async function (e) {
       var features = map.queryRenderedFeatures(e.point, {
         layers: ["country-fills"],
@@ -160,19 +178,13 @@ const initializeMap = (setStartCountry, setGoalCountry, setCurrentCountry, setVi
         setVisited(visited);
 
         const clicked_data = await fetchCountryData(clickedCountry);
-        const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
-        const longitude = Number(clicked_data.Long.replace(/"/g, ""));
-        map.flyTo({ center: [longitude, latitude], zoom: 4 });
-
-        // Check if the clicked country is the same as the last clicked country
-        if (clickedCountry === lastClickedCountry) {
-          // If it's the same country, reset the filter and clear the last clicked country
+        if (parseAdjacentCountries(currentCountry.Adjacent).includes(clicked_data.Country)) {
+          const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
+          const longitude = Number(clicked_data.Long.replace(/"/g, ""));
+          map.flyTo({ center: [longitude, latitude], zoom: 4 });
           map.setFilter("country-clicked", ["==", "ISO_A2", ""]);
-          lastClickedCountry = null;
-        } else {
-          // If it's a different country, set the filter and update the last clicked country
           map.setFilter("country-clicked", ["==", "ISO_A2", clickedCountry]);
-          lastClickedCountry = clickedCountry;
+          currentCountry = clicked_data;
         }
       }
     });
