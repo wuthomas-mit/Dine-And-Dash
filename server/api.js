@@ -45,7 +45,7 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.post("/updateProfile", (req, res) => {
+router.post("/updateProfile", auth.ensureLoggedIn, (req, res) => {
   const userId = req.user._id;
   const newProfileData = req.body;
 
@@ -97,7 +97,7 @@ const recordWinAndUpdateProfile = async (userId) => {
   }
 };
 // Route that gets called when a user wins a game
-router.post("/recordWin", async (req, res) => {
+router.post("/recordWin", auth.ensureLoggedIn, async (req, res) => {
   const userId = req.user._id;
 
   try {
