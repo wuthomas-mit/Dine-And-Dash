@@ -72,7 +72,7 @@ const Footer = {
   marginTop: "20px",
 };
 
-function TriviaModal({ closeTrivia, trivia_countries }) {
+function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer }) {
   const buttonsRef = useRef(null);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -142,6 +142,7 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
         if (firstCountryDishes.includes(button.textContent)) {
           button.style.border = "3px solid green"; // Correct pairing
           correctAnswerFound = true;
+          wrongAnswer();
         } else {
           button.style.border = "3px solid red"; // Incorrect pairing
         }
@@ -204,7 +205,11 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
                 </a>
               </h3>
             </div>
-            <div style={Subtitle}>{isCorrect? "Advance to the next country!" : `Return to ${countryName} and try again.`}</div>
+            <div style={Subtitle}>
+              {isCorrect
+                ? "Advance to the next country!"
+                : `Return to ${countryName} and try again.`}
+            </div>
           </>
         )}
         <div style={Footer}>

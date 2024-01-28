@@ -58,14 +58,15 @@ function parseAdjacentCountries(dataString) {
     return [];
   }
 }
-let currentCountry;
 const initializeMap = (
   setStartCountry,
   setGoalCountry,
+  cCountry,
   setCurrentCountry,
   setVisited,
   setcurrentTriviaCountries,
-  setOpenTrivia
+  setOpenTrivia,
+  setPrevCountry
 ) => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
@@ -114,7 +115,7 @@ const initializeMap = (
       },
       filter: ["==", "ISO_A2", ""],
     });
-
+    let currentCountry = cCountry;
     // defines Start and Goal countries that stay unchanged through the game
     const startCountryData = await fetchRandomCountry();
     currentCountry = startCountryData;
@@ -245,8 +246,10 @@ const initializeMap = (
           map.flyTo({ center: [longitude, latitude], zoom: 4, speed: 0.4 });
           map.setFilter("country-clicked", ["==", "ISO_A2", ""]);
           map.setFilter("country-clicked", ["==", "ISO_A2", clickedCountry]);
+          setPrevCountry(currentCountry);
           currentCountry = clicked_data;
           setCurrentCountry(clicked_data);
+
           setTimeout(() => {
             setOpenTrivia(true); // Open the trivia modal after a delay
           }, 1000); // Delay in milliseconds, e.g., 3000ms = 3 seconds

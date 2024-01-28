@@ -10,19 +10,32 @@ const Gameplay = () => {
   const [startCountry, setStartCountry] = useState(null);
   const [goalCountry, setGoalCountry] = useState(null);
   const [cCountry, setCurrentCountry] = useState(null);
+  const [prevCountry, setPrevCountry] = useState(null);
   const [visited, setVisited] = useState(null);
   const [openTrivia, setOpenTrivia] = useState(false);
   const [currentTriviaCountries, setcurrentTriviaCountries] = useState(null);
+
+  const onWrongAnswer = () => {
+    console.log(prevCountry);
+    if (prevCountry && map) {
+      const { Lat, Long, twoCode, name } = prevCountry;
+      map.flyTo({ center: [Long, Lat], zoom: 4 });
+      map.setFilter("country-clicked", ["==", "ISO_A2", twoCode]);
+      setCurrentCountry(name);
+    }
+  };
 
   // useEffect for map initialization
   useEffect(() => {
     initializeMap(
       setStartCountry,
       setGoalCountry,
+      cCountry,
       setCurrentCountry,
       setVisited,
       setcurrentTriviaCountries,
-      setOpenTrivia
+      setOpenTrivia,
+      setPrevCountry
     );
   }, []);
 
@@ -40,7 +53,11 @@ const Gameplay = () => {
         Open Trivia
       </button> */}
       {openTrivia && (
-        <TriviaModal closeTrivia={setOpenTrivia} trivia_countries={currentTriviaCountries} />
+        <TriviaModal
+          closeTrivia={setOpenTrivia}
+          trivia_countries={currentTriviaCountries}
+          wrongAnswer={onWrongAnswer}
+        />
       )}
       <div className="game-info-container">
         <div className="game-info">
