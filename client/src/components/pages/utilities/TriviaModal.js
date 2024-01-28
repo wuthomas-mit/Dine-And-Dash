@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import "../../css/Home.css";
 
-const ModalBackground = {};
+export const ModalBackground = {};
 
-const ModalContainer = {
+export const ModalContainer = {
   backgroundColor: "white",
   position: "fixed",
-  justifyContent: "center",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "start",
   alignItems: "center",
   left: "50%",
   top: "50%",
@@ -18,27 +20,28 @@ const ModalContainer = {
   zIndex: 10,
 };
 
-const Title = {
+export const Title = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "48px",
-  marginBottom: "28px",
+  height: "52px",
   fontSize: "48px",
   fontWeight: 800,
+  marginBottom: "10px",
 };
 
-const Subtitle = {
+export const Subtitle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "24px",
-  marginBottom: "28px",
+  height: "auto",
+  margin: "10px auto",
   fontSize: "24px",
   fontWeight: 600,
+  textAlign: "center",
 };
 
-const Grid = {
+export const Grid = {
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
   gridTemplateRows: "auto auto",
@@ -46,22 +49,10 @@ const Grid = {
   alignItems: "center",
   justifyContent: "center",
   height: "auto",
+  margin: "20px 0px",
 };
 
-const BlockAnswer = {
-  height: "116px",
-  width: "240px",
-  padding: "5px",
-  textAlign: "center",
-  alignSelf: "center",
-  borderRadius: "10px",
-  backgroundColor: "#FCF6E7",
-  color: "#24282A",
-  fontSize: "24px",
-  fontWeight: 600,
-};
-
-const Footer = {
+export const Footer = {
   display: "flex",
   justifyContent: "center",
   position: "absolute",
@@ -69,11 +60,32 @@ const Footer = {
   bottom: "20px",
   transform: "translate(-50%)",
   gap: "30px",
-  marginTop: "20px",
+};
+
+const useResizeFont = (ref, maxFontSize, minFontSize, step) => {
+  useEffect(() => {
+    const resizeFont = () => {
+      const element = ref.current;
+      if (element) {
+        let fontSize = maxFontSize;
+        element.style.fontSize = `${fontSize}px`;
+
+        while (element.scrollHeight > element.offsetHeight && fontSize > minFontSize) {
+          fontSize -= step;
+          element.style.fontSize = `${fontSize}px`;
+        }
+      }
+    };
+
+    resizeFont();
+  }, [ref, maxFontSize, minFontSize, step]);
 };
 
 function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer, previousCountry }) {
   const buttonsRef = useRef(null);
+  const titleRef = useRef(null);
+  useResizeFont(titleRef, 48, 12, 4);
+
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [revealAnswer, setRevealAnswer] = useState(false);
@@ -162,11 +174,6 @@ function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer, previousCount
     }
   }
 
-  // function getWikipediaUrl(dish) {
-  //   const formattedDish = dish.replace(/\s+/g, '_'); // Replace spaces with underscores
-  //   return `https://en.wikipedia.org/wiki/${formattedDish}`;
-  // }
-
   function getWikipediaSearchUrl(dish) {
     const formattedDish = encodeURIComponent(dish); // URL encode the dish name
     return `https://en.wikipedia.org/w/index.php?search=${formattedDish}`;
@@ -176,10 +183,17 @@ function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer, previousCount
       <div style={ModalContainer}>
         {!revealAnswer && (
           <>
-            <div style={Title}>{countryName}</div>
+            <div ref={titleRef} style={Title}>
+              {countryName}
+            </div>
             <div style={Grid} ref={buttonsRef}>
               {shuffledDishes.map((dish, index) => (
-                <button className="block-button" key={index} onClick={(e) => setColor(e)}>
+                <button
+                  className="block-button"
+                  style={{ width: "200px" }}
+                  key={index}
+                  onClick={(e) => setColor(e)}
+                >
                   {dish}
                 </button>
               ))}
@@ -188,23 +202,13 @@ function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer, previousCount
         )}
         {revealAnswer && (
           <>
-            <div style={Title}>
-              <h1>{isCorrect ? "Correct!" : "Incorrect..."}</h1>
-            </div>
+            <div style={Title}>{isCorrect ? "Correct!" : "Incorrect..."}</div>
+            <div style={Subtitle}>One of the most popular dishes in {countryName} is:</div>
+            <div style={Title}>{ans}</div>
             <div style={Subtitle}>
-              <h3>One of the most popular dishes in {countryName} is:</h3>
-            </div>
-            <div style={Title}>
-              <h1>{ans}</h1>
-            </div>
-            {/* <div style={BlockAnswer}>{countryFood[countryName]}</div> */}
-            <div style={Subtitle}>
-              {/* <h3>Click here to learn more: <a href={getWikipediaUrl(countryFood[countryName])} target="_blank" rel="noopener noreferrer">Learn more on Wikipedia</a></h3> */}
-              <h3>
-                <a href={getWikipediaSearchUrl(ans)} target="_blank" rel="noopener noreferrer">
-                  Learn more on Wikipedia (Note: Page might not exist)
-                </a>
-              </h3>
+              <a href={getWikipediaSearchUrl(ans)} target="_blank" rel="noopener noreferrer">
+                Learn more on Wikipedia (Note: Page might not exist)
+              </a>
             </div>
             <div style={Subtitle}>
               {isCorrect

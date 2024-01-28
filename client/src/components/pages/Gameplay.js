@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import initializeMap from "./utilities/initializeMap.js";
 import TimerComponent from "./utilities/Timer.js";
+import TriviaModal from "./utilities/TriviaModal.js";
+import Start from "./utilities/Start.js";
 
 import "../css/Gameplay.css";
 import "../../utilities.css";
-import TriviaModal from "./utilities/TriviaModal.js";
 
 const Gameplay = () => {
+  // used for displayed game info
   const [startCountry, setStartCountry] = useState(null);
   const [goalCountry, setGoalCountry] = useState(null);
   const [cCountry, setCCountry] = useState(null);
   const [prevCountry, setPrevCountry] = useState(null);
   const [visited, setVisited] = useState(null);
+  // handles Start and Trivia Modals
+  const [isGameStarted, setIsGameStarted] = useState(false);
   const [map, setMap] = useState(null);
   const [openTrivia, setOpenTrivia] = useState(false);
   const [currentTriviaCountries, setcurrentTriviaCountries] = useState(null);
@@ -21,19 +25,21 @@ const Gameplay = () => {
 
   // useEffect for map initialization
   useEffect(() => {
-    const newMap = initializeMap(
-      setStartCountry,
-      setGoalCountry,
-      cCountry,
-      setCCountry,
-      setVisited,
-      setcurrentTriviaCountries,
-      setOpenTrivia,
-      setPrevCountry,
-      setCurrentCountryCallback
-    );
-    setMap(newMap);
-  }, []);
+    if (isGameStarted) {
+      const newMap = initializeMap(
+        setStartCountry,
+        setGoalCountry,
+        cCountry,
+        setCCountry,
+        setVisited,
+        setcurrentTriviaCountries,
+        setOpenTrivia,
+        setPrevCountry,
+        setCurrentCountryCallback
+      );
+      setMap(newMap);
+    }
+  }, [isGameStarted]);
 
   const onWrongAnswer = () => {
     if (prevCountry) {
@@ -48,34 +54,30 @@ const Gameplay = () => {
   return (
     <div className="game-container">
       <div id="map"></div>
-      <TimerComponent />
-      {/* <button
-        className="button"
-        id="trivia"
-        onClick={() => {
-          setOpenTrivia(true);
-        }}
-      >
-        Open Trivia
-      </button> */}
-      {openTrivia && (
-        <TriviaModal
-          closeTrivia={setOpenTrivia}
-          trivia_countries={currentTriviaCountries}
-          wrongAnswer={onWrongAnswer}
-          previousCountry={prevCountry}
-        />
+      {!isGameStarted && <Start startGame={setIsGameStarted} />}
+      {isGameStarted && (
+        <>
+          <TimerComponent />
+          {openTrivia && (
+            <TriviaModal
+              closeTrivia={setOpenTrivia}
+              trivia_countries={currentTriviaCountries}
+              wrongAnswer={onWrongAnswer}
+              previousCountry={prevCountry}
+            />
+          )}
+          <div className="game-info-container">
+            <div className="game-info">
+              <div className="text">Start: {startCountry}</div>
+              <div className="text">Goal: {goalCountry}</div>
+            </div>
+            <div className="game-info">
+              <div className="text">Current: {cCountry ? cCountry.Country : "Loading..."}</div>
+              <div className="text">Visited: {visited ? visited.size : 1}</div>
+            </div>
+          </div>
+        </>
       )}
-      <div className="game-info-container">
-        <div className="game-info">
-          <div className="text">Start: {startCountry}</div>
-          <div className="text">Goal: {goalCountry}</div>
-        </div>
-        <div className="game-info">
-          <div className="text">Current: {cCountry ? cCountry.Country : "Loading..."}</div>
-          <div className="text">Visited: {visited ? visited.size : 0}</div>
-        </div>
-      </div>
     </div>
   );
 };

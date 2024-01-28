@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 
 import Navigation from "./pages/Navigation.js";
 import Home from "./pages/Home.js";
-import Start from "./pages/Start.js";
+// import Start from "./pages/utilities/Start.js";
 import Profile from "./pages/Profile.js";
 import Gameplay from "./pages/Gameplay.js";
 import HowTo from "./pages/HowTo.js";
@@ -75,7 +75,7 @@ const App = () => {
               />
             }
           />
-          <Route path="/start" element={<Start />} />
+          {/* <Route path="/start" element={<Start />} /> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/gameplay" element={<Gameplay />} />
           <Route path="/howto" element={<HowTo />} />
