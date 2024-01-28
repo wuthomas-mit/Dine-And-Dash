@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import "../../css/Home.css";
 
-const ModalBackground = {};
+export const ModalBackground = {};
 
-const ModalContainer = {
+export const ModalContainer = {
   backgroundColor: "white",
   position: "fixed",
-  justifyContent: "center",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "start",
   alignItems: "center",
   left: "50%",
   top: "50%",
@@ -18,27 +20,28 @@ const ModalContainer = {
   zIndex: 10,
 };
 
-const Title = {
+export const Title = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   height: "52px",
-  // marginBottom: "28px",
   fontSize: "48px",
   fontWeight: 800,
+  marginBottom: "10px",
 };
 
-const Subtitle = {
+export const Subtitle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "24px",
-  margin: "20px 0px 20px 0px",
+  height: "auto",
+  margin: "10px auto",
   fontSize: "24px",
   fontWeight: 600,
+  textAlign: "center",
 };
 
-const Grid = {
+export const Grid = {
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
   gridTemplateRows: "auto auto",
@@ -46,10 +49,10 @@ const Grid = {
   alignItems: "center",
   justifyContent: "center",
   height: "auto",
-  margin: "28px 0px 20px 0px",
+  margin: "20px 0px",
 };
 
-const Footer = {
+export const Footer = {
   display: "flex",
   justifyContent: "center",
   position: "absolute",
@@ -168,11 +171,6 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
     }
   }
 
-  // function getWikipediaUrl(dish) {
-  //   const formattedDish = dish.replace(/\s+/g, '_'); // Replace spaces with underscores
-  //   return `https://en.wikipedia.org/wiki/${formattedDish}`;
-  // }
-
   function getWikipediaSearchUrl(dish) {
     const formattedDish = encodeURIComponent(dish); // URL encode the dish name
     return `https://en.wikipedia.org/w/index.php?search=${formattedDish}`;
@@ -188,7 +186,7 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
             </div>
             <div style={Grid} ref={buttonsRef}>
               {shuffledDishes.map((dish, index) => (
-                <button className="block-button" key={index} onClick={(e) => setColor(e)}>
+                <button className="block-button" style={{width: "200px"}} key={index} onClick={(e) => setColor(e)}>
                   {dish}
                 </button>
               ))}
@@ -200,9 +198,7 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
             <div style={Title}>{isCorrect ? "Correct!" : "Incorrect..."}</div>
             <div style={Subtitle}>One of the most popular dishes in {countryName} is:</div>
             <div style={Title}>{ans}</div>
-            {/* <div style={BlockAnswer}>{countryFood[countryName]}</div> */}
             <div style={Subtitle}>
-              {/* <h3>Click here to learn more: <a href={getWikipediaUrl(countryFood[countryName])} target="_blank" rel="noopener noreferrer">Learn more on Wikipedia</a></h3> */}
               <a href={getWikipediaSearchUrl(ans)} target="_blank" rel="noopener noreferrer">
                 Learn more on Wikipedia (Note: Page might not exist)
               </a>
