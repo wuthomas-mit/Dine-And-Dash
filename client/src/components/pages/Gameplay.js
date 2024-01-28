@@ -9,7 +9,7 @@ import TriviaModal from "./utilities/TriviaModal.js";
 const Gameplay = () => {
   const [startCountry, setStartCountry] = useState(null);
   const [goalCountry, setGoalCountry] = useState(null);
-  const [currentCountry, setCurrentCountry] = useState(null);
+  const [cCountry, setCurrentCountry] = useState(null);
   const [visited, setVisited] = useState(null);
   const [openTrivia, setOpenTrivia] = useState(false);
   const [currentTriviaCountries, setcurrentTriviaCountries] = useState(null);
@@ -48,8 +48,8 @@ const Gameplay = () => {
           <div className="text">Goal: {goalCountry}</div>
         </div>
         <div className="game-info">
-          <div className="text">Current: {currentCountry}</div>
-          <div className="text">Visited: {visited ? visited.size : 1}</div>
+          <div className="text">Current: {cCountry ? cCountry.Country : "Loading..."}</div>
+          <div className="text">Visited: {visited ? visited.size : 0}</div>
         </div>
       </div>
     </div>

@@ -58,9 +58,7 @@ function parseAdjacentCountries(dataString) {
     return [];
   }
 }
-
-let currentCountry = null;
-let goalCountry = null;
+let currentCountry;
 const initializeMap = (
   setStartCountry,
   setGoalCountry,
@@ -118,19 +116,23 @@ const initializeMap = (
     });
 
     // defines Start and Goal countries that stay unchanged through the game
-    currentCountry = await fetchRandomCountry();
-    setStartCountry(currentCountry.Country);
-    const goalCountry = await fetchRandomCountry();
-    setGoalCountry(goalCountry.Country);
+    const startCountryData = await fetchRandomCountry();
+    currentCountry = startCountryData;
+    setStartCountry(startCountryData.Country);
+    setCurrentCountry(startCountryData);
+
+    const goalCountryData = await fetchRandomCountry();
+    setGoalCountry(goalCountryData.Country);
+
     // start a set of the new countries user has visited
     let visited = new Set();
-    visited.add(currentCountry.twoCode);
+    visited.add(startCountryData.twoCode);
 
     const lat = Number(currentCountry.Lat.replace(/"/g, ""));
     const long = Number(currentCountry.Long.replace(/"/g, ""));
 
-    const goalLong = Number(goalCountry.Long.replace(/"/g, ""));
-    const goalLat = Number(goalCountry.Lat.replace(/"/g, ""));
+    const goalLong = Number(goalCountryData.Long.replace(/"/g, ""));
+    const goalLat = Number(goalCountryData.Lat.replace(/"/g, ""));
 
     map.flyTo({ center: [long, lat], zoom: 4 });
     map.setFilter("country-clicked", ["==", "ISO_A2", currentCountry.twoCode]);
@@ -185,7 +187,7 @@ const initializeMap = (
       });
       if (features.length) {
         var hoveredCountry = features[0].properties.ISO_A2;
-        if (hoveredCountry !== lastHoveredCountry && hoveredCountry !== currentCountry) {
+        if (hoveredCountry !== lastHoveredCountry && hoveredCountry !== currentCountry.twoCode) {
           lastHoveredCountry = hoveredCountry;
           lastHoveredData = await fetchCountryData(hoveredCountry);
         }
@@ -226,8 +228,6 @@ const initializeMap = (
           clicked_data !== undefined &&
           parseAdjacentCountries(currentCountry.Adjacent).includes(clicked_data.Country)
         ) {
-          setCurrentCountry(features[0].properties.ADMIN);
-
           const triviaCountry = await fetchCountryData(features[0].properties.ISO_A2);
           const random_1 = await fetchRandomCountry();
           const random_2 = await fetchRandomCountry();
@@ -246,6 +246,7 @@ const initializeMap = (
           map.setFilter("country-clicked", ["==", "ISO_A2", ""]);
           map.setFilter("country-clicked", ["==", "ISO_A2", clickedCountry]);
           currentCountry = clicked_data;
+          setCurrentCountry(clicked_data);
           setTimeout(() => {
             setOpenTrivia(true); // Open the trivia modal after a delay
           }, 1000); // Delay in milliseconds, e.g., 3000ms = 3 seconds
