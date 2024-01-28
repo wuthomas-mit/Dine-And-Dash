@@ -142,13 +142,15 @@ function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer }) {
         if (firstCountryDishes.includes(button.textContent)) {
           button.style.border = "3px solid green"; // Correct pairing
           correctAnswerFound = true;
-          wrongAnswer();
         } else {
           button.style.border = "3px solid red"; // Incorrect pairing
         }
       }
     });
     setIsCorrect(correctAnswerFound);
+    if (!correctAnswerFound) {
+      wrongAnswer();
+    }
     setIsSubmitted(true);
   }
 
