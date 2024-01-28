@@ -9,22 +9,41 @@ import TriviaModal from "./utilities/TriviaModal.js";
 const Gameplay = () => {
   const [startCountry, setStartCountry] = useState(null);
   const [goalCountry, setGoalCountry] = useState(null);
-  const [currentCountry, setCurrentCountry] = useState(null);
+  const [cCountry, setCCountry] = useState(null);
+  const [prevCountry, setPrevCountry] = useState(null);
   const [visited, setVisited] = useState(null);
+  const [map, setMap] = useState(null);
   const [openTrivia, setOpenTrivia] = useState(false);
   const [currentTriviaCountries, setcurrentTriviaCountries] = useState(null);
+  const [updateCurrentFunction, setCurrentCountryCallback] = useState(() => {
+    return null;
+  });
 
   // useEffect for map initialization
   useEffect(() => {
-    initializeMap(
+    const newMap = initializeMap(
       setStartCountry,
       setGoalCountry,
-      setCurrentCountry,
+      cCountry,
+      setCCountry,
       setVisited,
       setcurrentTriviaCountries,
-      setOpenTrivia
+      setOpenTrivia,
+      setPrevCountry,
+      setCurrentCountryCallback
     );
+    setMap(newMap);
   }, []);
+
+  const onWrongAnswer = () => {
+    if (prevCountry) {
+      map.flyTo({ center: [prevCountry.Long, prevCountry.Lat], zoom: 4 });
+      map.setFilter("country-clicked", ["==", "ISO_A2", prevCountry.twoCode]);
+      visited.delete(cCountry.twoCode);
+      setCCountry(prevCountry);
+      updateCurrentFunction(prevCountry);
+    }
+  };
 
   return (
     <div className="game-container">
@@ -40,7 +59,12 @@ const Gameplay = () => {
         Open Trivia
       </button> */}
       {openTrivia && (
-        <TriviaModal closeTrivia={setOpenTrivia} trivia_countries={currentTriviaCountries} />
+        <TriviaModal
+          closeTrivia={setOpenTrivia}
+          trivia_countries={currentTriviaCountries}
+          wrongAnswer={onWrongAnswer}
+          previousCountry={prevCountry}
+        />
       )}
       <div className="game-info-container">
         <div className="game-info">
@@ -48,8 +72,8 @@ const Gameplay = () => {
           <div className="text">Goal: {goalCountry}</div>
         </div>
         <div className="game-info">
-          <div className="text">Current: {currentCountry}</div>
-          <div className="text">Visited: {visited ? visited.size : 1}</div>
+          <div className="text">Current: {cCountry ? cCountry.Country : "Loading..."}</div>
+          <div className="text">Visited: {visited ? visited.size : 0}</div>
         </div>
       </div>
     </div>
