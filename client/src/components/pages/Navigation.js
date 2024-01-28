@@ -15,8 +15,10 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
   const navigate = useNavigate();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [playOnline, setPlayOnline] = useState(false);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="navbar">
@@ -26,7 +28,7 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
         <div className="Right">
           <div className="User" onClick={toggleDropdown}>
             <img src={pfp} alt="Profile" className="pfp" />
-            {isDropdownOpen && (
+            {(playOnline || isDropdownOpen) && (
               <div className="dropdown-menu">
                 {userId ? (
                   <>

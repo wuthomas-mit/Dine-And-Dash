@@ -22,8 +22,8 @@ const Title = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "48px",
-  marginBottom: "28px",
+  height: "52px",
+  // marginBottom: "28px",
   fontSize: "48px",
   fontWeight: 800,
 };
@@ -33,7 +33,7 @@ const Subtitle = {
   justifyContent: "center",
   alignItems: "center",
   height: "24px",
-  marginBottom: "28px",
+  margin: "20px 0px 20px 0px",
   fontSize: "24px",
   fontWeight: 600,
 };
@@ -46,19 +46,7 @@ const Grid = {
   alignItems: "center",
   justifyContent: "center",
   height: "auto",
-};
-
-const BlockAnswer = {
-  height: "116px",
-  width: "240px",
-  padding: "5px",
-  textAlign: "center",
-  alignSelf: "center",
-  borderRadius: "10px",
-  backgroundColor: "#FCF6E7",
-  color: "#24282A",
-  fontSize: "24px",
-  fontWeight: 600,
+  margin: "28px 0px 20px 0px",
 };
 
 const Footer = {
@@ -69,11 +57,32 @@ const Footer = {
   bottom: "20px",
   transform: "translate(-50%)",
   gap: "30px",
-  marginTop: "20px",
+};
+
+const useResizeFont = (ref, maxFontSize, minFontSize, step) => {
+  useEffect(() => {
+    const resizeFont = () => {
+      const element = ref.current;
+      if (element) {
+        let fontSize = maxFontSize;
+        element.style.fontSize = `${fontSize}px`;
+
+        while (element.scrollHeight > element.offsetHeight && fontSize > minFontSize) {
+          fontSize -= step;
+          element.style.fontSize = `${fontSize}px`;
+        }
+      }
+    };
+
+    resizeFont();
+  }, [ref, maxFontSize, minFontSize, step]);
 };
 
 function TriviaModal({ closeTrivia, trivia_countries }) {
   const buttonsRef = useRef(null);
+  const titleRef = useRef(null);
+  useResizeFont(titleRef, 48, 12, 4);
+
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [revealAnswer, setRevealAnswer] = useState(false);
@@ -174,7 +183,9 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
       <div style={ModalContainer}>
         {!revealAnswer && (
           <>
-            <div style={Title}>{countryName}</div>
+            <div ref={titleRef} style={Title}>
+              {countryName}
+            </div>
             <div style={Grid} ref={buttonsRef}>
               {shuffledDishes.map((dish, index) => (
                 <button className="block-button" key={index} onClick={(e) => setColor(e)}>
@@ -186,25 +197,21 @@ function TriviaModal({ closeTrivia, trivia_countries }) {
         )}
         {revealAnswer && (
           <>
-            <div style={Title}>
-              <h1>{isCorrect ? "Correct!" : "Incorrect..."}</h1>
-            </div>
-            <div style={Subtitle}>
-              <h3>One of the most popular dishes in {countryName} is:</h3>
-            </div>
-            <div style={Title}>
-              <h1>{ans}</h1>
-            </div>
+            <div style={Title}>{isCorrect ? "Correct!" : "Incorrect..."}</div>
+            <div style={Subtitle}>One of the most popular dishes in {countryName} is:</div>
+            <div style={Title}>{ans}</div>
             {/* <div style={BlockAnswer}>{countryFood[countryName]}</div> */}
             <div style={Subtitle}>
               {/* <h3>Click here to learn more: <a href={getWikipediaUrl(countryFood[countryName])} target="_blank" rel="noopener noreferrer">Learn more on Wikipedia</a></h3> */}
-              <h3>
-                <a href={getWikipediaSearchUrl(ans)} target="_blank" rel="noopener noreferrer">
-                  Learn more on Wikipedia (Note: Page might not exist)
-                </a>
-              </h3>
+              <a href={getWikipediaSearchUrl(ans)} target="_blank" rel="noopener noreferrer">
+                Learn more on Wikipedia (Note: Page might not exist)
+              </a>
             </div>
-            <div style={Subtitle}>{isCorrect? "Advance to the next country!" : `Return to ${countryName} and try again.`}</div>
+            <div style={Subtitle}>
+              {isCorrect
+                ? "Advance to the next country!"
+                : `Return to ${countryName} and try again.`}
+            </div>
           </>
         )}
         <div style={Footer}>
