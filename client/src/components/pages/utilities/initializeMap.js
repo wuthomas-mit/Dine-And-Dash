@@ -167,7 +167,7 @@ const initializeMap = (
           source: "point", // reference the data source
           layout: {
             "icon-image": "pin", // reference the image
-            "icon-size": 0.25,
+            "icon-size": 0.15,
           },
         });
       }
