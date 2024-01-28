@@ -9,12 +9,15 @@ import TriviaModal from "./utilities/TriviaModal.js";
 const Gameplay = () => {
   const [startCountry, setStartCountry] = useState(null);
   const [goalCountry, setGoalCountry] = useState(null);
-  const [cCountry, setCurrentCountry] = useState(null);
+  const [cCountry, setCCountry] = useState(null);
   const [prevCountry, setPrevCountry] = useState(null);
   const [visited, setVisited] = useState(null);
   const [map, setMap] = useState(null);
   const [openTrivia, setOpenTrivia] = useState(false);
   const [currentTriviaCountries, setcurrentTriviaCountries] = useState(null);
+  const [updateCurrentFunction, setCurrentCountryCallback] = useState(() => {
+    return null;
+  });
 
   // useEffect for map initialization
   useEffect(() => {
@@ -22,22 +25,23 @@ const Gameplay = () => {
       setStartCountry,
       setGoalCountry,
       cCountry,
-      setCurrentCountry,
+      setCCountry,
       setVisited,
       setcurrentTriviaCountries,
       setOpenTrivia,
-      setPrevCountry
+      setPrevCountry,
+      setCurrentCountryCallback
     );
     setMap(newMap);
   }, []);
 
   const onWrongAnswer = () => {
-    console.log(prevCountry);
     if (prevCountry) {
-      console.log("reached");
       map.flyTo({ center: [prevCountry.Long, prevCountry.Lat], zoom: 4 });
       map.setFilter("country-clicked", ["==", "ISO_A2", prevCountry.twoCode]);
-      setCurrentCountry(prevCountry.Country);
+      visited.delete(cCountry.twoCode);
+      setCCountry(prevCountry);
+      updateCurrentFunction(prevCountry);
     }
   };
 
@@ -59,6 +63,7 @@ const Gameplay = () => {
           closeTrivia={setOpenTrivia}
           trivia_countries={currentTriviaCountries}
           wrongAnswer={onWrongAnswer}
+          previousCountry={prevCountry}
         />
       )}
       <div className="game-info-container">

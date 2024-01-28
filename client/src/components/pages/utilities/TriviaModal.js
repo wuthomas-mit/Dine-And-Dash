@@ -72,7 +72,7 @@ const Footer = {
   marginTop: "20px",
 };
 
-function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer }) {
+function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer, previousCountry }) {
   const buttonsRef = useRef(null);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -171,7 +171,6 @@ function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer }) {
     const formattedDish = encodeURIComponent(dish); // URL encode the dish name
     return `https://en.wikipedia.org/w/index.php?search=${formattedDish}`;
   }
-
   return (
     <div style={ModalBackground}>
       <div style={ModalContainer}>
@@ -210,7 +209,7 @@ function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer }) {
             <div style={Subtitle}>
               {isCorrect
                 ? "Advance to the next country!"
-                : `Return to ${countryName} and try again.`}
+                : `Return to ${previousCountry.Country} and try again.`}
             </div>
           </>
         )}

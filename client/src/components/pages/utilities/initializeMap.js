@@ -62,11 +62,12 @@ const initializeMap = (
   setStartCountry,
   setGoalCountry,
   cCountry,
-  setCurrentCountry,
+  setCCountry,
   setVisited,
   setcurrentTriviaCountries,
   setOpenTrivia,
-  setPrevCountry
+  setPrevCountry,
+  setCurrentCountryCallback
 ) => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
@@ -115,12 +116,22 @@ const initializeMap = (
       },
       filter: ["==", "ISO_A2", ""],
     });
-    let currentCountry = cCountry;
+
+    let currentCountry;
+    const updateCurrentCountry = () => {
+      return function (newCountry) {
+        currentCountry = newCountry;
+      };
+    };
+    setCurrentCountryCallback(updateCurrentCountry);
+
+    currentCountry = cCountry;
+
     // defines Start and Goal countries that stay unchanged through the game
     const startCountryData = await fetchRandomCountry();
     currentCountry = startCountryData;
     setStartCountry(startCountryData.Country);
-    setCurrentCountry(startCountryData);
+    setCCountry(startCountryData);
 
     const goalCountryData = await fetchRandomCountry();
     setGoalCountry(goalCountryData.Country);
@@ -128,6 +139,7 @@ const initializeMap = (
     // start a set of the new countries user has visited
     let visited = new Set();
     visited.add(startCountryData.twoCode);
+    setVisited(visited);
 
     const lat = Number(currentCountry.Lat.replace(/"/g, ""));
     const long = Number(currentCountry.Long.replace(/"/g, ""));
@@ -248,7 +260,7 @@ const initializeMap = (
           map.setFilter("country-clicked", ["==", "ISO_A2", clickedCountry]);
           setPrevCountry(currentCountry);
           currentCountry = clicked_data;
-          setCurrentCountry(clicked_data);
+          setCCountry(clicked_data);
 
           setTimeout(() => {
             setOpenTrivia(true); // Open the trivia modal after a delay
@@ -257,6 +269,7 @@ const initializeMap = (
       }
     });
   });
+  return map;
 };
 
 export default initializeMap;
