@@ -165,12 +165,10 @@ const initializeMap = (
     let goalCountryName;
     if (startCountryData[difficulty] && startCountryData[difficulty].length > 0) {
       let country_data = JSON.parse(startCountryData[difficulty][0]);
-      console.log(country_data);
 
       const randomIndex = Math.floor(Math.random() * country_data.length);
       goalCountryName = country_data[randomIndex];
     }
-    console.log(goalCountryName);
     let goalCountryData = await fetchCountry_fromName(goalCountryName);
     setGoalCountry(goalCountryData.Country);
 
