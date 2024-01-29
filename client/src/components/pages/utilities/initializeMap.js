@@ -49,7 +49,7 @@ async function fetchCountryData(countryCode) {
 
 function parseAdjacentCountries(dataString) {
   // Replace single quotes with double quotes and remove brackets for JSON parsing
-  const jsonString = dataString[0].replace(/'/g, '"');
+  const jsonString = dataString[0];
   try {
     const countriesArray = JSON.parse(jsonString);
     return countriesArray;
