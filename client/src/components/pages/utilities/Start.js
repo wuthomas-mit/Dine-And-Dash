@@ -26,11 +26,10 @@ const gameModeGrid = {
   margin: "28px 0px 20px 0px",
 };
 
-const Start = ({ startGame }) => {
+const Start = ({ startGame, setDiff }) => {
   const buttonsRef = useRef(null);
 
   const [isModeSelected, setIsModeSelected] = useState(false);
-  const [difficulty, setDifficulty] = useState(null);
 
   // function handleWin() {
   //   post("/api/recordWin")
@@ -59,7 +58,7 @@ const Start = ({ startGame }) => {
     });
 
     // Set selected mode and apply style to the clicked button
-    setDifficulty(difficulty);
+    setDiff(difficulty);
     console.log(difficulty);
     target.style.border = "3px solid #24282A";
     target.dataset.count = "1";
@@ -80,7 +79,7 @@ const Start = ({ startGame }) => {
             <div style={Title}>Game Modes</div>
             <div style={Subtitle}>Game Length</div>
             <div style={gameModeGrid} ref={buttonsRef}>
-              {["Short", "Medium", "Long"].map((item, index) => (
+              {["Easy", "Medium", "Hard"].map((item, index) => (
                 <button
                   className="block-button"
                   style={{ width: "120px" }}
