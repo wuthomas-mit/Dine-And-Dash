@@ -29,7 +29,6 @@ const Gameplay = () => {
   useEffect(() => {
     if (goalCountry && cCountry && goalCountry === cCountry.Country) {
       setIsGameEnded(true);
-      
       console.log("game ended");
     }
   }, [goalCountry, cCountry]);
