@@ -100,7 +100,6 @@ const Gameplay = ({ userId }) => {
           setDiff={setDifficulty}
           endGame={isGameEnded}
           endTime={finalTime}
-          setGameEnded={setIsGameEnded}
           userId={userId}
         />
       )}

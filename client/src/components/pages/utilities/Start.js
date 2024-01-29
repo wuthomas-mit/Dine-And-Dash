@@ -27,25 +27,17 @@ const gameModeGrid = {
   margin: "20px 0px",
 };
 
-const Start = ({ startGame, setDiff, endGame, endTime, userId, handleLogin }) => {
+const Start = ({ startGame, setDiff, endGame, endTime, userId }) => {
   const buttonsRef = useRef(null);
   const navigate = useNavigate();
 
   const [isModeSelected, setIsModeSelected] = useState(false);
-
-  // function handleWin() {
-  //   post("/api/recordWin")
-  //     .then((data) => {
-  //       console.log("Win count updated:", data);
-  //       // Handle the response, update UI, etc.
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error updating win count:", error);
-  //     });
-  // }
+  const [selectedDifficulty, setSelectedDifficulty] = useState(false);
 
   function handleModes() {
-    setIsModeSelected(true);
+    if (selectedDifficulty) {
+      setIsModeSelected(true);
+    }
   }
 
   function setColor(e) {
@@ -60,6 +52,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, handleLogin }) =>
     });
 
     // Set selected mode and apply style to the clicked button
+    setSelectedDifficulty(true);
     setDiff(difficulty);
     target.style.border = "3px solid #E6907D";
     target.dataset.count = "1";
@@ -93,7 +86,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, handleLogin }) =>
               ))}
             </div>
             <div style={Footer}>
-              <button className="button" onClick={handleModes}>
+              <button className="button" onClick={handleModes} disabled={!selectedDifficulty}>
                 Set Mode
               </button>
             </div>
