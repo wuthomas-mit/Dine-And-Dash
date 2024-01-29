@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import { ModalContainer, Title, Subtitle, Footer } from "./TriviaModal";
 
 import { post } from "../../../utilities";
@@ -28,16 +27,21 @@ const gameModeGrid = {
   margin: "20px 0px",
 };
 
-const Start = ({ startGame, setDiff, endGame, endTime, userId, handleLogin }) => {
+const Start = ({ startGame, setDiff, endGame, endTime, userId }) => {
   const buttonsRef = useRef(null);
   const navigate = useNavigate();
 
   const [isModeSelected, setIsModeSelected] = useState(false);
 
+  function convertTimeToSeconds(timeString) {
+    const [minutes, seconds] = timeString.split(":").map(Number);
+    return minutes * 60 + seconds;
+  }
   function handleWin() {
-    post("/api/recordWin")
+    const finalTime = convertTimeToSeconds(endTime);
+    post("/api/recordWin", { finalTime })
       .then((data) => {
-        // console.log("Win count updated:", data);
+        console.log("Win count updated:", data);
         // Handle the response, update UI, etc.
       })
       .catch((error) => {
