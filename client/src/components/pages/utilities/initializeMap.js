@@ -190,41 +190,39 @@ const initializeMap = (
 
     // Adds a red pin to denote the goal country
     // Load an image from an external URL.
+    // cat "https://cors-anywhere.herokuapp.com/https://gist.github.com/assets/92048050/835fdc0a-eccf-4ece-b383-931d8c11673e"
     // map.loadImage("https://docs.mapbox.com/mapbox-gl-js/assets/cat.png", (error, image) => {
-    map.loadImage(
-      "https://cors-anywhere.herokuapp.com/https://gist.github.com/assets/92048050/835fdc0a-eccf-4ece-b383-931d8c11673e",
-      (error, image) => {
-        if (error) throw error;
-        // Add the image to the map style.
-        map.addImage("pin", image);
-        // Add a data source containing one point feature.
-        map.addSource("point", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                geometry: {
-                  type: "Point",
-                  coordinates: [goalLong, goalLat],
-                },
+    map.loadImage("https://docs.mapbox.com/mapbox-gl-js/assets/cat.png", (error, image) => {
+      if (error) throw error;
+      // Add the image to the map style.
+      map.addImage("pin", image);
+      // Add a data source containing one point feature.
+      map.addSource("point", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: [goalLong, goalLat],
               },
-            ],
-          },
-        });
-        // Add a layer to use the image to represent the data.
-        map.addLayer({
-          id: "points",
-          type: "symbol",
-          source: "point", // reference the data source
-          layout: {
-            "icon-image": "pin", // reference the image
-            "icon-size": 0.15,
-          },
-        });
-      }
-    );
+            },
+          ],
+        },
+      });
+      // Add a layer to use the image to represent the data.
+      map.addLayer({
+        id: "points",
+        type: "symbol",
+        source: "point", // reference the data source
+        layout: {
+          "icon-image": "pin", // reference the image
+          "icon-size": 0.15,
+        },
+      });
+    });
 
     // When the user moves their mouse over the page, we look for features
     // at the mouse position (e.point) and within the states layer (states-fill).

@@ -7,7 +7,7 @@ import Start from "./utilities/Start.js";
 import "../css/Gameplay.css";
 import "../../utilities.css";
 
-const Gameplay = () => {
+const Gameplay = ({ userId, handleLogin }) => {
   // used for displayed game info
   const [startCountry, setStartCountry] = useState(null);
   const [goalCountry, setGoalCountry] = useState(null);
@@ -23,6 +23,16 @@ const Gameplay = () => {
   const [updateCurrentFunction, setCurrentCountryCallback] = useState(() => {
     return null;
   });
+  // handles End Modal
+  const [isGameEnded, setIsGameEnded] = useState(false);
+  const [finalTime, setFinalTime] = useState(null);
+
+  useEffect(() => {
+    if (goalCountry && cCountry && goalCountry === cCountry.Country) {
+      setIsGameEnded(true);
+      console.log("game ended");
+    }
+  }, [goalCountry, cCountry]);
 
   // useEffect for map initialization
   useEffect(() => {
@@ -56,10 +66,14 @@ const Gameplay = () => {
   return (
     <div className="game-container">
       <div id="map"></div>
-      {!isGameStarted && <Start startGame={setIsGameStarted} setDiff={setDifficulty} />}
-      {isGameStarted && (
+      {!isGameStarted && <Start startGame={setIsGameStarted} setDiff={setDifficulty} userId={userId} handleLogin={handleLogin}/>}
+      {isGameStarted && !isGameEnded && (
         <>
-          <TimerComponent />
+          <TimerComponent
+            onGameEnd={isGameEnded}
+            setfinal={setFinalTime}
+            setGameEnded={setIsGameEnded}
+          />
           {openTrivia && (
             <TriviaModal
               closeTrivia={setOpenTrivia}
@@ -79,6 +93,16 @@ const Gameplay = () => {
             </div>
           </div>
         </>
+      )}
+      {isGameEnded && (
+        <Start
+          startGame={setIsGameStarted}
+          endGame={isGameEnded}
+          endTime={finalTime}
+          setGameEnded={setIsGameEnded}
+          userId={userId}
+          handleLogin={handleLogin}
+        />
       )}
     </div>
   );

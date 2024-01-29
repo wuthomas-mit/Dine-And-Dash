@@ -49,7 +49,7 @@ export const Grid = {
   alignItems: "center",
   justifyContent: "center",
   height: "auto",
-  margin: "20px 0px",
+  margin: "10px 0px",
 };
 
 export const Footer = {

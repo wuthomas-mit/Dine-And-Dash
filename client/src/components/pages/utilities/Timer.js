@@ -13,7 +13,7 @@ const timerContainerStyle = {
   backgroundColor: "#FCF6E7",
   border: "4px solid #DD4F3D",
   borderRadius: "5px",
-  zIndex: 10, 
+  zIndex: 10,
 };
 
 const timerStyle = {
@@ -44,33 +44,36 @@ const endGame = {
   backgroundColor: "#DD4F3D",
   alignItems: "center",
   justifyContent: "center",
-}
+};
 
-function TimerComponent() {
+function TimerComponent({ onGameEnd, setfinal, setGameEnded }) {
   const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(true);
+  // const [isRunning, setIsRunning] = useState(true);
 
   // useEffect for timer management
   useEffect(() => {
     let timer;
-    if (isRunning) {
+    console.log(onGameEnd);
+    if (!onGameEnd) {
       timer = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
+    } else {
+      console.log("reached", formattedTime, time);
+      setfinal(formattedTime);
     }
 
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [isRunning]);
+  }, [onGameEnd, formattedTime]);
 
-  // const handlePlayPause = () => {
-  //   setIsRunning(!isRunning);
-  // };
+  useEffect(() => {
+    setfinal(formattedTime);
+  }, [time]);
 
   const handleStop = () => {
-    setIsRunning(false);
-    setTime(0);
+    // setGameEnded(true);
   };
 
   const formattedTime = `${Math.floor(time / 60)
@@ -80,12 +83,11 @@ function TimerComponent() {
   return (
     <div style={timerContainerStyle}>
       <div style={timerStyle}>{formattedTime}</div>
-      {/* <div style={buttonStyle} onClick={handlePlayPause}>
-        {isRunning ? "||" : ">"}
-      </div> */}
-      <div style={buttonStyle} onClick={handleStop}><div style={endGame}/></div>
+      <div style={buttonStyle} onClick={handleStop}>
+        <div style={endGame} />
+      </div>
     </div>
   );
-};
+}
 
 export default TimerComponent;
