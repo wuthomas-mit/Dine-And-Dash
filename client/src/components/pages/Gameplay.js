@@ -24,11 +24,13 @@ const Gameplay = () => {
   });
   // handles End Modal
   const [isGameEnded, setIsGameEnded] = useState(false);
-  
+  const [finalTime, setFinalTime] = useState(null);
+
   useEffect(() => {
     if (goalCountry && cCountry && goalCountry === cCountry.Country) {
       setIsGameEnded(true);
-      console.log("game ended")
+      
+      console.log("game ended");
     }
   }, [goalCountry, cCountry]);
 
@@ -64,9 +66,9 @@ const Gameplay = () => {
     <div className="game-container">
       <div id="map"></div>
       {!isGameStarted && <Start startGame={setIsGameStarted} />}
-      {isGameStarted && (
+      {isGameStarted && !isGameEnded && (
         <>
-          <TimerComponent />
+          <TimerComponent setfinal={setFinalTime}/>
           {openTrivia && (
             <TriviaModal
               closeTrivia={setOpenTrivia}
@@ -87,7 +89,7 @@ const Gameplay = () => {
           </div>
         </>
       )}
-      {isGameEnded && <Start startGame={setIsGameStarted} endGame={isGameEnded}/>}
+      {isGameEnded && <Start startGame={setIsGameStarted} endGame={isGameEnded} endTime={finalTime}/>}
     </div>
   );
 };

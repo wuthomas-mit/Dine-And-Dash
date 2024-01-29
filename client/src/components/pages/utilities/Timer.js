@@ -13,7 +13,7 @@ const timerContainerStyle = {
   backgroundColor: "#FCF6E7",
   border: "4px solid #DD4F3D",
   borderRadius: "5px",
-  zIndex: 10, 
+  zIndex: 10,
 };
 
 const timerStyle = {
@@ -44,9 +44,9 @@ const endGame = {
   backgroundColor: "#DD4F3D",
   alignItems: "center",
   justifyContent: "center",
-}
+};
 
-function TimerComponent() {
+function TimerComponent({ onGameEnd, setfinal }) {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
 
@@ -57,20 +57,17 @@ function TimerComponent() {
       timer = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
+    } else {
+      setfinal(formattedTime);
     }
 
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [isRunning]);
-
-  // const handlePlayPause = () => {
-  //   setIsRunning(!isRunning);
-  // };
+  }, [isRunning, onGameEnd, formattedTime]);
 
   const handleStop = () => {
     setIsRunning(false);
-    setTime(0);
   };
 
   const formattedTime = `${Math.floor(time / 60)
@@ -80,12 +77,11 @@ function TimerComponent() {
   return (
     <div style={timerContainerStyle}>
       <div style={timerStyle}>{formattedTime}</div>
-      {/* <div style={buttonStyle} onClick={handlePlayPause}>
-        {isRunning ? "||" : ">"}
-      </div> */}
-      <div style={buttonStyle} onClick={handleStop}><div style={endGame}/></div>
+      <div style={buttonStyle} onClick={handleStop}>
+        <div style={endGame} />
+      </div>
     </div>
   );
-};
+}
 
 export default TimerComponent;

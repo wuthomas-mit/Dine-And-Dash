@@ -25,7 +25,7 @@ const gameModeGrid = {
   margin: "20px 0px",
 };
 
-const Start = ({ startGame, endGame }) => {
+const Start = ({ startGame, endGame, endTime }) => {
   const buttonsRef = useRef(null);
 
   const [isModeSelected, setIsModeSelected] = useState(false);
@@ -51,6 +51,8 @@ const Start = ({ startGame, endGame }) => {
     target.style.border = "3px solid #E6907D";
     target.dataset.count = "1";
   }
+
+  function viewStats() {}
 
   return (
     <div style={ModalBackground}>
@@ -99,11 +101,13 @@ const Start = ({ startGame, endGame }) => {
             <div style={Title}>Congrats!</div>
             <div style={Subtitle}>
               You reached your goal country in a time of <br />
-              time. <br />
+              {endTime}. <br />
               You're an expert Dine and Dash-er!
             </div>
             <div style={Footer}>
-              <button className="button">View Stats</button>
+              <button className="button" onClick={viewStats}>
+                View Stats
+              </button>
             </div>
           </>
         )}
