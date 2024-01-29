@@ -79,7 +79,7 @@ router.get("/countries/Easy", (req, res) => {
 });
 
 router.get("/countries/Hard", (req, res) => {
-  Country.find({ Hard: { $ne: [] } }, "Country twoCode Lat Long Adjacent Dish Hard")
+  Country.find({ Hard: { $ne: "[]" } }, "Country twoCode Lat Long Adjacent Dish Hard")
     .then((countries) => {
       res.send(countries);
     })
@@ -90,7 +90,7 @@ router.get("/countries/Hard", (req, res) => {
 });
 
 router.get("/countries/Medium", (req, res) => {
-  Country.find({ Hard: { $ne: [] } }, "Country twoCode Lat Long Adjacent Dish Medium")
+  Country.find({ Hard: { $ne: "[]" } }, "Country twoCode Lat Long Adjacent Dish Medium")
     .then((countries) => {
       res.send(countries);
     })
