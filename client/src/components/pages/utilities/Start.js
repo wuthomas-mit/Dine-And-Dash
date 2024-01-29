@@ -9,10 +9,12 @@ import "../../css/Home.css";
 const ModalBackground = {
   display: "flex",
   // backgroundColor: "rgba(241, 231, 214,0)",
-  // height: "1000px",
-  // width: "1000px",
   position: "absolute",
   zIndex: 15,
+  backgroundColor: "rgba(238, 187, 144, 0.5)",
+  position: "relative",
+  width: "100%",
+  height: "100vh",
 };
 
 const gameModeGrid = {
@@ -23,7 +25,7 @@ const gameModeGrid = {
   alignItems: "center",
   justifyItems: "center",
   height: "auto",
-  margin: "28px 0px 20px 0px",
+  margin: "20px 0px",
 };
 
 const Start = ({ startGame }) => {
@@ -60,8 +62,7 @@ const Start = ({ startGame }) => {
 
     // Set selected mode and apply style to the clicked button
     setDifficulty(difficulty);
-    console.log(difficulty);
-    target.style.border = "3px solid #24282A";
+    target.style.border = "3px solid #E6907D";
     target.dataset.count = "1";
   }
 
@@ -78,7 +79,7 @@ const Start = ({ startGame }) => {
         {!isModeSelected && (
           <>
             <div style={Title}>Game Modes</div>
-            <div style={Subtitle}>Game Length</div>
+            <div style={Subtitle}>Length of Game</div>
             <div style={gameModeGrid} ref={buttonsRef}>
               {["Short", "Medium", "Long"].map((item, index) => (
                 <button
@@ -101,9 +102,9 @@ const Start = ({ startGame }) => {
         {isModeSelected && (
           <>
             <div style={Title}>Ready to Play?</div>
-            <div style={Subtitle}>Start country:</div>
-            <div style={Subtitle}>Goal country:</div>
             <div style={{ ...Subtitle, width: "80%" }}>
+              You will be placed on the map at your start country. <br />
+              The goal country is shown in the bottom left corner. <br />
               Travel through countries and answer the trivia to reach your goal in as little time as
               possible!
             </div>
