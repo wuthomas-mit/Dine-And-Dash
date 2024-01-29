@@ -42,7 +42,6 @@ async function fetchCountryData(countryCode) {
     if (!countryData) {
       throw new Error("Country not found");
     }
-
     // Use the country data as needed
     // console.log("Input Country:", countryData);
     return countryData;

@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import { ModalContainer, Title, Subtitle, Footer } from "./TriviaModal";
 
+import { post } from "../../../utilities";
 import "../../../utilities.css";
 import "../../css/Home.css";
 
@@ -33,16 +34,22 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, handleLogin }) =>
 
   const [isModeSelected, setIsModeSelected] = useState(false);
 
-  // function handleWin() {
-  //   post("/api/recordWin")
-  //     .then((data) => {
-  //       console.log("Win count updated:", data);
-  //       // Handle the response, update UI, etc.
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error updating win count:", error);
-  //     });
-  // }
+  function handleWin() {
+    post("/api/recordWin")
+      .then((data) => {
+        // console.log("Win count updated:", data);
+        // Handle the response, update UI, etc.
+      })
+      .catch((error) => {
+        console.error("Error updating win count:", error);
+      });
+  }
+
+  useEffect(() => {
+    if (endGame && userId) {
+      handleWin();
+    }
+  }, [endGame]);
 
   function handleModes() {
     setIsModeSelected(true);
