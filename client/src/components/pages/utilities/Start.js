@@ -27,12 +27,22 @@ const gameModeGrid = {
   margin: "20px 0px",
 };
 
-const Start = ({ startGame, endGame, endTime, userId, handleLogin }) => {
+const Start = ({ startGame, setDiff, endGame, endTime, userId, handleLogin }) => {
   const buttonsRef = useRef(null);
   const navigate = useNavigate();
 
   const [isModeSelected, setIsModeSelected] = useState(false);
-  const [difficulty, setDifficulty] = useState(null);
+
+  // function handleWin() {
+  //   post("/api/recordWin")
+  //     .then((data) => {
+  //       console.log("Win count updated:", data);
+  //       // Handle the response, update UI, etc.
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error updating win count:", error);
+  //     });
+  // }
 
   function handleModes() {
     setIsModeSelected(true);
@@ -50,7 +60,7 @@ const Start = ({ startGame, endGame, endTime, userId, handleLogin }) => {
     });
 
     // Set selected mode and apply style to the clicked button
-    setDifficulty(difficulty);
+    setDiff(difficulty);
     target.style.border = "3px solid #E6907D";
     target.dataset.count = "1";
   }

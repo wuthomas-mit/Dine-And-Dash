@@ -67,13 +67,35 @@ router.post("/updateProfile", auth.ensureLoggedIn, (req, res) => {
     });
 });
 
-router.get("/countries", (req, res) => {
-  Country.find({}, "Country twoCode Lat Long Adjacent Dish") // Projection to get only twoCode, Lat, Long fields
+router.get("/countries/Easy", (req, res) => {
+  Country.find({}, "Country twoCode Lat Long Adjacent Dish Easy") // Projection to get only twoCode, Lat, Long fields
     .then((countries) => {
       res.send(countries);
     })
     .catch((err) => {
       console.error("Error fetching countries:", err);
+      res.status(500).send({ msg: "Error fetching country data" });
+    });
+});
+
+router.get("/countries/Hard", (req, res) => {
+  Country.find({ Hard: { $ne: "[]" } }, "Country twoCode Lat Long Adjacent Dish Hard")
+    .then((countries) => {
+      res.send(countries);
+    })
+    .catch((err) => {
+      console.error("Error fetching countries with non-empty 'Hard' lists:", err);
+      res.status(500).send({ msg: "Error fetching country data" });
+    });
+});
+
+router.get("/countries/Medium", (req, res) => {
+  Country.find({ Hard: { $ne: "[]" } }, "Country twoCode Lat Long Adjacent Dish Medium")
+    .then((countries) => {
+      res.send(countries);
+    })
+    .catch((err) => {
+      console.error("Error fetching countries with non-empty 'Hard' lists:", err);
       res.status(500).send({ msg: "Error fetching country data" });
     });
 });

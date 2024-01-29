@@ -16,6 +16,7 @@ const Gameplay = ({ userId, handleLogin }) => {
   const [visited, setVisited] = useState(null);
   // handles Start and Trivia Modals
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [difficulty, setDifficulty] = useState(null);
   const [map, setMap] = useState(null);
   const [openTrivia, setOpenTrivia] = useState(false);
   const [currentTriviaCountries, setcurrentTriviaCountries] = useState(null);
@@ -45,7 +46,8 @@ const Gameplay = ({ userId, handleLogin }) => {
         setcurrentTriviaCountries,
         setOpenTrivia,
         setPrevCountry,
-        setCurrentCountryCallback
+        setCurrentCountryCallback,
+        difficulty
       );
       setMap(newMap);
     }
@@ -64,7 +66,7 @@ const Gameplay = ({ userId, handleLogin }) => {
   return (
     <div className="game-container">
       <div id="map"></div>
-      {!isGameStarted && <Start startGame={setIsGameStarted} userId={userId} handleLogin={handleLogin}/>}
+      {!isGameStarted && <Start startGame={setIsGameStarted} setDiff={setDifficulty} userId={userId} handleLogin={handleLogin}/>}
       {isGameStarted && !isGameEnded && (
         <>
           <TimerComponent
