@@ -51,7 +51,6 @@ const Start = ({ startGame, endGame, endTime }) => {
     target.style.border = "3px solid #E6907D";
     target.dataset.count = "1";
   }
-
   function viewStats() {}
 
   return (

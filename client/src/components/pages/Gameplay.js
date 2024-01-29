@@ -67,7 +67,11 @@ const Gameplay = () => {
       {!isGameStarted && <Start startGame={setIsGameStarted} />}
       {isGameStarted && !isGameEnded && (
         <>
-          <TimerComponent setfinal={setFinalTime}/>
+          <TimerComponent
+            onGameEnd={isGameEnded}
+            setfinal={setFinalTime}
+            setGameEnded={setIsGameEnded}
+          />
           {openTrivia && (
             <TriviaModal
               closeTrivia={setOpenTrivia}
@@ -88,7 +92,14 @@ const Gameplay = () => {
           </div>
         </>
       )}
-      {isGameEnded && <Start startGame={setIsGameStarted} endGame={isGameEnded} endTime={finalTime}/>}
+      {isGameEnded && (
+        <Start
+          startGame={setIsGameStarted}
+          endGame={isGameEnded}
+          endTime={finalTime}
+          setGameEnded={setIsGameEnded}
+        />
+      )}
     </div>
   );
 };

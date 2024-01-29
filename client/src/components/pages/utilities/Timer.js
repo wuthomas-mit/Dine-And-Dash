@@ -46,28 +46,34 @@ const endGame = {
   justifyContent: "center",
 };
 
-function TimerComponent({ onGameEnd, setfinal }) {
+function TimerComponent({ onGameEnd, setfinal, setGameEnded }) {
   const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(true);
+  // const [isRunning, setIsRunning] = useState(true);
 
   // useEffect for timer management
   useEffect(() => {
     let timer;
-    if (isRunning) {
+    console.log(onGameEnd);
+    if (!onGameEnd) {
       timer = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
     } else {
+      console.log("reached", formattedTime, time);
       setfinal(formattedTime);
     }
 
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [isRunning, onGameEnd, formattedTime]);
+  }, [onGameEnd, formattedTime]);
+
+  useEffect(() => {
+    setfinal(formattedTime);
+  }, [time]);
 
   const handleStop = () => {
-    setIsRunning(false);
+    // setGameEnded(true);
   };
 
   const formattedTime = `${Math.floor(time / 60)
