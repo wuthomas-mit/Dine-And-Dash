@@ -77,7 +77,7 @@ const App = () => {
           />
           {/* <Route path="/start" element={<Start />} /> */}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/gameplay" element={<Gameplay handleLogin={handleLogin} userId={userId}/>} />
+          <Route path="/gameplay" element={<Gameplay userId={userId}/>} />
           <Route path="/howto" element={<HowTo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
