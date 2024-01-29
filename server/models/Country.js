@@ -7,6 +7,9 @@ const countrySchema = new mongoose.Schema({
   Long: String,
   Adjacent: [],
   Dish: String,
+  Easy: [],
+  Medium: [],
+  Hard: [],
 });
 
 module.exports = mongoose.model("Country", countrySchema, "Countries");

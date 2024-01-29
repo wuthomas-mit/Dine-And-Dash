@@ -1,9 +1,13 @@
 import mapboxgl from "mapbox-gl";
 
-async function fetchRandomCountry() {
+async function fetchRandomCountry(diff) {
   try {
     // Fetch the list of countries from your backend
-    const response = await fetch("/api/countries");
+    let url = "/api/countries";
+    if (diff === "Hard" || diff === "Medium" || diff === "Easy") {
+      url += `/${diff}`;
+    }
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -26,7 +30,7 @@ async function fetchRandomCountry() {
 async function fetchCountryData(countryCode) {
   try {
     // Fetch the list of countries from your backend
-    const response = await fetch("/api/countries");
+    const response = await fetch("/api/countries/easy");
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -35,6 +39,30 @@ async function fetchCountryData(countryCode) {
     const countries = await response.json();
     // Find the country by the inputted name
     const countryData = countries.find((country) => country.twoCode === countryCode);
+    if (!countryData) {
+      throw new Error("Country not found");
+    }
+
+    // Use the country data as needed
+    // console.log("Input Country:", countryData);
+    return countryData;
+  } catch (error) {
+    console.error("Failed to fetch country data:", error);
+  }
+}
+
+async function fetchCountry_fromName(countryName) {
+  try {
+    // Fetch the list of countries from your backend
+    const response = await fetch("/api/countries/easy");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // Parse the JSON response
+    const countries = await response.json();
+    // Find the country by the inputted name
+    const countryData = countries.find((country) => country.Country === countryName);
     if (!countryData) {
       throw new Error("Country not found");
     }
@@ -67,7 +95,8 @@ const initializeMap = (
   setcurrentTriviaCountries,
   setOpenTrivia,
   setPrevCountry,
-  setCurrentCountryCallback
+  setCurrentCountryCallback,
+  difficulty
 ) => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
@@ -128,12 +157,21 @@ const initializeMap = (
     currentCountry = cCountry;
 
     // defines Start and Goal countries that stay unchanged through the game
-    const startCountryData = await fetchRandomCountry();
+    const startCountryData = await fetchRandomCountry(difficulty);
     currentCountry = startCountryData;
     setStartCountry(startCountryData.Country);
     setCCountry(startCountryData);
 
-    const goalCountryData = await fetchRandomCountry();
+    let goalCountryName;
+    if (startCountryData[difficulty] && startCountryData[difficulty].length > 0) {
+      let country_data = JSON.parse(startCountryData[difficulty][0]);
+      console.log(country_data);
+
+      const randomIndex = Math.floor(Math.random() * country_data.length);
+      goalCountryName = country_data[randomIndex];
+    }
+    console.log(goalCountryName);
+    let goalCountryData = await fetchCountry_fromName(goalCountryName);
     setGoalCountry(goalCountryData.Country);
 
     // start a set of the new countries user has visited
