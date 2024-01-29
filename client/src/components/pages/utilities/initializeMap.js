@@ -276,9 +276,9 @@ const initializeMap = (
           parseAdjacentCountries(currentCountry.Adjacent).includes(clicked_data.Country)
         ) {
           const triviaCountry = await fetchCountryData(features[0].properties.ISO_A2);
-          const random_1 = await fetchRandomCountry();
-          const random_2 = await fetchRandomCountry();
-          const random_3 = await fetchRandomCountry();
+          const random_1 = await fetchRandomCountry("Easy");
+          const random_2 = await fetchRandomCountry("Easy");
+          const random_3 = await fetchRandomCountry("Easy");
 
           const tCountries = [triviaCountry, random_1, random_2, random_3];
           setcurrentTriviaCountries(tCountries);
