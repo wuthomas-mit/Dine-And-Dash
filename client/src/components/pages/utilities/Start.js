@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import { ModalContainer, Title, Subtitle, Footer } from "./TriviaModal";
 
 import "../../../utilities.css";
@@ -25,7 +27,7 @@ const gameModeGrid = {
   margin: "20px 0px",
 };
 
-const Start = ({ startGame, endGame, endTime }) => {
+const Start = ({ startGame, endGame, endTime, userId, handleLogin }) => {
   const buttonsRef = useRef(null);
   const navigate = useNavigate();
 
@@ -52,8 +54,13 @@ const Start = ({ startGame, endGame, endTime }) => {
     target.style.border = "3px solid #E6907D";
     target.dataset.count = "1";
   }
+
   function viewProfile() {
-    navigate("/profile");
+    if (userId) {
+      navigate("/profile");
+    } else {
+      alert("Please log in to view your profile");
+    }
   }
 
   return (
@@ -107,7 +114,14 @@ const Start = ({ startGame, endGame, endTime }) => {
               You're an expert Dine and Dash-er!
             </div>
             <div style={Footer}>
-              <button className="button">Play Again</button>
+              <button
+                className="button"
+                onClick={() => {
+                  location.reload();
+                }}
+              >
+                Play Again
+              </button>
               <button className="button" onClick={viewProfile}>
                 View Profile
               </button>

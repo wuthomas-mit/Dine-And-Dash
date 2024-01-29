@@ -7,7 +7,7 @@ import Start from "./utilities/Start.js";
 import "../css/Gameplay.css";
 import "../../utilities.css";
 
-const Gameplay = () => {
+const Gameplay = ({ userId, handleLogin }) => {
   // used for displayed game info
   const [startCountry, setStartCountry] = useState(null);
   const [goalCountry, setGoalCountry] = useState(null);
@@ -64,7 +64,7 @@ const Gameplay = () => {
   return (
     <div className="game-container">
       <div id="map"></div>
-      {!isGameStarted && <Start startGame={setIsGameStarted} />}
+      {!isGameStarted && <Start startGame={setIsGameStarted} userId={userId} handleLogin={handleLogin}/>}
       {isGameStarted && !isGameEnded && (
         <>
           <TimerComponent
@@ -98,6 +98,8 @@ const Gameplay = () => {
           endGame={isGameEnded}
           endTime={finalTime}
           setGameEnded={setIsGameEnded}
+          userId={userId}
+          handleLogin={handleLogin}
         />
       )}
     </div>
