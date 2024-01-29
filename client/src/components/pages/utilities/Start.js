@@ -1,6 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { post } from "../../../utilities";
 import { ModalContainer, Title, Subtitle, Footer } from "./TriviaModal";
 
 import "../../../utilities.css";
@@ -8,7 +6,6 @@ import "../../css/Home.css";
 
 const ModalBackground = {
   display: "flex",
-  // backgroundColor: "rgba(241, 231, 214,0)",
   position: "absolute",
   zIndex: 15,
   backgroundColor: "rgba(238, 187, 144, 0.5)",
@@ -28,22 +25,11 @@ const gameModeGrid = {
   margin: "20px 0px",
 };
 
-const Start = ({ startGame }) => {
+const Start = ({ startGame, endGame }) => {
   const buttonsRef = useRef(null);
 
   const [isModeSelected, setIsModeSelected] = useState(false);
   const [difficulty, setDifficulty] = useState(null);
-
-  // function handleWin() {
-  //   post("/api/recordWin")
-  //     .then((data) => {
-  //       console.log("Win count updated:", data);
-  //       // Handle the response, update UI, etc.
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error updating win count:", error);
-  //     });
-  // }
 
   function handleModes() {
     setIsModeSelected(true);
@@ -67,21 +53,14 @@ const Start = ({ startGame }) => {
   }
 
   return (
-    // <div className="flex-container">
-    //   {
-    //     <div className="buttons-container">
-    //       <button onClick={handleWin}>Win-Update</button>
-    //     </div>
-    //   }
-    // </div>
     <div style={ModalBackground}>
       <div style={ModalContainer}>
-        {!isModeSelected && (
+        {!isModeSelected && !endGame && (
           <>
             <div style={Title}>Game Modes</div>
             <div style={Subtitle}>Length of Game</div>
             <div style={gameModeGrid} ref={buttonsRef}>
-              {["Short", "Medium", "Long"].map((item, index) => (
+              {["Easy", "Medium", "Hard"].map((item, index) => (
                 <button
                   className="block-button"
                   style={{ width: "120px" }}
@@ -99,7 +78,7 @@ const Start = ({ startGame }) => {
             </div>
           </>
         )}
-        {isModeSelected && (
+        {isModeSelected && !endGame && (
           <>
             <div style={Title}>Ready to Play?</div>
             <div style={{ ...Subtitle, width: "80%" }}>
@@ -112,6 +91,19 @@ const Start = ({ startGame }) => {
               <button className="button" onClick={() => startGame(true)}>
                 Start the clock
               </button>
+            </div>
+          </>
+        )}
+        {endGame && (
+          <>
+            <div style={Title}>Congrats!</div>
+            <div style={Subtitle}>
+              You reached your goal country in a time of <br />
+              time. <br />
+              You're an expert Dine and Dash-er!
+            </div>
+            <div style={Footer}>
+              <button className="button">View Stats</button>
             </div>
           </>
         )}

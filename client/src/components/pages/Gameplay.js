@@ -22,6 +22,15 @@ const Gameplay = () => {
   const [updateCurrentFunction, setCurrentCountryCallback] = useState(() => {
     return null;
   });
+  // handles End Modal
+  const [isGameEnded, setIsGameEnded] = useState(false);
+  
+  useEffect(() => {
+    if (goalCountry && cCountry && goalCountry === cCountry.Country) {
+      setIsGameEnded(true);
+      console.log("game ended")
+    }
+  }, [goalCountry, cCountry]);
 
   // useEffect for map initialization
   useEffect(() => {
@@ -78,6 +87,7 @@ const Gameplay = () => {
           </div>
         </>
       )}
+      {isGameEnded && <Start startGame={setIsGameStarted} endGame={isGameEnded}/>}
     </div>
   );
 };
