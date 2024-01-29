@@ -27,6 +27,7 @@ const gameModeGrid = {
 
 const Start = ({ startGame, endGame, endTime }) => {
   const buttonsRef = useRef(null);
+  const navigate = useNavigate();
 
   const [isModeSelected, setIsModeSelected] = useState(false);
   const [difficulty, setDifficulty] = useState(null);
@@ -51,7 +52,9 @@ const Start = ({ startGame, endGame, endTime }) => {
     target.style.border = "3px solid #E6907D";
     target.dataset.count = "1";
   }
-  function viewStats() {}
+  function viewProfile() {
+    navigate("/profile");
+  }
 
   return (
     <div style={ModalBackground}>
@@ -104,8 +107,9 @@ const Start = ({ startGame, endGame, endTime }) => {
               You're an expert Dine and Dash-er!
             </div>
             <div style={Footer}>
-              <button className="button" onClick={viewStats}>
-                View Stats
+              <button className="button">Play Again</button>
+              <button className="button" onClick={viewProfile}>
+                View Profile
               </button>
             </div>
           </>
