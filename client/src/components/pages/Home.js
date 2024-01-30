@@ -19,10 +19,15 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
 
   const handleGame = () => {
     if (!userId) {
-      alert("Play without logging in? Log in if you want to save your stats!");
+      if (confirm("Play without logging in? You can save your stats if you log in!")) {
+        navigate("/gameplay");
+      }
+      // alert("Play without logging in? Log in if you want to save your stats!");
+    } else {
+      navigate("/gameplay");
     }
-    navigate("/gameplay");
   };
+
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="page-container">
@@ -40,7 +45,9 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
         <div className="text-container">
           <div className="title">Welcome, Agent 69620</div>
           <div className="subtitle">Mission: Dine and Dash.</div>
-          <div className="subtitle">Join us in the ultimate heist to capture all the dishes around the world...</div>
+          <div className="subtitle">
+            Join us in the ultimate heist to capture all the dishes around the world...
+          </div>
           <div className="button-container">
             <button
               className="button"
@@ -48,10 +55,10 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
                 navigate("/howto");
               }}
             >
-              Details
+              How To Play
             </button>
             <button className="button" onClick={handleGame}>
-              Proceed
+              Play Game
             </button>
           </div>
         </div>

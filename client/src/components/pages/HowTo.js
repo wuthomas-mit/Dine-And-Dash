@@ -21,26 +21,26 @@ const HowTo = () => {
       </p>
       <h3>Choose Your Heist's Difficulty</h3>
       <p>
-        Select your challenge level - Easy, Medium, or Hard. Remember, the greater the risk, the
+        Select your challenge level - Easy, Medium, or Hard. This will dictate how many countries you travel through. Remember, the greater the risk, the
         greater the reward.
       </p>
       <h3>Initiate the Mission</h3>
       <p>
-        Press 'Start Heist' to start the clock. Time is of the essence, Agent. Once the mission
+        Click 'Start Heist' to start the clock. Time is of the essence, Agent. Once the mission
         starts, there's no turning back.
       </p>
       <h3>Your Starting Point</h3>
       <p>
-        A world map will appear as your mission begins. You will be dropped into a country of our
+        A world map will appear as your mission begins. You will be placed onto a country of our
         choice.
       </p>
       <h3>Your Final Destination</h3>
-      <p>You will be assigned a target country. Navigate the globe to reach this destination.</p>
+      <p>You will be assigned a goal country. Navigate the globe to reach this destination.</p>
       <h3>Move Strategically</h3>
-      <p>Click on adjacent countries to create your path. Plan wisely.</p>
+      <p>Click on adjacent countries to create your path. The shorter the path, the faster you complete the mission. Plan wisely.</p>
       <h3>Face the Challenges</h3>
       <p>
-        Each new country presents a trivia question. Answer correctly to stay, or a wrong answer
+        Each new country presents a trivia question. Answer correctly to advance to the next country, or else a wrong answer
         sends you back.
       </p>
       <h3>Target Assigned</h3>
