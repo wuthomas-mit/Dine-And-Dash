@@ -6,11 +6,18 @@ import { post } from "../../utilities";
 import "../../utilities.css";
 import "../css/Profile.css";
 import "../css/Home.css";
+import agentRaccoon from "../../images/agent-raccoon.png";
+import hungryRacoon from "../../images/hungry-raccoon.png";
+import surprisedRacoon from "../../images/surprised-raccoon.png";
+import mastermindRaccoon from "../../images/mastermind-raccoon.png";
+import travelerRaccoon from "../../images/traveler-raccoon.png";
 
 const Profile = ({}) => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [favoriteCountry, setFavoriteCountry] = useState("");
+  const [currentAvatar, setCurrentAvatar] = useState(agentRaccoon);
+
+  const avatars = [agentRaccoon, hungryRacoon, surprisedRacoon, mastermindRaccoon, travelerRaccoon]
 
   useEffect(() => {
     setIsLoading(true);
@@ -27,9 +34,6 @@ const Profile = ({}) => {
       setUserData(updatedProfile);
     };
 
-    if (userData) {
-      setFavoriteCountry(userData.favoriteCountry || "");
-    }
     // Listen for profile update events from the server
     socket.on("profileUpdated", handleProfileUpdate);
 
@@ -42,34 +46,36 @@ const Profile = ({}) => {
     return <div>Loading...</div>;
   }
 
-  const handleCountryChange = (event) => {
-    setFavoriteCountry(event.target.value);
-  };
+  function switchAvatar() {
+    const currentIndex = avatars.indexOf(currentAvatar);
+    const nextIndex = (currentIndex + 1) % avatars.length;
+    setCurrentAvatar(avatars[nextIndex]);
+  }
 
   return (
     <div className="profile-container">
       <div className="content-container">
         <div className="avatar-container">
-          <div className="avatar"></div>
-          <div className="avatar-options">
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
+          <div className="avatar">
+            <img src={currentAvatar} alt="user avatar"/>
           </div>
-          <div className="button">Switch Avatar</div>
+          {/* <div className="avatar-options">
+            <div className="item"></div>
+            <div className="item"></div>
+            <div className="item"></div>
+          </div> */}
+          <div className="button" onClick={switchAvatar}>Switch Avatar</div>
         </div>
         <div className="stats-container">
-          <div id="Name">{userData.name}</div>
-          <h3 style={{ margin: "0px" }}>
-            Favorite country:{" "}
-            <input type="text" value={favoriteCountry} onChange={handleCountryChange}></input>{" "}
-          </h3>
+          <div id="Name">Agent {userData.name}</div>
           <div className="item">Heists Completed: {userData.wins}</div>
           <div className="item">
             Fastest Heist:{" "}
             {`${Math.floor(userData.fastest / 60)
               .toString()
               .padStart(2, "0")}:${(userData.fastest % 60).toString().padStart(2, "0")}`}{" "}
+          </div>
+          <div className="item">
             Slowest Heist:{" "}
             {`${Math.floor(userData.slowest / 60)
               .toString()

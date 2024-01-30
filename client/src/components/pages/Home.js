@@ -15,29 +15,34 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const navigate = useNavigate();
-  const handlePlayLocal = () => {
-    navigate("/start");
-  };
+
   const handleGame = () => {
+    alert("Play without logging in? Log in if you want to save your stats!");
     navigate("/gameplay");
   };
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="page-container">
         <div className="title-container">
-          <h1 className="Title">Explore the World Through Food!</h1>
+          <h1>Welcome, Agent 69620</h1>
         </div>
 
         <div className="animation-container">
           <img src={globe} alt="globe" />
         </div>
         <div className="button-container">
-          {/* <div className="Local">
-            <button className="button" onClick={handlePlayLocal}>
-              <span>Play Local</span>
-            </button>
-          </div> */}
-          {/* <div className="Online">
+          <button className="button">Mission Details</button>
+          <button className="button" onClick={handleGame}>
+            Proceed
+          </button>
+        </div>
+      </div>
+    </GoogleOAuthProvider>
+  );
+};
+
+{
+  /* <div className="Online">
             <button className="button" onClick={toggleDropdown}>
               <span>Play Online</span>
             </button>
@@ -60,16 +65,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
                 )}
               </div>
             )}
-          </div> */}
-          <div className="game">
-            <button className="button" onClick={handleGame}>
-              <span>Play Game</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </GoogleOAuthProvider>
-  );
-};
+          </div> */
+}
 
 export default Home;

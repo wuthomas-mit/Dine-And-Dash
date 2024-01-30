@@ -10,7 +10,6 @@ const ModalBackground = {
   display: "flex",
   position: "absolute",
   zIndex: 15,
-  backgroundColor: "rgba(238, 187, 144, 0.5)",
   position: "relative",
   width: "100%",
   height: "100vh",
