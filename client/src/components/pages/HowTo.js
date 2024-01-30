@@ -26,14 +26,15 @@ const HowTo = () => {
       </p>
       <h3>Initiate the Mission</h3>
       <p>
-        Press 'Go' to start the clock. Time is of the essence, Agent. Once the mission starts,
-        there's no turning back.
+        Press 'Start Heist' to start the clock. Time is of the essence, Agent. Once the mission
+        starts, there's no turning back.
       </p>
       <h3>Your Starting Point</h3>
       <p>
-        A world map will appear as your mission begins. Your starting country is randomly assigned.
+        A world map will appear as your mission begins. You will be dropped into a country of our
+        choice.
       </p>
-      <h3>Your Ultimate Goal</h3>
+      <h3>Your Final Destination</h3>
       <p>You will be assigned a target country. Navigate the globe to reach this destination.</p>
       <h3>Move Strategically</h3>
       <p>Click on adjacent countries to create your path. Plan wisely.</p>
@@ -44,8 +45,8 @@ const HowTo = () => {
       </p>
       <h3>Target Assigned</h3>
       <p>
-        Navigate through countries and overcome challenges to reach your goal country. The clock is
-        ticking, so be swift and smart.
+        Navigate through countries and overcome the challenges to reach your goal country. The clock
+        is ticking, so be swift and smart.
       </p>
       <p>
         Remember, Agent, discretion is paramount. Trust your instincts, and your knowledge. The fate
