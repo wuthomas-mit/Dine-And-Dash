@@ -117,11 +117,15 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
         {isModeSelected && !endGame && (
           <>
             <div style={Title}>Mission Loading...</div>
-            <div style={{ ...Subtitle, width: "85%" }}>
-              Agent, there's no turning back from here. <br />
-              You are about to take on the heist of a lifetime. <br />
-              If you need to review them, the mission details are in the top right. Travel through
-              the countries as fast as you can, and don't look back.
+            <div style={{ ...Subtitle, width: "90%" }}>
+              Agent, you are about to take on the heist of a lifetime.
+            </div>
+            <div style={{ ...Subtitle, width: "90%" }}>
+              You will be placed on the map at a start country. <br />
+              The goal country is shown in the bottom left corner. <br />
+            </div>
+            <div style={{ ...Subtitle, width: "90%" }}>
+              Travel through countries to your goal, answering trivia as fast as you can!
             </div>
             <div style={Footer}>
               <button className="button" onClick={() => startGame(true)}>
@@ -137,7 +141,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
               Great work Agent 69620! <br />
               You reached the goal country in a time of <br />
               {endTime}. <br />
-              During the heist, you captured a total of <br/>
+              During the heist, you captured a total of <br />
               ... dishes.
             </div>
             <div style={Footer}>
