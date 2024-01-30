@@ -12,7 +12,7 @@ const timerContainerStyle = {
   height: "48px",
   backgroundColor: "#FCF6E7",
   border: "4px solid #DD4F3D",
-  borderRadius: "5px",
+  borderRadius: "10px",
   zIndex: 10,
 };
 
