@@ -19,9 +19,13 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
 
   const handleGame = () => {
     if (!userId) {
-      alert("Play without logging in? Log in if you want to save your stats!");
+      if (confirm("Play without logging in? You can save your stats if you log in!")) {
+        navigate("/gameplay");
+      }
+      // alert("Play without logging in? Log in if you want to save your stats!");
+    } else {
+      navigate("/gameplay");
     }
-    navigate("/gameplay");
   };
 
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
@@ -94,7 +98,6 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
       }, 600);
     }, 2000);
   };
-
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="page-container">
@@ -139,10 +142,10 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
                 navigate("/howto");
               }}
             >
-              Details
+              How To Play
             </button>
             <button className="button" onClick={handleGame}>
-              Proceed
+              Play Game
             </button>
           </div>
         </div>

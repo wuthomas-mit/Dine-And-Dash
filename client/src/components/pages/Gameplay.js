@@ -26,6 +26,9 @@ const Gameplay = ({ userId }) => {
   // handles End Modal
   const [isGameEnded, setIsGameEnded] = useState(false);
   const [finalTime, setFinalTime] = useState(null);
+  // handles alert if user hasn't opened the trivia modal
+  const [timerId, setTimerId] = useState(null);
+  const [alertShown, setAlertShown] = useState(false);
 
   useEffect(() => {
     if (goalCountry && cCountry && goalCountry === cCountry.Country) {
@@ -52,6 +55,27 @@ const Gameplay = ({ userId }) => {
       setMap(newMap);
     }
   }, [isGameStarted]);
+
+  useEffect(() => {
+    if (isGameStarted && !alertShown) {
+      // Start a timer when the game starts and alert hasn't been shown
+      const id = setTimeout(() => {
+        if (!openTrivia) {
+          alert("Please click on an adjacent country! You are trying to reach the goal country.");
+          setAlertShown(true); // Set alertShown to true after showing the alert
+        }
+      }, 10000); // 10 seconds
+
+      setTimerId(id);
+    }
+  }, [isGameStarted, openTrivia, alertShown]);
+
+  useEffect(() => {
+    // Clear the timer if the trivia modal is opened
+    if (openTrivia && timerId) {
+      clearTimeout(timerId);
+    }
+  }, [openTrivia, timerId]);
 
   const onWrongAnswer = () => {
     if (prevCountry) {

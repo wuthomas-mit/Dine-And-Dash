@@ -13,8 +13,9 @@ body {
   border: 3px solid #ffffff; /* Adding border */
   border-radius: 10px; /* Optional: for rounded corners */
   max-width: 55%; /* Adjust as necessary */
-  margin: auto; /* Center the container */
   margin-top: 8%;
+  margin: 30px auto; /* Center the container */
+
 }
 
 .title-container {
@@ -50,5 +51,5 @@ h3 {
 p {
   font-size: 1.5em;
   margin-bottom: 15px;
-  font-weight: 300;
+  font-weight: 400;
 }
