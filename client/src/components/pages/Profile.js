@@ -67,7 +67,7 @@ const Profile = ({}) => {
           <div className="button" onClick={switchAvatar}>Switch Avatar</div>
         </div>
         <div className="stats-container">
-          <div id="Name">Agent {userData.name}</div>
+          <div id="Name">Agent 69620 <br/> {userData.name}</div>
           <div className="item">Heists Completed: {userData.wins}</div>
           <div className="item">
             Fastest Heist:{" "}

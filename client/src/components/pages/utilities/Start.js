@@ -132,11 +132,13 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
         )}
         {endGame && (
           <>
-            <div style={Title}>Congrats!</div>
+            <div style={Title}>Mission Successful</div>
             <div style={Subtitle}>
-              You reached your goal country in a time of <br />
+              Great work Agent 69620! <br />
+              You reached the goal country in a time of <br />
               {endTime}. <br />
-              You're an expert Dine and Dash-er!
+              During the heist, you captured a total of <br/>
+              ... dishes.
             </div>
             <div style={Footer}>
               <button
@@ -145,7 +147,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
                   location.reload();
                 }}
               >
-                Play Again
+                New Mission
               </button>
               <button className="button" onClick={viewProfile}>
                 View Profile
