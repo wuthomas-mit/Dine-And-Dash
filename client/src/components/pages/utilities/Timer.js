@@ -8,7 +8,7 @@ const timerContainerStyle = {
   left: "50%",
   top: "70px",
   transform: "translate(-50%)",
-  width: "180px",
+  width: "150px",
   height: "48px",
   backgroundColor: "#FCF6E7",
   border: "4px solid #DD4F3D",

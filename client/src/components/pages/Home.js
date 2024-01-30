@@ -23,18 +23,26 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="page-container">
-        <div className="title-container">
-          <h1>Welcome, Agent 69620</h1>
-        </div>
-
         <div className="animation-container">
-          <img src={globe} alt="globe" />
+          <div className="animation">
+            <img src={globe} alt="globe" />
+          </div>
         </div>
-        <div className="button-container">
-          <button className="button">Mission Details</button>
-          <button className="button" onClick={handleGame}>
-            Proceed
-          </button>
+        <div className="text-container">
+          <div className="title-container">Welcome, Agent 69620</div>
+          <div className="button-container">
+            <button
+              className="button"
+              onClick={() => {
+                navigate("/howto");
+              }}
+            >
+              Details
+            </button>
+            <button className="button" onClick={handleGame}>
+              Proceed
+            </button>
+          </div>
         </div>
       </div>
     </GoogleOAuthProvider>
