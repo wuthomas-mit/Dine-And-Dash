@@ -145,6 +145,28 @@ router.post("/recordWin", auth.ensureLoggedIn, async (req, res) => {
     res.status(500).send({ success: false, message: "Error recording win." });
   }
 });
+router.post("/updateAvatar", auth.ensureLoggedIn, async (req, res) => {
+  const userId = req.user._id;
+  const { inputAvatar } = req.body;
+
+  console.log(inputAvatar);
+  try {
+    const user = await User.findById(userId);
+    user.currentAvatar = inputAvatar;
+    // Save the updated user
+    const updatedUser = await user.save();
+
+    // Emit an event with the updated user profile
+    const userSocket = socketManager.getSocketFromUserID(userId);
+    if (userSocket) {
+      userSocket.emit("profileUpdated", updatedUser);
+    }
+    res.send({ success: true, message: "Win recorded and profile updated." });
+  } catch (error) {
+    console.error("Error recording win:", error);
+    res.status(500).send({ success: false, message: "Error recording win." });
+  }
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

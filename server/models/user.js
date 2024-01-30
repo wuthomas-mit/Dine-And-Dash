@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
   fastest: { type: Number, default: 0 },
   slowest: { type: Number, default: 0 },
   visited: { type: [String], default: [] },
+  currentAvatar: String,
 });
 
 // compile model from schema
