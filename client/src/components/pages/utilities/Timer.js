@@ -71,9 +71,9 @@ function TimerComponent({ onGameEnd, setfinal, setGameEnded }) {
     setfinal(formattedTime);
   }, [time]);
 
-  const handleStop = () => {
-    // setGameEnded(true);
-  };
+  // const handleStop = () => {
+  //   // setGameEnded(true);
+  // };
 
   const formattedTime = `${Math.floor(time / 60)
     .toString()
@@ -82,9 +82,9 @@ function TimerComponent({ onGameEnd, setfinal, setGameEnded }) {
   return (
     <div style={timerContainerStyle}>
       <div style={timerStyle}>{formattedTime}</div>
-      <div style={buttonStyle} onClick={handleStop}>
+      {/* <div style={buttonStyle} onClick={handleStop}>
         <div style={endGame} />
-      </div>
+      </div> */}
     </div>
   );
 }

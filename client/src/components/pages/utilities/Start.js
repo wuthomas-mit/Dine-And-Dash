@@ -32,7 +32,8 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
   const navigate = useNavigate();
 
   const [isModeSelected, setIsModeSelected] = useState(false);
-
+  const [selectedDifficulty, setSelectedDifficulty] = useState(false);
+  
   function convertTimeToSeconds(timeString) {
     const [minutes, seconds] = timeString.split(":").map(Number);
     return minutes * 60 + seconds;
@@ -57,7 +58,9 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
   }, [endGame]);
 
   function handleModes() {
-    setIsModeSelected(true);
+    if (selectedDifficulty) {
+      setIsModeSelected(true);
+    }
   }
 
   function setColor(e) {
@@ -72,6 +75,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
     });
 
     // Set selected mode and apply style to the clicked button
+    setSelectedDifficulty(true);
     setDiff(difficulty);
     target.style.border = "3px solid #E6907D";
     target.dataset.count = "1";
@@ -105,7 +109,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
               ))}
             </div>
             <div style={Footer}>
-              <button className="button" onClick={handleModes}>
+              <button className="button" onClick={handleModes} disabled={!selectedDifficulty}>
                 Set Mode
               </button>
             </div>
