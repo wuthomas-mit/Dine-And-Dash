@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import { ModalContainer, Title, Subtitle, Footer } from "./TriviaModal";
 
+import { post } from "../../../utilities";
 import "../../../utilities.css";
 import "../../css/Home.css";
 
@@ -27,12 +27,35 @@ const gameModeGrid = {
   margin: "20px 0px",
 };
 
-const Start = ({ startGame, setDiff, endGame, endTime, userId }) => {
+const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries }) => {
   const buttonsRef = useRef(null);
   const navigate = useNavigate();
 
   const [isModeSelected, setIsModeSelected] = useState(false);
   const [selectedDifficulty, setSelectedDifficulty] = useState(false);
+  
+  function convertTimeToSeconds(timeString) {
+    const [minutes, seconds] = timeString.split(":").map(Number);
+    return minutes * 60 + seconds;
+  }
+  function handleWin() {
+    const finalTime = convertTimeToSeconds(endTime);
+    let visited = [...visitedCountries];
+    post("/api/recordWin", { finalTime, visited })
+      .then((data) => {
+        // console.log("Win count updated:", data);
+        // Handle the response, update UI, etc.
+      })
+      .catch((error) => {
+        console.error("Error updating win count:", error);
+      });
+  }
+
+  useEffect(() => {
+    if (endGame && userId) {
+      handleWin();
+    }
+  }, [endGame]);
 
   function handleModes() {
     if (selectedDifficulty) {

@@ -53,7 +53,6 @@ function TimerComponent({ onGameEnd, setfinal, setGameEnded }) {
   // useEffect for timer management
   useEffect(() => {
     let timer;
-    console.log(onGameEnd);
     if (!onGameEnd) {
       timer = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
