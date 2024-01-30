@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import globe from "../../images/earth-globe-tool.svg";
@@ -28,6 +28,76 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
     }
   };
 
+  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+  const [currentSubtitle1Index, setCurrentSubtitle1Index] = useState(0);
+  const [currentSubtitle2Index, setCurrentSubtitle2Index] = useState(0);
+  const [showTitle, setShowTitle] = useState(false);
+  const [showSubtitle1, setShowSubtitle1] = useState(false);
+  const [showSubtitle2, setShowSubtitle2] = useState(false);
+  const titleCharacters = "Welcome, Agent 69620".split("");
+  const subtitle1Characters = "Mission: Dine and Dash.".split("");
+  const subtitle2Characters =
+    "Join us in the ultimate heist to capture all the dishes around the world...".split("");
+
+  useEffect(() => {
+    // Start rendering the title after an initial pause
+    setTimeout(() => {
+      setShowTitle(true);
+      startTitleTimer();
+    }, 1000);
+  }, []);
+
+  // Function to start the title timer
+  const startTitleTimer = () => {
+    setShowTitle(true);
+    const titleTimer = setInterval(() => {
+      setCurrentTitleIndex((prevIndex) => {
+        if (prevIndex < titleCharacters.length) {
+          return prevIndex + 1;
+        } else {
+          clearInterval(titleTimer);
+          startSubtitle1Timer(); // Start the first subtitle after the title is complete
+          return prevIndex;
+        }
+      });
+    }, 300);
+    return () => clearInterval(titleTimer);
+  };
+
+  // Function to start the first subtitle timer
+  const startSubtitle1Timer = () => {
+    setTimeout(() => {
+      setShowSubtitle1(true);
+      const subtitle1Timer = setInterval(() => {
+        setCurrentSubtitle1Index((prevIndex) => {
+          if (prevIndex < subtitle1Characters.length) {
+            return prevIndex + 1;
+          } else {
+            clearInterval(subtitle1Timer);
+            startSubtitle2Timer(); // Start the second subtitle after the first subtitle is complete
+            return prevIndex;
+          }
+        });
+      }, 600);
+    }, 2000);
+  };
+
+  // Function to start the second subtitle timer
+  const startSubtitle2Timer = () => {
+    setTimeout(() => {
+      setShowSubtitle2(true);
+      const subtitle2Timer = setInterval(() => {
+        setCurrentSubtitle2Index((prevIndex) => {
+          if (prevIndex < subtitle2Characters.length) {
+            return prevIndex + 1;
+          } else {
+            clearInterval(subtitle2Timer);
+            return prevIndex;
+          }
+        });
+      }, 600);
+    }, 2000);
+  };
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="page-container">
@@ -43,11 +113,28 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
           </div>
         </div>
         <div className="text-container">
-          <div className="title">Welcome, Agent 69620</div>
-          <div className="subtitle">Mission: Dine and Dash.</div>
-          <div className="subtitle">
-            Join us in the ultimate heist to capture all the dishes around the world...
-          </div>
+          {showTitle && (
+            <div className="title">
+              {titleCharacters.slice(0, currentTitleIndex).join("")}
+              {currentTitleIndex < titleCharacters.length && (
+                <span className="blinking-cursor"></span>
+              )}
+            </div>
+          )}
+          {showSubtitle1 && (
+            <div className="subtitle">
+              {subtitle1Characters.slice(0, currentSubtitle1Index).join("")}
+              {currentSubtitle1Index < subtitle1Characters.length && (
+                <span className="blinking-cursor"></span>
+              )}
+            </div>
+          )}
+          {showSubtitle2 && (
+            <div className="subtitle">
+              {subtitle2Characters.slice(0, currentSubtitle2Index).join("")}
+              <span className="blinking-cursor"></span>
+            </div>
+          )}
           <div className="button-container">
             <button
               className="button"
