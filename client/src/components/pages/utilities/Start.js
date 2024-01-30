@@ -84,7 +84,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
     if (userId) {
       navigate("/profile");
     } else {
-      alert("Please log in to view your profile");
+      alert("Please log in to view your profile! (Note: current game will not be saved)");
     }
   }
 
@@ -142,7 +142,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
               You reached the goal country in a time of <br />
               {endTime}. <br />
               During the heist, you captured a total of <br />
-              ... dishes.
+              {visitedCountries.size} dishes.
             </div>
             <div style={Footer}>
               <button
