@@ -82,7 +82,9 @@ const Profile = ({}) => {
           </div>
         </div>
         <div className="stats-container">
-          <div id="Name">Agent 69620 <br/> {userData.name}</div>
+          <div id="Name">
+            Agent 69620 <br /> {userData.name}
+          </div>
           <div className="item">Heists Completed: {userData.wins}</div>
           <div className="item">avatar: {userData.currentAvatar}</div>
           <div className="item">
