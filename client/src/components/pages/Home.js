@@ -48,7 +48,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
                 navigate("/howto");
               }}
             >
-              Details
+              How To Play
             </button>
             <button className="button" onClick={handleGame}>
               Proceed

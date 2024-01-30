@@ -20,14 +20,15 @@
   font-weight: 700;
 }
 
-.navbar .Right {
+.navbar .right-container {
   display: flex;
-  padding-right: 20px; /* Padding on the right side */
+  padding-right: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
-.navbar .Right .HowTo,
-.navbar .Right .Profile {
-  margin-left: 15px; /* Horizontal spacing between the right-side links */
+.navbar .right-container .item {
+  margin: 0px 10px;
 }
 
 .navbar a {
@@ -35,14 +36,11 @@
   text-decoration: none;
 }
 
-.question {
-  width: 48px;
-  height: auto;
-}
-
-.pfp {
-  width: 48px;
-  height: auto;
+.icon {
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  display: flex;
 }
 
 .User {

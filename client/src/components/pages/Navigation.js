@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 import question from "../../images/howTo.png";
 import pfp from "../../images/profilepic.png";
+import profile from "../../images/profile.png";
+import help from "../../images/help.png";
 
 import "../css/Navigation.css";
 
@@ -27,9 +29,9 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
             Dine and Dash
           </Link>
         </div>
-        <div className="Right">
-          <div className="User" onClick={toggleDropdown}>
-            <img src={pfp} alt="Profile" className="pfp" />
+        <div className="right-container">
+          <div className="item" onClick={toggleDropdown}>
+            <img src={profile} alt="Profile" className="icon" />
             {(playOnline || isDropdownOpen) && (
               <div className="dropdown-menu">
                 {userId ? (
@@ -52,9 +54,9 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
               </div>
             )}
           </div>
-          <div className="HowTo">
+          <div className="item">
             <Link to="/howto">
-              <img src={question} alt="How To Play" className="question" />
+              <img src={help} alt="How To Play" className="icon" />
             </Link>
           </div>
         </div>
