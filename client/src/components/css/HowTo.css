@@ -14,6 +14,7 @@ body {
   border-radius: 10px; /* Optional: for rounded corners */
   max-width: 55%; /* Adjust as necessary */
   margin: auto; /* Center the container */
+  margin-top: 8%;
 }
 
 .title-container {
