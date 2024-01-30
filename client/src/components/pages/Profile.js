@@ -15,23 +15,31 @@ import travelerRaccoon from "../../images/traveler-raccoon.png";
 const Profile = ({}) => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentAvatar, setCurrentAvatar] = useState(agentRaccoon);
-
-  const avatars = [agentRaccoon, hungryRacoon, surprisedRacoon, mastermindRaccoon, travelerRaccoon];
-  const avatarsStrings = [
+  const avatars = [
     "agentRaccoon",
     "hungryRacoon",
     "surprisedRacoon",
     "mastermindRaccoon",
     "travelerRaccoon",
   ];
+  const avatarsDict = {
+    agentRaccoon: agentRaccoon,
+    hungryRacoon: hungryRacoon,
+    surprisedRacoon: surprisedRacoon,
+    mastermindRaccoon: mastermindRaccoon,
+    travelerRaccoon: travelerRaccoon,
+  };
+  const [currentAvatar, setCurrentAvatar] = useState("agentRaccoon");
 
   useEffect(() => {
     setIsLoading(true);
     post("/api/updateProfile")
       .then((data) => {
-        // console.log("updated:", data);
-        // Handle the response, update UI, etc.
+        setUserData(data);
+        setIsLoading(false);
+        if (data && data.currentAvatar) {
+          setCurrentAvatar(data.currentAvatar);
+        }
       })
       .catch((error) => {
         console.error("Error :", error);
@@ -49,17 +57,20 @@ const Profile = ({}) => {
       socket.off("profileUpdated", handleProfileUpdate);
     };
   }, []);
+
   if (!userData) {
     return <div>Loading...</div>;
   }
-
   function switchAvatar() {
     const currentIndex = avatars.indexOf(currentAvatar);
     const nextIndex = (currentIndex + 1) % avatars.length;
-    setCurrentAvatar(avatars[nextIndex]);
-    let inputAvatar = avatarsStrings[nextIndex];
-    post("/api/updateAvatar", { inputAvatar })
-      .then((data) => {})
+    const nextAvatar = avatars[nextIndex];
+    setCurrentAvatar(nextAvatar);
+
+    post("/api/updateAvatar", { nextAvatar })
+      .then((data) => {
+        // Handle response
+      })
       .catch((error) => {
         console.error("Error updating avatar:", error);
       });
@@ -70,7 +81,7 @@ const Profile = ({}) => {
       <div className="content-container">
         <div className="avatar-container">
           <div className="avatar">
-            <img src={currentAvatar} alt="user avatar" />
+            <img src={avatarsDict[currentAvatar]} alt="user avatar" />
           </div>
           {/* <div className="avatar-options">
             <div className="item"></div>
@@ -86,7 +97,7 @@ const Profile = ({}) => {
             Agent 69620 <br /> {userData.name}
           </div>
           <div className="item">Heists Completed: {userData.wins}</div>
-          <div className="item">avatar: {userData.currentAvatar}</div>
+          <div className="item">avatar: {currentAvatar}</div>
           <div className="item">
             Fastest Heist:{" "}
             {`${Math.floor(userData.fastest / 60)

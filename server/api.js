@@ -147,12 +147,11 @@ router.post("/recordWin", auth.ensureLoggedIn, async (req, res) => {
 });
 router.post("/updateAvatar", auth.ensureLoggedIn, async (req, res) => {
   const userId = req.user._id;
-  const { inputAvatar } = req.body;
+  const { nextAvatar } = req.body;
 
-  console.log(inputAvatar);
   try {
     const user = await User.findById(userId);
-    user.currentAvatar = inputAvatar;
+    user.currentAvatar = nextAvatar;
     // Save the updated user
     const updatedUser = await user.save();
 
