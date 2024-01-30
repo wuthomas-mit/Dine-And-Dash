@@ -33,7 +33,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
 
   const [isModeSelected, setIsModeSelected] = useState(false);
   const [selectedDifficulty, setSelectedDifficulty] = useState(false);
-  
+
   function convertTimeToSeconds(timeString) {
     const [minutes, seconds] = timeString.split(":").map(Number);
     return minutes * 60 + seconds;
@@ -94,8 +94,8 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
       <div style={ModalContainer}>
         {!isModeSelected && !endGame && (
           <>
-            <div style={Title}>Game Modes</div>
-            <div style={Subtitle}>Length of Game</div>
+            <div style={Title}>Heist Difficulty</div>
+            <div style={Subtitle}>The greater the risk, the greater the reward.</div>
             <div style={gameModeGrid} ref={buttonsRef}>
               {["Easy", "Medium", "Hard"].map((item, index) => (
                 <button
@@ -110,23 +110,23 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
             </div>
             <div style={Footer}>
               <button className="button" onClick={handleModes} disabled={!selectedDifficulty}>
-                Set Mode
+                Confirm
               </button>
             </div>
           </>
         )}
         {isModeSelected && !endGame && (
           <>
-            <div style={Title}>Ready to Play?</div>
-            <div style={{ ...Subtitle, width: "80%" }}>
-              You will be placed on the map at your start country. <br />
-              The goal country is shown in the bottom left corner. <br />
-              Travel through countries and answer the trivia to reach your goal in as little time as
-              possible!
+            <div style={Title}>Mission Loading...</div>
+            <div style={{ ...Subtitle, width: "85%" }}>
+              Agent, there's no turning back from here. <br />
+              You are about to take on the heist of a lifetime. <br />
+              If you need to review them, the mission details are in the top right. Travel through
+              the countries as fast as you can, and don't look back.
             </div>
             <div style={Footer}>
               <button className="button" onClick={() => startGame(true)}>
-                Start the clock
+                Start Heist
               </button>
             </div>
           </>

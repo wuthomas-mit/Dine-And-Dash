@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 
-import question from "../../images/question-icon.png";
+import question from "../../images/howTo.png";
 import pfp from "../../images/profilepic.png";
 
 import "../css/Navigation.css";
@@ -23,7 +23,9 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="navbar">
         <div className="Home">
-          <Link id="title" to="/">Dine and Dash</Link>
+          <Link id="title" to="/">
+            Dine and Dash
+          </Link>
         </div>
         <div className="Right">
           <div className="User" onClick={toggleDropdown}>
@@ -33,7 +35,8 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
                 {userId ? (
                   <>
                     <Link to="/profile">Profile</Link>
-                    <div id="logout"
+                    <div
+                      id="logout"
                       onClick={() => {
                         googleLogout();
                         handleLogout();
