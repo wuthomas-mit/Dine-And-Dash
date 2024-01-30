@@ -67,12 +67,7 @@ const Gameplay = ({ userId }) => {
     <div className="game-container">
       <div id="map"></div>
       {!isGameStarted && (
-        <Start
-          startGame={setIsGameStarted}
-          setDiff={setDifficulty}
-          userId={userId}
-          handleLogin={handleLogin}
-        />
+        <Start startGame={setIsGameStarted} setDiff={setDifficulty} userId={userId} />
       )}
       {isGameStarted && !isGameEnded && (
         <>
@@ -108,7 +103,6 @@ const Gameplay = ({ userId }) => {
           endGame={isGameEnded}
           endTime={finalTime}
           userId={userId}
-          handleLogin={handleLogin}
           visitedCountries={visited}
         />
       )}
