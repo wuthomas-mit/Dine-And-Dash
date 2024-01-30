@@ -100,13 +100,27 @@ router.get("/countries/Medium", (req, res) => {
     });
 });
 
-const recordWinAndUpdateProfile = async (userId) => {
+const recordWinAndUpdateProfile = async (userId, finalTime, visited) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { $inc: { wins: 1 } }, // Increment the win count
-      { new: true } // Return the updated user document
-    );
+    const user = await User.findById(userId);
+
+    // Update the win count
+    user.wins += 1;
+
+    // Check and update fastest time
+    if (!user.fastest || finalTime < user.fastest) {
+      user.fastest = finalTime;
+    }
+
+    // Check and update slowest time
+    if (!user.slowest || finalTime > user.slowest) {
+      user.slowest = finalTime;
+    }
+    const mergedSet = new Set([...user.visited, ...visited]);
+    user.visited = [...mergedSet];
+
+    // Save the updated user
+    const updatedUser = await user.save();
 
     // Emit an event with the updated user profile
     const userSocket = socketManager.getSocketFromUserID(userId);
@@ -121,9 +135,10 @@ const recordWinAndUpdateProfile = async (userId) => {
 // Route that gets called when a user wins a game
 router.post("/recordWin", auth.ensureLoggedIn, async (req, res) => {
   const userId = req.user._id;
+  const { finalTime, visited } = req.body;
 
   try {
-    await recordWinAndUpdateProfile(userId);
+    await recordWinAndUpdateProfile(userId, finalTime, visited);
     res.send({ success: true, message: "Win recorded and profile updated." });
   } catch (error) {
     console.error("Error recording win:", error);

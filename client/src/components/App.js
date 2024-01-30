@@ -48,7 +48,7 @@ const App = () => {
   const handleLogin = (credentialResponse) => {
     const userToken = credentialResponse.credential;
     const decodedCredential = jwt_decode(userToken);
-    console.log(`Logged in as ${decodedCredential.name}`);
+    // console.log(`Logged in as ${decodedCredential.name}`);
     post("/api/login", { token: userToken }).then((user) => {
       setUserId(user._id);
       post("/api/initsocket", { socketid: socket.id });
@@ -77,7 +77,10 @@ const App = () => {
           />
           {/* <Route path="/start" element={<Start />} /> */}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/gameplay" element={<Gameplay handleLogin={handleLogin} userId={userId}/>} />
+          <Route
+            path="/gameplay"
+            element={<Gameplay handleLogin={handleLogin} userId={userId} />}
+          />
           <Route path="/howto" element={<HowTo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

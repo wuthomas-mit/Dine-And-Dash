@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
   losses: { type: Number, default: 0 },
   fastest: { type: Number, default: 0 },
   slowest: { type: Number, default: 0 },
+  visited: { type: [String], default: [] },
 });
 
 // compile model from schema

@@ -70,7 +70,7 @@ const Profile = ({}) => {
           <div className="item">
             Fastest: {userData.fastest} Slowest: {userData.slowest}
           </div>
-          <div className="item">Streak: 13 Visited: 22</div>
+          <div className="item">Streak: 13 Visited: {userData.visited.length}/182</div>
         </div>
       </div>
     </div>
