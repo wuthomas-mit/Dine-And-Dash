@@ -64,13 +64,18 @@ const Profile = ({}) => {
             Favorite country:{" "}
             <input type="text" value={favoriteCountry} onChange={handleCountryChange}></input>{" "}
           </h3>
+          <div className="item">Heists Completed: {userData.wins}</div>
           <div className="item">
-            Wins: {userData.wins} Losses: {userData.losses}
+            Fastest Heist:{" "}
+            {`${Math.floor(userData.fastest / 60)
+              .toString()
+              .padStart(2, "0")}:${(userData.fastest % 60).toString().padStart(2, "0")}`}{" "}
+            Slowest Heist:{" "}
+            {`${Math.floor(userData.slowest / 60)
+              .toString()
+              .padStart(2, "0")}:${(userData.slowest % 60).toString().padStart(2, "0")}`}
           </div>
-          <div className="item">
-            Fastest: {userData.fastest} Slowest: {userData.slowest}
-          </div>
-          <div className="item">Streak: 13 Visited: {userData.visited.length}/182</div>
+          <div className="item">Conquered Countries: {userData.visited.length}/182</div>
         </div>
       </div>
     </div>
