@@ -110,6 +110,7 @@ const initializeMap = (
       type: "geojson",
       data: "https://gist.githubusercontent.com/wuthomas-mit/02fb8cd83979415cfd5aed40bc6970ef/raw/25850382799bdd29b32fe48c5336d10ccfa2d1d9/countries.geojson",
       // data: "https://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson",
+      tolerance: 3.5,
     });
     map.addLayer({
       id: "country-fills",
