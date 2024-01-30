@@ -113,6 +113,7 @@ const initializeMap = (
     //   // data: "https://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson",
     //   tolerance: 3.5,
     // });
+    let open = false;
     map.addSource("country", {
       type: "vector",
       url: "mapbox://wuthomas.6qg1541f",

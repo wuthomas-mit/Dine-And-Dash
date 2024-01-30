@@ -11,6 +11,10 @@
   height: calc(100vh - 60px);
 }
 
+.no-pointer-events {
+  pointer-events: none;
+}
+
 .mapboxgl-ctrl {
   display: none;
 }

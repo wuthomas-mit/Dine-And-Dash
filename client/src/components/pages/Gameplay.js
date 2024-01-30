@@ -65,7 +65,7 @@ const Gameplay = ({ userId }) => {
 
   return (
     <div className="game-container">
-      <div id="map"></div>
+      <div id="map" className={openTrivia ? "no-pointer-events" : ""}></div>
       {!isGameStarted && (
         <Start startGame={setIsGameStarted} setDiff={setDifficulty} userId={userId} />
       )}
