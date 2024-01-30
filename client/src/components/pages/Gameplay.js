@@ -109,6 +109,7 @@ const Gameplay = ({ userId, handleLogin }) => {
           setGameEnded={setIsGameEnded}
           userId={userId}
           handleLogin={handleLogin}
+          visitedCountries={visited}
         />
       )}
     </div>

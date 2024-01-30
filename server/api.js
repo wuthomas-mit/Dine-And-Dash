@@ -100,9 +100,8 @@ router.get("/countries/Medium", (req, res) => {
     });
 });
 
-const recordWinAndUpdateProfile = async (userId, finalTime) => {
+const recordWinAndUpdateProfile = async (userId, finalTime, visited) => {
   try {
-    console.log(finalTime);
     const user = await User.findById(userId);
 
     // Update the win count
@@ -117,6 +116,8 @@ const recordWinAndUpdateProfile = async (userId, finalTime) => {
     if (!user.slowest || finalTime > user.slowest) {
       user.slowest = finalTime;
     }
+    const mergedSet = new Set([...user.visited, ...visited]);
+    user.visited = [...mergedSet];
 
     // Save the updated user
     const updatedUser = await user.save();
@@ -134,10 +135,10 @@ const recordWinAndUpdateProfile = async (userId, finalTime) => {
 // Route that gets called when a user wins a game
 router.post("/recordWin", auth.ensureLoggedIn, async (req, res) => {
   const userId = req.user._id;
-  const finalTime = req.body.finalTime;
+  const { finalTime, visited } = req.body;
 
   try {
-    await recordWinAndUpdateProfile(userId, finalTime);
+    await recordWinAndUpdateProfile(userId, finalTime, visited);
     res.send({ success: true, message: "Win recorded and profile updated." });
   } catch (error) {
     console.error("Error recording win:", error);

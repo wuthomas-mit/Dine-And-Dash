@@ -27,7 +27,7 @@ const gameModeGrid = {
   margin: "20px 0px",
 };
 
-const Start = ({ startGame, setDiff, endGame, endTime, userId }) => {
+const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries }) => {
   const buttonsRef = useRef(null);
   const navigate = useNavigate();
 
@@ -39,9 +39,10 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId }) => {
   }
   function handleWin() {
     const finalTime = convertTimeToSeconds(endTime);
-    post("/api/recordWin", { finalTime })
+    let visited = [...visitedCountries];
+    post("/api/recordWin", { finalTime, visited })
       .then((data) => {
-        console.log("Win count updated:", data);
+        // console.log("Win count updated:", data);
         // Handle the response, update UI, etc.
       })
       .catch((error) => {
