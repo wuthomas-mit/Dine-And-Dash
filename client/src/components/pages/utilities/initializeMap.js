@@ -106,16 +106,22 @@ const initializeMap = (
     zoom: 0, // starting zoom
   });
   map.on("load", async function () {
+    // map.addSource("country", {
+    //   type: "geojson",
+    //   data: "https://gist.githubusercontent.com/wuthomas-mit/82c780eddf8f6bb4ad1bec11a5c11b1e/raw/443692475da396337138cd9f377adddbd20b8e78/countries.geojson",
+    //   // data: "https://gist.githubusercontent.com/wuthomas-mit/02fb8cd83979415cfd5aed40bc6970ef/raw/25850382799bdd29b32fe48c5336d10ccfa2d1d9/countries.geojson",
+    //   // data: "https://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson",
+    //   tolerance: 3.5,
+    // });
     map.addSource("country", {
-      type: "geojson",
-      data: "https://gist.githubusercontent.com/wuthomas-mit/02fb8cd83979415cfd5aed40bc6970ef/raw/25850382799bdd29b32fe48c5336d10ccfa2d1d9/countries.geojson",
-      // data: "https://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson",
-      tolerance: 3.5,
+      type: "vector",
+      url: "mapbox://wuthomas.6qg1541f",
     });
     map.addLayer({
       id: "country-fills",
       type: "fill",
       source: "country",
+      "source-layer": "update-73ucl7",
       layout: {},
       paint: {
         "fill-color": "#627BC1",
@@ -127,6 +133,7 @@ const initializeMap = (
       id: "country-fills-hover",
       type: "fill",
       source: "country",
+      "source-layer": "update-73ucl7",
       layout: {},
       paint: {
         "fill-color": "#627BC1",
@@ -138,6 +145,7 @@ const initializeMap = (
       id: "country-clicked",
       type: "fill",
       source: "country",
+      "source-layer": "update-73ucl7",
       layout: {},
       paint: {
         "fill-color": "#FF0000",
