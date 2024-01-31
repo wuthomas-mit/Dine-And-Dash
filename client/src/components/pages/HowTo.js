@@ -51,8 +51,9 @@ const HowTo = ({ userId }) => {
       <p>You will be assigned a goal country. Navigate the globe to reach this destination.</p>
       <h3>Move Strategically</h3>
       <p>
-        Click on adjacent countries to create your path. The shorter the path, the faster you
-        complete the mission. Plan wisely.
+        Click on adjacent countries to create your path. If you reach an island, you may only travel
+        to the nearest piece of land. The shorter the path, the faster you complete the mission.
+        Plan wisely.
       </p>
       <h3>Face the Challenges</h3>
       <p>

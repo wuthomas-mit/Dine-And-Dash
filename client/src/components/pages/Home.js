@@ -114,9 +114,9 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
       <div className="page-container">
         <div className="animation-container">
           <div className="info-container">
-            <div className="tab">TOP SECRET</div>
+            <div className="tab">AGENT R</div>
             <div className="tab" style={{ backgroundColor: "#24282a", color: "white" }}>
-              MISSION 2024
+              TOP SECRET MISSION
             </div>
           </div>
           <div className="animation">

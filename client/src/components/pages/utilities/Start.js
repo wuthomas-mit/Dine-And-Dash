@@ -138,7 +138,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
               Agent 69620, you are about to take on the heist of a lifetime.
             </div>
             <div style={{ ...Subtitle, width: "90%" }}>
-              Travel through countries to your goal, answering trivia as fast as you can!
+              Travel through adjacent countries to your goal, answering trivia as fast as you can!
             </div>
             <div style={pinContainer}>
               <div style={{ ...Subtitle, width: "80%" }}>

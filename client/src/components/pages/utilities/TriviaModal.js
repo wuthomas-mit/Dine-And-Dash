@@ -183,9 +183,10 @@ function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer, previousCount
       <div style={ModalContainer}>
         {!revealAnswer && (
           <>
-            <div ref={titleRef} style={Title}>
+            <div ref={titleRef} style={{...Title, margin: "0px",}}>
               {countryName}
             </div>
+            <div style={{...Subtitle, margin: "0px"}}>What's a popular dish?</div>
             <div style={Grid} ref={buttonsRef}>
               {shuffledDishes.map((dish, index) => (
                 <button
