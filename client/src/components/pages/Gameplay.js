@@ -68,7 +68,7 @@ const Gameplay = ({ userId }) => {
           alert("Please click on an adjacent country! You are trying to reach the goal country.");
           setAlertShown(true); // Set alertShown to true after showing the alert
         }
-      }, 10000); // 10 seconds
+      }, 15000); // 10 seconds
 
       setTimerId(id);
     }

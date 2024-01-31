@@ -49,7 +49,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
     setTimeout(() => {
       setShowTitle(true);
       startTitleTimer();
-    }, 1000);
+    }, 600);
   }, []);
 
   // Function to start the title timer
@@ -67,7 +67,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
           return prevIndex;
         }
       });
-    }, 200);
+    }, 100);
     return () => clearInterval(titleTimer);
   };
 
@@ -87,7 +87,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             return prevIndex;
           }
         });
-      }, 100);
+      }, 50);
     }, 1000);
   };
 
@@ -106,8 +106,8 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             return prevIndex;
           }
         });
-      }, 100);
-    }, 2000);
+      }, 50);
+    }, 1000);
   };
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
