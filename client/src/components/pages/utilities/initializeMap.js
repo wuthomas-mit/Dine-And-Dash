@@ -215,7 +215,7 @@ const initializeMap = (
     visited.add(startCountryData.twoCode);
     setVisited(visited);
 
-    if (!goalCountryData) {
+    if (!goalCountryData || !startCountryData) {
       location.reload();
     }
 
