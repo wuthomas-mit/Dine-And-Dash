@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import globe from "../../images/earth-globe-tool.svg";
-import agentRaccoon from "../../images/agent-raccoon.png";
+import smileRaccoon from "../../images/smile-raccoon.png";
+import talkingRaccoon from "../../images/raccoon.gif";
 
 import "../../utilities.css";
 import "../css/Home.css";
@@ -34,6 +35,8 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
   const [showTitle, setShowTitle] = useState(false);
   const [showSubtitle1, setShowSubtitle1] = useState(false);
   const [showSubtitle2, setShowSubtitle2] = useState(false);
+  const [typingComplete, setTypingComplete] = useState(true);
+
   const titleCharacters = "Welcome, Agent 69620".split("");
   const subtitle1Characters = "The Mission: Dine and Dash.".split("");
   const subtitle2Characters =
@@ -51,6 +54,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
 
   // Function to start the title timer
   const startTitleTimer = () => {
+    setTypingComplete(false);
     setShowTitle(true);
     const titleTimer = setInterval(() => {
       setCurrentTitleIndex((prevIndex) => {
@@ -58,6 +62,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
           return prevIndex + 1;
         } else {
           clearInterval(titleTimer);
+          setTypingComplete(true);
           startSubtitle1Timer(); // Start the first subtitle after the title is complete
           return prevIndex;
         }
@@ -69,6 +74,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
   // Function to start the first subtitle timer
   const startSubtitle1Timer = () => {
     setTimeout(() => {
+      setTypingComplete(false);
       setShowSubtitle1(true);
       const subtitle1Timer = setInterval(() => {
         setCurrentSubtitle1Index((prevIndex) => {
@@ -76,6 +82,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             return prevIndex + 1;
           } else {
             clearInterval(subtitle1Timer);
+            setTypingComplete(true);
             startSubtitle2Timer(); // Start the second subtitle after the first subtitle is complete
             return prevIndex;
           }
@@ -87,6 +94,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
   // Function to start the second subtitle timer
   const startSubtitle2Timer = () => {
     setTimeout(() => {
+      setTypingComplete(false);
       setShowSubtitle2(true);
       const subtitle2Timer = setInterval(() => {
         setCurrentSubtitle2Index((prevIndex) => {
@@ -94,6 +102,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             return prevIndex + 1;
           } else {
             clearInterval(subtitle2Timer);
+            setTypingComplete(true);
             return prevIndex;
           }
         });
@@ -111,7 +120,12 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             </div>
           </div>
           <div className="animation">
-            <img src={agentRaccoon} alt="Agent Raccoon" />
+            {/* Conditional rendering based on whether typing is complete */}
+            {typingComplete ? (
+              <img src={smileRaccoon} alt="Smiling Raccoon" />
+            ) : (
+              <img src={talkingRaccoon} alt="Talking Raccoon" />
+            )}
           </div>
         </div>
         <div className="text-container">
