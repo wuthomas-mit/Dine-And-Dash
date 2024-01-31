@@ -37,7 +37,7 @@ async function fetchRandomCountry(diff) {
     // console.log("Random Country:", randomCountry);
     return randomCountry;
   } catch (error) {
-    console.error("Failed to fetch a random country:", error);
+    // console.error("Failed to fetch a random country:", error);
   }
 }
 
@@ -60,7 +60,7 @@ async function fetchCountryData(countryCode) {
     // console.log("Input Country:", countryData);
     return countryData;
   } catch (error) {
-    console.error("Failed to fetch country data:", error);
+    // console.error("Failed to fetch country data:", error);
   }
 }
 
@@ -81,7 +81,7 @@ async function fetchCountry_fromName(countryName) {
     // console.log("Input Country:", countryData);
     return countryData;
   } catch (error) {
-    console.error("Failed to fetch country data:", error);
+    // console.error("Failed to fetch country data:", error);
   }
 }
 async function fetchPlayerIcon() {
@@ -108,7 +108,7 @@ function parseAdjacentCountries(dataString) {
     const countriesArray = JSON.parse(jsonString);
     return countriesArray;
   } catch (error) {
-    console.error("Error parsing adjacent countries data:", error);
+    // console.error("Error parsing adjacent countries data:", error);
     return [];
   }
 }
@@ -373,7 +373,7 @@ const initializeMap = (
           const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
           const longitude = Number(clicked_data.Long.replace(/"/g, ""));
           map.flyTo({ center: [longitude, latitude], zoom: 4, speed: 0.4 });
-          console.log(longitude, latitude);
+          // console.log(longitude, latitude);
           let updatingPlayer = updatePlayerLocation();
 
           updatingPlayer(longitude, latitude);

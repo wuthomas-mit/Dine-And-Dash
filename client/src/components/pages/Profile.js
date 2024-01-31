@@ -72,7 +72,7 @@ const Profile = ({}) => {
         // Handle response
       })
       .catch((error) => {
-        console.error("Error updating avatar:", error);
+        // console.error("Error updating avatar:", error);
       });
   }
 

@@ -58,7 +58,7 @@ function TimerComponent({ onGameEnd, setfinal, setGameEnded }) {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
     } else {
-      console.log("reached", formattedTime, time);
+      // console.log("reached", formattedTime, time);
       setfinal(formattedTime);
     }
 

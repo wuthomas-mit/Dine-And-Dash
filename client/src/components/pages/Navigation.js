@@ -49,7 +49,7 @@ const Navigation = ({ userId, handleLogin, handleLogout }) => {
                     </div>
                   </>
                 ) : (
-                  <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+                  <GoogleLogin onSuccess={handleLogin} />
                 )}
               </div>
             )}

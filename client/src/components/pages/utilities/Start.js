@@ -46,7 +46,7 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
         // Handle the response, update UI, etc.
       })
       .catch((error) => {
-        console.error("Error updating win count:", error);
+        // console.error("Error updating win count:", error);
       });
   }
 

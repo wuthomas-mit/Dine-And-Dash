@@ -53,10 +53,10 @@ module.exports = {
 
       checkHotLoader().then((active) => {
         if (active) {
-          console.log(
-            "Warning: It looks like 'npm run hotloader' may be running. Are you sure you don't want\n" +
-              "to use the hot reloader? To use it, visit http://localhost:5050 and not port 3000"
-          );
+          // console.log(
+          //   "Warning: It looks like 'npm run hotloader' may be running. Are you sure you don't want\n" +
+          //     "to use the hot reloader? To use it, visit http://localhost:5050 and not port 3000"
+          // );
         }
       });
 
