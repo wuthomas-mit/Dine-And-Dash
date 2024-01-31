@@ -30,7 +30,7 @@ Some key features of the game include:
 - Node.js
 - MongoDB
 ### 3rd party libraries or APIs used:
-- Mapbox
+- [Mapbox](https://www.mapbox.com/)
 ### Additional Sources:
 - [World Map Setup](https://stackoverflow.com/questions/42919381/world-map-that-links-to-url-when-click-on-country-specific-layer)
 - [Countries Dataset](https://github.com/datasets/geo-countries/blob/master/data/countries.geojson)
