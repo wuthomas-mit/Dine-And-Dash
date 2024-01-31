@@ -33,8 +33,7 @@ Some key features of the game include:
 - Mapbox
 
 ## Authors
-Krystal Montgomery, MIT 2026
-Thomas Wu, MIT 2026
+Krystal Montgomery and Thomas Wu, MIT 2026
 
 ## Acknowledgments
 Big thanks to MIT [web.lab](https://weblab.mit.edu/) for teaching web development basics and providing the opportunity to compete in a 2 week hackathon.
