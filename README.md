@@ -35,6 +35,7 @@ Some key features of the game include:
 - [World Map Setup](https://stackoverflow.com/questions/42919381/world-map-that-links-to-url-when-click-on-country-specific-layer)
 - [Countries Dataset](https://github.com/datasets/geo-countries/blob/master/data/countries.geojson)
 - [Country Adjacency List](https://github.com/P1sec/country_adjacency)
+- Images are licensed or hand drawn on Procreate/Adobe Illustrator/Adobe Photoshop.
 
 ## Authors
 Krystal Montgomery and Thomas Wu, MIT 2026
