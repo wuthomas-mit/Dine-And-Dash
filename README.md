@@ -32,6 +32,8 @@ Some key features of the game include:
 ### 3rd party libraries or APIs used:
 - [Mapbox](https://www.mapbox.com/)
 ### Additional Sources:
+- [web.lab Catbook Repo](https://github.com/weblab-workshops/catbook-react)
+- [web.lab Skeleton Repo](https://github.com/weblab-workshops/skeleton)
 - [World Map Setup](https://stackoverflow.com/questions/42919381/world-map-that-links-to-url-when-click-on-country-specific-layer)
 - [Countries Dataset](https://github.com/datasets/geo-countries/blob/master/data/countries.geojson)
 - [Country Adjacency List](https://github.com/P1sec/country_adjacency)
