@@ -5,6 +5,7 @@ import { ModalContainer, Title, Subtitle, Footer } from "./TriviaModal";
 import { post } from "../../../utilities";
 import "../../../utilities.css";
 import "../../css/Home.css";
+import redPin from "../../../images/pin.png";
 
 const ModalBackground = {
   display: "flex",
@@ -24,6 +25,22 @@ const gameModeGrid = {
   justifyItems: "center",
   height: "auto",
   margin: "20px 0px",
+};
+
+const pinContainer = {
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyItems: "center",
+};
+
+const image = {
+  display: "flex",
+  alignItems: "center",
+  justifyItems: "center",
+  height: "100px",
+  width: "100px",
+  marginLeft: "-20px",
 };
 
 const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries }) => {
@@ -118,14 +135,16 @@ const Start = ({ startGame, setDiff, endGame, endTime, userId, visitedCountries 
           <>
             <div style={Title}>Mission Loading...</div>
             <div style={{ ...Subtitle, width: "90%" }}>
-              Agent, you are about to take on the heist of a lifetime.
+              Agent 69620, you are about to take on the heist of a lifetime.
             </div>
             <div style={{ ...Subtitle, width: "90%" }}>
-              You will be placed on the map at a start country. <br />
-              The goal country is shown in the bottom left corner. <br />
+              Travel through adjacent countries to your goal, answering trivia as fast as you can!
             </div>
-            <div style={{ ...Subtitle, width: "90%" }}>
-              Travel through countries to your goal, answering trivia as fast as you can!
+            <div style={pinContainer}>
+              <div style={{ ...Subtitle, width: "80%" }}>
+                Note: You will be placed on the map at a start country. Your goal country will be marked with this red pin!
+              </div>
+              <img style={image} src={redPin} alt="Red location pin" />
             </div>
             <div style={Footer}>
               <button className="button" onClick={() => startGame(true)}>

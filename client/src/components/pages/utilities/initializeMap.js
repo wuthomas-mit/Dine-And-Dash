@@ -214,7 +214,7 @@ const initializeMap = (
     if (!goalCountryData) {
       location.reload();
     }
-    setGoalCountry(goalCountryData.Country);
+    setGoalCountry(goalCountryData);
 
     // start a set of the new countries user has visited
     let visited = new Set();
