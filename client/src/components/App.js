@@ -33,7 +33,7 @@ const App = () => {
     // Global WebSocket event listeners
     const handleGlobalEvent = (data) => {
       // Handle global event
-      console.log("Global event data:", data);
+      // console.log("Global event data:", data);
       // Update state or perform actions based on event
     };
 

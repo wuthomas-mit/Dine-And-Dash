@@ -62,7 +62,7 @@ router.post("/updateProfile", auth.ensureLoggedIn, (req, res) => {
       }
     })
     .catch((error) => {
-      console.error("Error updating user profile:", error);
+      // console.error("Error updating user profile:", error);
       res.status(500).send({ msg: "Error updating profile" });
     });
 });
@@ -73,7 +73,7 @@ router.get("/countries/Easy", (req, res) => {
       res.send(countries);
     })
     .catch((err) => {
-      console.error("Error fetching countries:", err);
+      // console.error("Error fetching countries:", err);
       res.status(500).send({ msg: "Error fetching country data" });
     });
 });
@@ -84,7 +84,7 @@ router.get("/countries/Hard", (req, res) => {
       res.send(countries);
     })
     .catch((err) => {
-      console.error("Error fetching countries with non-empty 'Hard' lists:", err);
+      // console.error("Error fetching countries with non-empty 'Hard' lists:", err);
       res.status(500).send({ msg: "Error fetching country data" });
     });
 });
@@ -95,7 +95,7 @@ router.get("/countries/Medium", (req, res) => {
       res.send(countries);
     })
     .catch((err) => {
-      console.error("Error fetching countries with non-empty 'Hard' lists:", err);
+      // console.error("Error fetching countries with non-empty 'Hard' lists:", err);
       res.status(500).send({ msg: "Error fetching country data" });
     });
 });
@@ -107,7 +107,7 @@ router.get("/userAvatar", auth.ensureLoggedIn, (req, res) => {
       res.send({ currentAvatar: user.currentAvatar });
     })
     .catch((error) => {
-      console.error("Error fetching user's avatar:", error);
+      // console.error("Error fetching user's avatar:", error);
       res.status(500).send({ msg: "Error fetching avatar" });
     });
 });
@@ -140,7 +140,7 @@ const recordWinAndUpdateProfile = async (userId, finalTime, visited) => {
       userSocket.emit("profileUpdated", updatedUser);
     }
   } catch (error) {
-    console.error("Error updating user profile:", error);
+    // console.error("Error updating user profile:", error);
     // Handle error appropriately
   }
 };
@@ -153,7 +153,7 @@ router.post("/recordWin", auth.ensureLoggedIn, async (req, res) => {
     await recordWinAndUpdateProfile(userId, finalTime, visited);
     res.send({ success: true, message: "Win recorded and profile updated." });
   } catch (error) {
-    console.error("Error recording win:", error);
+    // console.error("Error recording win:", error);
     res.status(500).send({ success: false, message: "Error recording win." });
   }
 });
@@ -174,14 +174,14 @@ router.post("/updateAvatar", auth.ensureLoggedIn, async (req, res) => {
     }
     res.send({ success: true, message: "Win recorded and profile updated." });
   } catch (error) {
-    console.error("Error recording win:", error);
+    // console.error("Error recording win:", error);
     res.status(500).send({ success: false, message: "Error recording win." });
   }
 });
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
-  console.log(`API route not found: ${req.method} ${req.url}`);
+  // console.log(`API route not found: ${req.method} ${req.url}`);
   res.status(404).send({ msg: "API route not found" });
 });
 

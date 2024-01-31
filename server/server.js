@@ -44,14 +44,13 @@ const databaseName = "food-travel";
 mongoose.set("strictQuery", false);
 
 // connect to mongodb
-mongoose
-  .connect(mongoConnectionURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: databaseName,
-  })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
+mongoose.connect(mongoConnectionURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: databaseName,
+});
+// .then(() => console.log("Connected to MongoDB"))
+// .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
 
 // create a new express server
 const app = express();
@@ -90,8 +89,8 @@ app.use((err, req, res, next) => {
   const status = err.status || 500;
   if (status === 500) {
     // 500 means Internal Server Error
-    console.log("The server errored when processing a request!");
-    console.log(err);
+    // console.log("The server errored when processing a request!");
+    // console.log(err);
   }
 
   res.status(status);
@@ -107,5 +106,5 @@ const server = http.Server(app);
 socketManager.init(server);
 
 server.listen(port, () => {
-  console.log(`Server running on port: ${port}`);
+  // console.log(`Server running on port: ${port}`);
 });
