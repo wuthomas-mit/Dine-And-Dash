@@ -80,6 +80,9 @@ const Profile = ({}) => {
     <div className="profile-container">
       <div className="content-container">
         <div className="avatar-container">
+          <div className="info-container">
+            <div className="tab">{userData.currentAvatar}</div>
+          </div>
           <div className="avatar">
             <img src={avatarsDict[currentAvatar]} alt="user avatar" />
           </div>
@@ -97,7 +100,6 @@ const Profile = ({}) => {
             Agent 69620 <br /> {userData.name}
           </div>
           <div className="item">Heists Completed: {userData.wins}</div>
-          <div className="item">Avatar: {userData.currentAvatar}</div>
           <div className="item">
             Fastest Heist:{" "}
             {`${Math.floor(userData.fastest / 60)
