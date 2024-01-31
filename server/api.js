@@ -33,6 +33,13 @@ router.get("/whoami", (req, res) => {
 
   res.send(req.user);
 });
+router.get("/checkLogged", (req, res) => {
+  if (!req.user) {
+    // not logged in
+    return res.json({ loggedIn: false });
+  }
+  res.send(req.user);
+});
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
@@ -97,6 +104,18 @@ router.get("/countries/Medium", (req, res) => {
     .catch((err) => {
       console.error("Error fetching countries with non-empty 'Hard' lists:", err);
       res.status(500).send({ msg: "Error fetching country data" });
+    });
+});
+
+router.get("/userAvatar", auth.ensureLoggedIn, (req, res) => {
+  const userId = req.user._id;
+  User.findById(userId, "currentAvatar")
+    .then((user) => {
+      res.send({ currentAvatar: user.currentAvatar });
+    })
+    .catch((error) => {
+      console.error("Error fetching user's avatar:", error);
+      res.status(500).send({ msg: "Error fetching avatar" });
     });
 });
 

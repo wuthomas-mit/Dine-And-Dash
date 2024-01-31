@@ -1,4 +1,18 @@
 import mapboxgl from "mapbox-gl";
+import pinImage from "../../../images/pin.png";
+import agentRaccoon from "../../../images/agent-raccoon.png";
+import hungryRacoon from "../../../images/hungry-raccoon.png";
+import surprisedRacoon from "../../../images/surprised-raccoon.png";
+import mastermindRaccoon from "../../../images/mastermind-raccoon.png";
+import travelerRaccoon from "../../../images/traveler-raccoon.png";
+
+const avatarsDict = {
+  agentRaccoon: agentRaccoon,
+  hungryRacoon: hungryRacoon,
+  surprisedRacoon: surprisedRacoon,
+  mastermindRaccoon: mastermindRaccoon,
+  travelerRaccoon: travelerRaccoon,
+};
 
 async function fetchRandomCountry(diff) {
   try {
@@ -54,9 +68,6 @@ async function fetchCountry_fromName(countryName) {
   try {
     // Fetch the list of countries from your backend
     const response = await fetch("/api/countries/easy");
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
 
     // Parse the JSON response
     const countries = await response.json();
@@ -71,6 +82,35 @@ async function fetchCountry_fromName(countryName) {
     return countryData;
   } catch (error) {
     console.error("Failed to fetch country data:", error);
+  }
+}
+async function checkLoggedIn() {
+  try {
+    // Fetch the list of countries from your backend
+    const response = await fetch("/api/checkLogged");
+    // Parse the JSON response
+    const data = await response.json();
+
+    // Return the avatar data
+    return data;
+  } catch (error) {
+    console.error("Not logged in:", error);
+  }
+}
+async function fetchPlayerIcon() {
+  try {
+    // Fetch the list of countries from your backend
+    const response = await fetch("/api/userAvatar");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    // Parse the JSON response
+    const data = await response.json();
+
+    // Return the avatar data
+    return data.currentAvatar;
+  } catch (error) {
+    // return "agentRaccoon";
   }
 }
 
@@ -95,7 +135,8 @@ const initializeMap = (
   setOpenTrivia,
   setPrevCountry,
   setCurrentCountryCallback,
-  difficulty
+  difficulty,
+  setPlayerIcon
 ) => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoid3V0aG9tYXMiLCJhIjoiY2xyazIxdW5mMDlxZzJpcDdlZWR3Z2QybiJ9.RyFTb-1qZ7D445ptcHwdvQ";
@@ -195,11 +236,61 @@ const initializeMap = (
     map.flyTo({ center: [long, lat], zoom: 4 });
     map.setFilter("country-clicked", ["==", "ISO_A2", currentCountry.twoCode]);
 
+    let logged = await checkLoggedIn();
+    let avatarString = "agentRaccoon";
+    let avatar = avatarsDict[avatarString];
+    if (logged.loggedIn) {
+      let avatarString = await fetchPlayerIcon();
+      let avatar = avatarsDict[avatarString];
+    }
+
+    map.loadImage(avatar, function (error, image) {
+      if (error) throw error;
+
+      // Add player icon image to the map
+      map.addImage("player-icon", image);
+
+      // Add a source and layer for the player icon
+      map.addSource("player", {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            // Initially set to the start country's coordinates
+            coordinates: [startCountryData.Long, startCountryData.Lat],
+          },
+        },
+      });
+
+      map.addLayer({
+        id: "player",
+        type: "symbol",
+        source: "player",
+        layout: {
+          "icon-image": "player-icon",
+          "icon-size": 0.5, // Adjust size as needed
+        },
+      });
+    });
+    const updatePlayerLocation = () => {
+      return function (longitude, latitude) {
+        map.getSource("player").setData({
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [longitude, latitude],
+          },
+        });
+      };
+    };
+    setPlayerIcon(updatePlayerLocation);
+
     // Adds a red pin to denote the goal country
     // Load an image from an external URL.
     // cat "https://cors-anywhere.herokuapp.com/https://gist.github.com/assets/92048050/835fdc0a-eccf-4ece-b383-931d8c11673e"
     // map.loadImage("https://docs.mapbox.com/mapbox-gl-js/assets/cat.png", (error, image) => {
-    map.loadImage("https://docs.mapbox.com/mapbox-gl-js/assets/cat.png", (error, image) => {
+    map.loadImage(pinImage, (error, image) => {
       if (error) throw error;
       // Add the image to the map style.
       map.addImage("pin", image);
@@ -299,6 +390,10 @@ const initializeMap = (
           const latitude = Number(clicked_data.Lat.replace(/"/g, ""));
           const longitude = Number(clicked_data.Long.replace(/"/g, ""));
           map.flyTo({ center: [longitude, latitude], zoom: 4, speed: 0.4 });
+          console.log(longitude, latitude);
+          let updatingPlayer = updatePlayerLocation();
+
+          updatingPlayer(longitude, latitude);
           map.setFilter("country-clicked", ["==", "ISO_A2", ""]);
           map.setFilter("country-clicked", ["==", "ISO_A2", clickedCountry]);
           setPrevCountry(currentCountry);
