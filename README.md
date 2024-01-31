@@ -1,96 +1,43 @@
-# How to code a webapp with this skeleton
+# Dine and Dash
 
-## Initial setup
+## Description
 
-All teammates will need (explained in https://bit.ly/weblab-install)
+Dine and Dash is a food trivia and geographical exploration game. Embark on the ultimate heist to seize and savor the world's most exquisite dishes!
 
-- A bash console (on Mac or Linux, this is Terminal. On Windows, we recommend Git Bash)
-- NodeJS version 18. If it is installed correctly, typing "node --version" should give v18.13.0 and "npm --version" should give 8.19.3
-- Visual Studio Code (or another code editor)
-- the Prettier VSCode extension
+## Getting Started
 
-Also, all of you will need to go through the MongoDB Atlas setup (https://bit.ly/mongo-setup).
+### Prerequisites
+To install and run the game, you need Node.js and npm.
 
-Additionally for authentication, one of you will need to obtain a CLIENT_ID, instructions are at https://bit.ly/gauth-mit.
-
-## Downloading these files
-
-First, you probably have a team repository somewhere (the link looks like: https://github.com/weblab-class/teammate1-teammate2-teammate3). You each should clone this (empty) repository by navigating to where you want your folder to be (**NOT in catbook**) and typing: git clone https://github.com/weblab-class/teammate1-teammate2-teammate3.git <-- with the correct link.
-
-Then, one of your team members will need to do the following:
-
-First on GitHub, download the skeleton (this repository) as a zip file, by clicking Code -> Download as ZIP. (Do not clone it, since this will download extra files, like .git, which will lead to GitHub being confused).
-
-Then, drag over all of the files in this skeleton into your team's folder. **Make sure to also drag over the hidden files!** To see these hidden files, navigate to the skeleton in Finder/File Explorer and press command+shift+period (mac) or View > Show > Hidden items (windows).
-
-The files/folders you must drag over are:
-
-- .babelrc (hidden)
-- .gitignore (hidden)
-- .npmrc (hidden)
-- .prettierrc (hidden)
-- client (folder)
-- package-lock.json
-- package.json
-- README.md
-- server (folder)
-- webpack.config.js
-
-Additionally, you must create a .env file in the root directory. See .env.example for an example of what this file should look like.
-
-Then, in terminal, navigate to your teams folder and push all of the files to your team's GitHub repository as usual:
-
-- git add -A
-- git commit -m "Skeleton code"
-- git push
-
-Now the rest of your teammates can pull all these files with a 'git pull'!
-
-Post on Piazza if you run into any issues
-
-## What you need to change in the skeleton
-
-- Change the Frontend CLIENT_ID (Skeleton.js) to your team's CLIENT_ID (obtain this at https://bit.ly/gauth-mit)
-- Change the Server CLIENT_ID to the same CLIENT_ID (auth.js)
-- Change the Database SRV (mongoConnectionURL) for Atlas (server.js). You got this in the MongoDB setup. remember to replace <password> and <dbname> (should be no < or > in your SRV) (From: https://bit.ly/mongo-setup)
-- Change the Database Name for MongoDB to whatever you put in the SRV to replace <dbname> (server.js)
-- (Optional) Add a favicon to your website at the path client/dist/favicon.ico
-- (Optional) Update website title in client/dist/index.html
-- (Optional) Update this README file ;)
-- (Optional) Update the package.json file with your app name :) (line 2)
-
-## How to run this skeleton
-
+### Installation
 First, 'npm install'
 Then open two seperate terminals, and 'npm run hotloader' in the first, and 'npm start' in the second.
 Then open http://localhost:5050
 
-<!-- ## How to go from this skeleton to your actual app
+### Playing the Game
+Follow the instructions on the screen to play the game, or view the "Mission Briefing" or "HowTo" page.
 
-Check out this [How to Get Started Guide](http://weblab.is/get-started) -->
+## Features
+Some key features of the game include:
+- Interactive maps
+- Timed trivia challenges
+- Personal profile and statistics
+- Customizable avatars
 
-## Socket stuff
+## Built With
+### Technologies and frameworks used to build Dine and Dash:
+- React.js
+- Node.js
+- MongoDB
+### 3rd party libraries or APIs used:
+- Mapbox
 
-Note: we'll be getting to this in lecture in week 2, so don't worry if you don't know it yet
+## Authors
+Krystal Montgomery, MIT 2026
+Thomas Wu, MIT 2026
 
-- If you're not using realtime updating or don't need server->client communication, you can remove socket entirely! (server-socket.js, client-socket.js, and anything that imports them)
-- If you are using sockets, consider what you want to do with the FIXME in server-socket.js
+## Acknowledgments
+Big thanks to MIT [web.lab](https://weblab.mit.edu/) for teaching web development basics and providing the opportunity to compete in a 2 week hackathon.
 
-## Edit at your own risk
-
-the following files students do not need to edit. feel free to read them if you would like.
-
-```
-client/src/index.js
-client/src/utilities.js
-client/src/client-socket.js
-server/validator.js
-server/server-socket.js
-.babelrc
-.npmrc
-.prettierrc
-package-lock.json
-webpack.config.js
-```
-
-## Good luck on your project :)
+## Thanks for checking Dine and Dash out :)
+Created January 2024
