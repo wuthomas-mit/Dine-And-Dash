@@ -15,7 +15,6 @@ body {
   max-width: 55%; /* Adjust as necessary */
   margin-top: 8%;
   margin: 30px auto; /* Center the container */
-
 }
 
 .title-container {
@@ -52,4 +51,8 @@ p {
   font-size: 1.5em;
   margin-bottom: 15px;
   font-weight: 400;
+}
+
+.button-container {
+  gap: 100px;
 }

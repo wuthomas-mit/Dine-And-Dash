@@ -81,7 +81,7 @@ const App = () => {
             path="/gameplay"
             element={<Gameplay handleLogin={handleLogin} userId={userId} />}
           />
-          <Route path="/howto" element={<HowTo />} />
+          <Route path="/howto" element={<HowTo userId={userId} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

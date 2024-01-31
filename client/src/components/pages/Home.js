@@ -81,7 +81,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
           }
         });
       }, 100);
-    }, 2000);
+    }, 1000);
   };
 
   // Function to start the second subtitle timer
@@ -97,7 +97,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             return prevIndex;
           }
         });
-      }, 300);
+      }, 100);
     }, 2000);
   };
   return (
@@ -144,10 +144,10 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
                 navigate("/howto");
               }}
             >
-              Mission Brief
+              Instructions
             </button>
             <button className="button" onClick={handleGame}>
-              Go Time
+              Begin Heist
             </button>
           </div>
         </div>

@@ -100,6 +100,18 @@ router.get("/countries/Medium", (req, res) => {
     });
 });
 
+router.get("/userAvatar", auth.ensureLoggedIn, (req, res) => {
+  const userId = req.user._id;
+  User.findById(userId, "currentAvatar")
+    .then((user) => {
+      res.send({ currentAvatar: user.currentAvatar });
+    })
+    .catch((error) => {
+      console.error("Error fetching user's avatar:", error);
+      res.status(500).send({ msg: "Error fetching avatar" });
+    });
+});
+
 const recordWinAndUpdateProfile = async (userId, finalTime, visited) => {
   try {
     const user = await User.findById(userId);

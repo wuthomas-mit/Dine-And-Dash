@@ -23,6 +23,9 @@ const Gameplay = ({ userId }) => {
   const [updateCurrentFunction, setCurrentCountryCallback] = useState(() => {
     return null;
   });
+  const [updatePlayerLocation, setPlayerIcon] = useState(() => {
+    return null;
+  });
   // handles End Modal
   const [isGameEnded, setIsGameEnded] = useState(false);
   const [finalTime, setFinalTime] = useState(null);
@@ -50,7 +53,8 @@ const Gameplay = ({ userId }) => {
         setOpenTrivia,
         setPrevCountry,
         setCurrentCountryCallback,
-        difficulty
+        difficulty,
+        setPlayerIcon
       );
       setMap(newMap);
     }
@@ -80,6 +84,7 @@ const Gameplay = ({ userId }) => {
   const onWrongAnswer = () => {
     if (prevCountry) {
       map.flyTo({ center: [prevCountry.Long, prevCountry.Lat], zoom: 4 });
+      updatePlayerLocation(prevCountry.Long, prevCountry.Lat);
       map.setFilter("country-clicked", ["==", "ISO_A2", prevCountry.twoCode]);
       visited.delete(cCountry.twoCode);
       setCCountry(prevCountry);

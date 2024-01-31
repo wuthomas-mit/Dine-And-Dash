@@ -1,9 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import "../../utilities.css";
 import "../css/HowTo.css";
 
-const HowTo = () => {
+const HowTo = ({ userId }) => {
+  const navigate = useNavigate();
+
+  const handleGame = () => {
+    if (!userId) {
+      if (confirm("Play without logging in? You can save your stats if you log in!")) {
+        navigate("/gameplay");
+      }
+      // alert("Play without logging in? Log in if you want to save your stats!");
+    } else {
+      navigate("/gameplay");
+    }
+  };
   return (
     <div className="how-to-container">
       <h1 className="title-container">
@@ -21,8 +34,8 @@ const HowTo = () => {
       </p>
       <h3>Choose Your Heist's Difficulty</h3>
       <p>
-        Select your challenge level - Easy, Medium, or Hard. This will dictate how many countries you travel through. Remember, the greater the risk, the
-        greater the reward.
+        Select your challenge level - Easy, Medium, or Hard. This will dictate how many countries
+        you travel through. Remember, the greater the risk, the greater the reward.
       </p>
       <h3>Initiate the Mission</h3>
       <p>
@@ -37,11 +50,14 @@ const HowTo = () => {
       <h3>Your Final Destination</h3>
       <p>You will be assigned a goal country. Navigate the globe to reach this destination.</p>
       <h3>Move Strategically</h3>
-      <p>Click on adjacent countries to create your path. The shorter the path, the faster you complete the mission. Plan wisely.</p>
+      <p>
+        Click on adjacent countries to create your path. The shorter the path, the faster you
+        complete the mission. Plan wisely.
+      </p>
       <h3>Face the Challenges</h3>
       <p>
-        Each new country presents a trivia question. Answer correctly to advance to the next country, or else a wrong answer
-        sends you back.
+        Each new country presents a trivia question. Answer correctly to advance to the next
+        country, or else a wrong answer sends you back.
       </p>
       <h3>Target Assigned</h3>
       <p>
@@ -53,6 +69,20 @@ const HowTo = () => {
         of the Trash Pandas rests in your hands.
       </p>
       <h3>Good luck.</h3>
+      {/* Add your new button container here */}
+      <div className="button-container">
+        <button
+          className="button"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Home
+        </button>
+        <button className="button" onClick={handleGame}>
+          Begin Heist
+        </button>
+      </div>
     </div>
   );
 };
