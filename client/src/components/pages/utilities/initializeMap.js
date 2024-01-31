@@ -133,6 +133,7 @@ const initializeMap = (
     style: "mapbox://styles/wuthomas/clrk24s6p001301pff0hq9wwz",
     zoom: 0, // starting zoom
   });
+
   map.on("load", async function () {
     // map.addSource("country", {
     //   type: "geojson",
@@ -213,6 +214,10 @@ const initializeMap = (
     let visited = new Set();
     visited.add(startCountryData.twoCode);
     setVisited(visited);
+
+    if (!goalCountryData) {
+      location.reload();
+    }
 
     const lat = Number(currentCountry.Lat.replace(/"/g, ""));
     const long = Number(currentCountry.Long.replace(/"/g, ""));
