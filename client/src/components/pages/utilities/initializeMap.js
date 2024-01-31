@@ -133,6 +133,7 @@ const initializeMap = (
     style: "mapbox://styles/wuthomas/clrk24s6p001301pff0hq9wwz",
     zoom: 0, // starting zoom
   });
+
   map.on("load", async function () {
     // map.addSource("country", {
     //   type: "geojson",
@@ -196,6 +197,9 @@ const initializeMap = (
     // defines Start and Goal countries that stay unchanged through the game
     const startCountryData = await fetchRandomCountry(difficulty);
     currentCountry = startCountryData;
+    if (!startCountryData) {
+      location.reload();
+    }
     setStartCountry(startCountryData.Country);
     setCCountry(startCountryData);
 
@@ -207,6 +211,9 @@ const initializeMap = (
       goalCountryName = country_data[randomIndex];
     }
     let goalCountryData = await fetchCountry_fromName(goalCountryName);
+    if (!goalCountryData) {
+      location.reload();
+    }
     setGoalCountry(goalCountryData);
 
     // start a set of the new countries user has visited
