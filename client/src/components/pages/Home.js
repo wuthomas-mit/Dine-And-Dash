@@ -97,7 +97,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             return prevIndex;
           }
         });
-      }, 300);
+      }, 100);
     }, 2000);
   };
   return (
