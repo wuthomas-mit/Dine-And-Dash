@@ -84,19 +84,6 @@ async function fetchCountry_fromName(countryName) {
     console.error("Failed to fetch country data:", error);
   }
 }
-async function checkLoggedIn() {
-  try {
-    // Fetch the list of countries from your backend
-    const response = await fetch("/api/checkLogged");
-    // Parse the JSON response
-    const data = await response.json();
-
-    // Return the avatar data
-    return data;
-  } catch (error) {
-    console.error("Not logged in:", error);
-  }
-}
 async function fetchPlayerIcon() {
   try {
     // Fetch the list of countries from your backend
@@ -110,7 +97,7 @@ async function fetchPlayerIcon() {
     // Return the avatar data
     return data.currentAvatar;
   } catch (error) {
-    // return "agentRaccoon";
+    return "agentRaccoon";
   }
 }
 
@@ -236,13 +223,8 @@ const initializeMap = (
     map.flyTo({ center: [long, lat], zoom: 4 });
     map.setFilter("country-clicked", ["==", "ISO_A2", currentCountry.twoCode]);
 
-    let logged = await checkLoggedIn();
-    let avatarString = "agentRaccoon";
+    let avatarString = await fetchPlayerIcon();
     let avatar = avatarsDict[avatarString];
-    if (logged.loggedIn) {
-      let avatarString = await fetchPlayerIcon();
-      let avatar = avatarsDict[avatarString];
-    }
 
     map.loadImage(avatar, function (error, image) {
       if (error) throw error;
@@ -269,7 +251,8 @@ const initializeMap = (
         source: "player",
         layout: {
           "icon-image": "player-icon",
-          "icon-size": 0.5, // Adjust size as needed
+          "icon-size": 0.03, // Adjust size as needed
+          "icon-rotate": 180,
         },
       });
     });

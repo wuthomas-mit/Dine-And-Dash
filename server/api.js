@@ -33,13 +33,6 @@ router.get("/whoami", (req, res) => {
 
   res.send(req.user);
 });
-router.get("/checkLogged", (req, res) => {
-  if (!req.user) {
-    // not logged in
-    return res.json({ loggedIn: false });
-  }
-  res.send(req.user);
-});
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
