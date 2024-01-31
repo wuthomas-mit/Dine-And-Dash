@@ -119,6 +119,9 @@ function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer, previousCount
   }, [trivia_countries]);
 
   function setColor(e) {
+    // Prevent changing the selection if an answer has already been submitted
+    if (isSubmitted) return;
+
     const target = e.target;
     const food = target.textContent;
 
@@ -183,10 +186,10 @@ function TriviaModal({ closeTrivia, trivia_countries, wrongAnswer, previousCount
       <div style={ModalContainer}>
         {!revealAnswer && (
           <>
-            <div ref={titleRef} style={{...Title, margin: "0px",}}>
+            <div ref={titleRef} style={{ ...Title, margin: "0px" }}>
               {countryName}
             </div>
-            <div style={{...Subtitle, margin: "0px"}}>What's a popular dish?</div>
+            <div style={{ ...Subtitle, margin: "0px" }}>What's a popular dish?</div>
             <div style={Grid} ref={buttonsRef}>
               {shuffledDishes.map((dish, index) => (
                 <button
