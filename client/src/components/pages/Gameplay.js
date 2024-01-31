@@ -6,6 +6,8 @@ import Start from "./utilities/Start.js";
 
 import "../css/Gameplay.css";
 import "../../utilities.css";
+import redPin from "../../images/pin.png";
+import agentRaccoon from "../../images/agent-raccoon.png";
 
 const Gameplay = ({ userId }) => {
   // used for displayed game info
@@ -34,7 +36,7 @@ const Gameplay = ({ userId }) => {
   const [alertShown, setAlertShown] = useState(false);
 
   useEffect(() => {
-    if (goalCountry && cCountry && goalCountry === cCountry.Country) {
+    if (goalCountry && cCountry && goalCountry.Country === cCountry.Country) {
       setIsGameEnded(true);
       // console.log("game ended");
     }
@@ -92,6 +94,18 @@ const Gameplay = ({ userId }) => {
     }
   };
 
+  const locateGoalCountry = () => {
+    if (goalCountry) {
+      map.flyTo({ center: [goalCountry.Long, goalCountry.Lat], zoom: 4 });
+    }
+  };
+
+  const locateCurrentCountry = () => {
+    if (cCountry) {
+      map.flyTo({ center: [cCountry.Long, cCountry.Lat], zoom: 4 });
+    }
+  };
+
   return (
     <div className="game-container">
       <div id="map" className={openTrivia ? "no-pointer-events" : ""}></div>
@@ -114,13 +128,25 @@ const Gameplay = ({ userId }) => {
             />
           )}
           <div className="game-info-container">
-            <div className="game-info">
-              <div className="text">Start: {startCountry}</div>
-              <div className="text">Goal: {goalCountry}</div>
+            <div className="sub-container" style={{justifyContent: "start"}}>
+              <div className="game-info">
+                <div className="text">Start: {startCountry}</div>
+                <div className="text">Goal: {goalCountry ? goalCountry.Country : "Loading..."}</div>
+              </div>
+              <div className="locate-image" onClick={locateGoalCountry}>
+                <img src={redPin} alt="Red location pin" />
+                <p>Locate</p>
+              </div>
             </div>
-            <div className="game-info">
-              <div className="text">Current: {cCountry ? cCountry.Country : "Loading..."}</div>
-              <div className="text">Visited: {visited ? visited.size : 1}</div>
+            <div className="sub-container" style={{justifyContent: "end"}}>
+              <div className="locate-image" onClick={locateCurrentCountry}>
+                <img src={agentRaccoon} alt="Agent Raccoon Icon" />
+                <p>Locate</p>
+              </div>
+              <div className="game-info">
+                <div className="text">Current: {cCountry ? cCountry.Country : "Loading..."}</div>
+                <div className="text">Visited: {visited ? visited.size : 1}</div>
+              </div>
             </div>
           </div>
         </>

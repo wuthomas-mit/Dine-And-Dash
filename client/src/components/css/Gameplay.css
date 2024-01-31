@@ -36,6 +36,17 @@
   z-index: 10;
 }
 
+.game-info-container .sub-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* position: fixed; */
+  width: 100%;
+  height: auto;
+  bottom: 0;
+  gap: 20px;
+}
+
 .game-info-container .game-info {
   display: flex;
   flex-direction: column;
@@ -50,6 +61,31 @@
 }
 
 .game-info-container .game-info .text {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
 }
+
+.locate-image {
+  height: 80px;
+  width: 60px;
+  background-color: #fcf6e7;
+  border: 4px solid #538786;
+  border-radius: 10px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.locate-image img {
+  height: 60px;
+  width: 60px;
+}
+
+.locate-image p {
+  text-align: center;
+  margin: -5px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+

@@ -207,7 +207,7 @@ const initializeMap = (
       goalCountryName = country_data[randomIndex];
     }
     let goalCountryData = await fetchCountry_fromName(goalCountryName);
-    setGoalCountry(goalCountryData.Country);
+    setGoalCountry(goalCountryData);
 
     // start a set of the new countries user has visited
     let visited = new Set();
