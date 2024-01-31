@@ -35,9 +35,11 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
   const [showSubtitle1, setShowSubtitle1] = useState(false);
   const [showSubtitle2, setShowSubtitle2] = useState(false);
   const titleCharacters = "Welcome, Agent 69620".split("");
-  const subtitle1Characters = "Mission: Dine and Dash.".split("");
+  const subtitle1Characters = "The Mission: Dine and Dash.".split("");
   const subtitle2Characters =
-    "Join us in the ultimate heist to capture all the dishes around the world...".split("");
+    "Embark on the ultimate heist to seize and savor the world's most exquisite dishes...".split(
+      ""
+    );
 
   useEffect(() => {
     // Start rendering the title after an initial pause
@@ -60,7 +62,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
           return prevIndex;
         }
       });
-    }, 300);
+    }, 200);
     return () => clearInterval(titleTimer);
   };
 
@@ -78,7 +80,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             return prevIndex;
           }
         });
-      }, 600);
+      }, 100);
     }, 2000);
   };
 
@@ -95,7 +97,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             return prevIndex;
           }
         });
-      }, 600);
+      }, 300);
     }, 2000);
   };
   return (
@@ -142,10 +144,10 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
                 navigate("/howto");
               }}
             >
-              How To Play
+              Mission Brief
             </button>
             <button className="button" onClick={handleGame}>
-              Play Game
+              Go Time
             </button>
           </div>
         </div>
